@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane id="AnchorPane" prefHeight="432.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.bbbaden.casino.scenes.HomeController">
+    <stylesheets>
+        <URL value="@../styles/BasicStyle.css" />
+        <URL value="@../styles/HomeStyle.css" />
+    </stylesheets>
+    <Label fx:id="coins" layoutX="65.0" layoutY="21.0" prefHeight="37.0" prefWidth="123.0" text="Münzen" textFill="WHITE" />
+    <ImageView fitHeight="51.0" fitWidth="51.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../images/coin.png" />
+    </ImageView>
+    <ImageView fitHeight="51.0" fitWidth="65.0" layoutX="689.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../images/einkaufswagen.png" />
+    </ImageView>
+    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="299.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../images/casino_logo.gif" />
+    </ImageView>
+    <Pane fx:id="gameView" layoutX="299.0" layoutY="176.0" prefHeight="242.0" prefWidth="200.0">
+        <ImageView fx:id="game_image" fitHeight="230.0" fitWidth="200.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true" />
+        <Button layoutX="34.0" layoutY="182.0" mnemonicParsing="false" onAction="#btn_play_onAction" prefHeight="37.0" prefWidth="133.0" text="Spielen" />
+    </Pane>
+    <Button id="button_left" layoutX="202.0" layoutY="261.0" mnemonicParsing="false" onAction="#btn_left_onAction" prefHeight="40.0" prefWidth="40.0" />
+    <Button id="button_right" layoutX="542.0" layoutY="261.0" mnemonicParsing="false" onAction="#btn_right_onAction" prefHeight="40.0" prefWidth="40.0" />
+</AnchorPane>

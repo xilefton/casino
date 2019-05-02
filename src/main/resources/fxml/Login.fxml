@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import java.net.URL?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" id="AnchorPane" prefHeight="432.0" prefWidth="768.0"
+            xmlns="http://javafx.com/javafx/8.0.172-ea" fx:controller="ch.bbbaden.casino.scenes.LoginController">
+    <stylesheets>
+        <URL value="@../styles/BasicStyle.css"/>
+    </stylesheets>
+    <Button layoutX="316.0" layoutY="301.0" mnemonicParsing="false" onAction="#on_login" prefHeight="38.0"
+            prefWidth="136.0" text="Login"/>
+    <TextField fx:id="username" layoutX="299.0" layoutY="184.0" prefHeight="32.0" prefWidth="170.0"
+               promptText="Benutzername"/>
+    <PasswordField fx:id="password" layoutX="299.0" layoutY="229.0" prefHeight="32.0" prefWidth="170.0"
+                   promptText="Passwort"/>
+    <Label id="titel" alignment="CENTER" layoutX="328.0" layoutY="91.0" prefHeight="59.0" prefWidth="119.0"
+           text="Login">
+        <font>
+            <Font size="40.0"/>
+        </font>
+    </Label>
+    <Button layoutX="618.0" layoutY="380.0" mnemonicParsing="false" onAction="#btn_back_onAction" prefHeight="38.0"
+            prefWidth="136.0" text="Zurück"/>
+    <Pane layoutX="57.0" layoutY="196.0" prefHeight="200.0" prefWidth="200.0"/>
+</AnchorPane>

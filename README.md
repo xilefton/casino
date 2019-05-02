@@ -1,2 +1,2 @@
-# casino
-casino project for school
+# Casino
+Schulprojekt: Casino mit mehreren Minispielen
