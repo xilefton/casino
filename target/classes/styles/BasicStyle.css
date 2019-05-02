@@ -1,0 +1,21 @@
+* {
+    -fx-font-size: 20px;
+    -fx-font-family: casino;
+}
+
+.label {
+    -fx-text-fill: white;
+}
+
+.button {
+    -fx-text-fill: #e8cd35;
+    -fx-background-color: #ee00ff;
+}
+
+#AnchorPane {
+    -fx-background-image: url("../images/background.jpg");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 768 432;
+    -fx-background-position: center center;
+    -fx-border-width: 0;
+}

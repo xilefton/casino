@@ -50,7 +50,7 @@ public class User {
     String calculateHashWithSalt(String password) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("MD5");
         md.update(password.getBytes());
-        md.update((DatatypeConverter.printHexBinary(md.digest()).toUpperCase() + "$" + password).getBytes());
+        //md.update((DatatypeConverter.printHexBinary(md.digest()).toUpperCase() + "$" + password).getBytes());
         return DatatypeConverter.printHexBinary(md.digest()).toUpperCase();
     }
 

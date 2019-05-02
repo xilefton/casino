@@ -101,52 +101,52 @@ public class RouletteController implements Controller {
 
 
     public void handleJeton5(MouseEvent mouseEvent) {
-        jeton5.setImage(new Image("/images/Roulette_Bilder/Jetons-5-Ausgewählt.png"));
-        image = "/images/Roulette_Bilder/Jetons-5.png";
-        jeton10.setImage(new Image("/images/Roulette_Bilder/jetons-10.png"));
-        jeton25.setImage(new Image("/images/Roulette_Bilder/jetons-25.png"));
-        jeton50.setImage(new Image("/images/Roulette_Bilder/jetons-50.png"));
-        jeton100.setImage(new Image("/images/Roulette_Bilder/jetons-100.png"));
+        jeton5.setImage(new Image("/images/roulette/Jetons-5-Ausgewählt.png"));
+        image = "/images/roulette/Jetons-5.png";
+        jeton10.setImage(new Image("/images/roulette/jetons-10.png"));
+        jeton25.setImage(new Image("/images/roulette/jetons-25.png"));
+        jeton50.setImage(new Image("/images/roulette/jetons-50.png"));
+        jeton100.setImage(new Image("/images/roulette/jetons-100.png"));
         jetonausg = true;
     }
 
     public void handleJeton10(MouseEvent mouseEvent) {
-        jeton10.setImage(new Image("/images/Roulette_Bilder/Jetons-10-Ausgewählt.png"));
-        image = "/images/Roulette_Bilder/Jetons-10.png";
-        jeton5.setImage(new Image("/images/Roulette_Bilder/Jetons-5.png"));
-        jeton25.setImage(new Image("/images/Roulette_Bilder/jetons-25.png"));
-        jeton50.setImage(new Image("/images/Roulette_Bilder/jetons-50.png"));
-        jeton100.setImage(new Image("/images/Roulette_Bilder/jetons-100.png"));
+        jeton10.setImage(new Image("/images/roulette/Jetons-10-Ausgewählt.png"));
+        image = "/images/roulette/Jetons-10.png";
+        jeton5.setImage(new Image("/images/roulette/Jetons-5.png"));
+        jeton25.setImage(new Image("/images/roulette/jetons-25.png"));
+        jeton50.setImage(new Image("/images/roulette/jetons-50.png"));
+        jeton100.setImage(new Image("/images/roulette/jetons-100.png"));
         jetonausg = true;
     }
 
     public void handleJeton25(MouseEvent mouseEvent) {
-        jeton25.setImage(new Image("/images/Roulette_Bilder/Jetons-25-Ausgewählt.png"));
-        image = "/images/Roulette_Bilder/Jetons-25.png";
-        jeton5.setImage(new Image("/images/Roulette_Bilder/Jetons-5.png"));
-        jeton10.setImage(new Image("/images/Roulette_Bilder/jetons-10.png"));
-        jeton50.setImage(new Image("/images/Roulette_Bilder/jetons-50.png"));
-        jeton100.setImage(new Image("/images/Roulette_Bilder/jetons-100.png"));
+        jeton25.setImage(new Image("/images/roulette/Jetons-25-Ausgewählt.png"));
+        image = "/images/roulette/Jetons-25.png";
+        jeton5.setImage(new Image("/images/roulette/Jetons-5.png"));
+        jeton10.setImage(new Image("/images/roulette/jetons-10.png"));
+        jeton50.setImage(new Image("/images/roulette/jetons-50.png"));
+        jeton100.setImage(new Image("/images/roulette/jetons-100.png"));
         jetonausg = true;
     }
 
     public void handleJeton50(MouseEvent mouseEvent) {
-        jeton50.setImage(new Image("/images/Roulette_Bilder/Jetons-50-Ausgewählt.png"));
-        image = "/images/Roulette_Bilder/Jetons-50.png";
-        jeton5.setImage(new Image("/images/Roulette_Bilder/Jetons-5.png"));
-        jeton10.setImage(new Image("/images/Roulette_Bilder/jetons-10.png"));
-        jeton25.setImage(new Image("/images/Roulette_Bilder/jetons-25.png"));
-        jeton100.setImage(new Image("/images/Roulette_Bilder/jetons-100.png"));
+        jeton50.setImage(new Image("/images/roulette/Jetons-50-Ausgewählt.png"));
+        image = "/images/roulette/Jetons-50.png";
+        jeton5.setImage(new Image("/images/roulette/Jetons-5.png"));
+        jeton10.setImage(new Image("/images/roulette/jetons-10.png"));
+        jeton25.setImage(new Image("/images/roulette/jetons-25.png"));
+        jeton100.setImage(new Image("/images/roulette/jetons-100.png"));
         jetonausg = true;
     }
 
     public void handleJeton100(MouseEvent mouseEvent) {
-        jeton100.setImage(new Image("/images/Roulette_Bilder/Jetons-100-Ausgewählt.png"));
-        image = "/images/Roulette_Bilder/Jetons-100.png";
-        jeton5.setImage(new Image("/images/Roulette_Bilder/Jetons-5.png"));
-        jeton10.setImage(new Image("/images/Roulette_Bilder/jetons-10.png"));
-        jeton25.setImage(new Image("/images/Roulette_Bilder/jetons-25.png"));
-        jeton50.setImage(new Image("/images/Roulette_Bilder/jetons-50.png"));
+        jeton100.setImage(new Image("/images/roulette/Jetons-100-Ausgewählt.png"));
+        image = "/images/roulette/Jetons-100.png";
+        jeton5.setImage(new Image("/images/roulette/Jetons-5.png"));
+        jeton10.setImage(new Image("/images/roulette/jetons-10.png"));
+        jeton25.setImage(new Image("/images/roulette/jetons-25.png"));
+        jeton50.setImage(new Image("/images/roulette/jetons-50.png"));
         jetonausg = true;
     }
 
@@ -155,7 +155,7 @@ public class RouletteController implements Controller {
     }
 
     public void handlepressing(MouseEvent mouseEvent) {
-        abbrechenimageview.setImage(new Image("/images/Roulette_Bilder/abbrechen-ausg.png"));
+        abbrechenimageview.setImage(new Image("/images/roulette/abbrechen-ausg.png"));
     }
 
     public void handleDrehen(MouseEvent mouseEvent) {
@@ -166,22 +166,22 @@ public class RouletteController implements Controller {
     }
 
     public void handledrepressing(MouseEvent mouseEvent) {
-        drehenimageview.setImage(new Image("/images/Roulette_Bilder/drehen-ausg.png"));
+        drehenimageview.setImage(new Image("/images/roulette/drehen-ausg.png"));
     }
 
     public void handleEntfernen(MouseEvent mouseEvent) {
     }
 
     public void handleentpressing(MouseEvent mouseEvent) {
-        entfernenimageview.setImage(new Image("/images/Roulette_Bilder/entfernen-ausg.png"));
+        entfernenimageview.setImage(new Image("/images/roulette/entfernen-ausg.png"));
     }
 
     public void handledrerelease(MouseEvent mouseEvent) {
-        drehenimageview.setImage(new Image("/images/Roulette_Bilder/drehen-button.png"));
+        drehenimageview.setImage(new Image("/images/roulette/drehen-button.png"));
     }
 
     public void handleentrelease(MouseEvent mouseEvent) {
-        entfernenimageview.setImage(new Image("/images/Roulette_Bilder/entfernen-button.png"));
+        entfernenimageview.setImage(new Image("/images/roulette/entfernen-button.png"));
     }
 
     public void handlerelease(MouseEvent mouseEvent) {

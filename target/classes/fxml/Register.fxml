@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import java.net.URL?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" id="AnchorPane" prefHeight="432.0" prefWidth="768.0"
+            xmlns="http://javafx.com/javafx/8.0.172-ea" fx:controller="ch.bbbaden.casino.scenes.RegisterController">
+    <stylesheets>
+        <URL value="@../styles/BasicStyle.css"/>
+    </stylesheets>
+    <Button fx:id="register" layoutX="299.0" layoutY="298.0" mnemonicParsing="false" onAction="#on_register"
+            prefHeight="38.0" prefWidth="170.0" text="Registrieren"/>
+    <TextField fx:id="username" layoutX="299.0" layoutY="159.0" prefHeight="32.0" prefWidth="170.0"
+               promptText="Benutzername"/>
+    <Label alignment="CENTER" layoutX="270.0" layoutY="77.0" prefHeight="59.0" prefWidth="235.0" text="Registrieren"/>
+    <PasswordField fx:id="password" layoutX="299.0" layoutY="204.0" prefHeight="32.0" prefWidth="170.0"
+                   promptText="Passwort"/>
+    <TextField fx:id="startCoins" layoutX="299.0" layoutY="251.0" prefHeight="32.0" prefWidth="170.0"
+               promptText="Startbetrag"/>
+</AnchorPane>
