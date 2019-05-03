@@ -1,14 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="ch.bbbaden.casino.games.SlotMachineController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane fx:id="anchorPaneSuperCherry" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.bbbaden.casino.games.SlotMachineController">
+    <stylesheets>
+        <URL value="@../styles/superCherry.css" />
+    </stylesheets>
+    <children>
+        <ImageView fitHeight="868.0" fitWidth="705.0" layoutX="257.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/supercherry/SLOT_MACHINE.png" />
+            </image>
+        </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="398.0" layoutX="307.0" layoutY="468.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/supercherry/WIN_LINE.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="174.0" fitWidth="178.0" layoutX="332.0" layoutY="107.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/supercherry/CHERRY-COLLECT-ACTION.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="158.0" layoutX="521.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/supercherry/3-STAR-SELECTION.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="100.0" fitWidth="138.0" layoutX="457.0" layoutY="773.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/supercherry/buttons/bet/BUTTON_BET_ACTIVE.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="102.0" fitWidth="138.0" layoutX="605.0" layoutY="773.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/supercherry/buttons/gamble/BUTTON_GAMBLE_ACTIVE.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="96.0" fitWidth="138.0" layoutX="303.0" layoutY="773.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/supercherry/buttons/mystery/BUTTON_MYSTERY_ACTIVE.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="96.0" fitWidth="138.0" layoutX="758.0" layoutY="773.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/supercherry/buttons/stop/BUTTON_STOP_ACTIVE.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="73.0" fitWidth="114.0" layoutX="306.0" layoutY="631.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/supercherry/lights/HOLD_Light.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="81.0" fitWidth="105.0" layoutX="600.0" layoutY="631.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/supercherry/lights/STEP_Light.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="66.0" fitWidth="105.0" layoutX="690.0" layoutY="305.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/supercherry/lights/WIN_Light.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="66.0" fitWidth="95.0" layoutX="388.0" layoutY="305.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/supercherry/lights/BONUS_Light.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="59.0" fitWidth="78.0" layoutX="726.0" layoutY="244.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/supercherry/lights/BONUS_Light.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="54.0" fitWidth="78.0" layoutX="765.0" layoutY="194.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/supercherry/lights/FAKTOR_2X_Light.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="54.0" fitWidth="78.0" layoutX="818.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/supercherry/lights/FAKTOR_3X_Light.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="66.0" fitWidth="105.0" layoutX="750.0" layoutY="99.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/supercherry/lights/FAKTOR_5X_Light.png" />
+         </image>
+      </ImageView>
+    </children>
 </AnchorPane>
