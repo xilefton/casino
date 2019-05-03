@@ -2,16 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2f0fe6a4-601d-4658-be46-23fb1e79455b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_5_1_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/casino.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ch/bbbaden/casino/MainApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/bbbaden/casino/MainApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ch/bbbaden/casino/NormalUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/bbbaden/casino/NormalUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ch/bbbaden/casino/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/bbbaden/casino/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ch/bbbaden/casino/games/RouletteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/bbbaden/casino/games/RouletteController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/bbbaden/casino/games/RouletteModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/bbbaden/casino/games/RouletteModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/Roulette.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/Roulette.fxml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/classes/" />
@@ -26,12 +19,61 @@
     <option name="isMigrated" value="true" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375" />
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ch/bbbaden/casino/games/RouletteController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="278">
+              <caret line="323" column="36" lean-forward="true" selection-start-line="323" selection-start-column="36" selection-end-line="323" selection-end-column="36" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2599#2600#0" expanded="true" />
+                <element signature="e#2688#2689#0" expanded="true" />
+                <element signature="e#5754#5755#0" expanded="true" />
+                <element signature="e#16844#16845#0" expanded="true" />
+                <element signature="e#16881#16882#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/fxml/Roulette.fxml">
+          <provider editor-type-id="JavaFX-Scene-Builder" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="247">
+              <caret line="97" column="194" selection-start-line="97" selection-start-column="194" selection-end-line="97" selection-end-column="194" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ch/bbbaden/casino/games/RouletteModel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="353">
+              <caret line="24" column="27" lean-forward="true" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ch/bbbaden/casino/NormalUser.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-126">
+              <caret line="6" column="25" selection-start-line="6" selection-start-column="25" selection-end-line="6" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
       <find>Roulette_Bilder</find>
       <find>Jetons-5</find>
+      <find>drehen</find>
+      <find>drag</find>
+      <find>drehenter</find>
     </findStrings>
     <replaceStrings>
       <replace>roulette</replace>
@@ -48,6 +90,7 @@
         <option value="$PROJECT_DIR$/src/main/java/ch/bbbaden/casino/User.java" />
         <option value="$PROJECT_DIR$/src/main/java/ch/bbbaden/casino/MainApp.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/ch/bbbaden/casino/games/RouletteModel.java" />
         <option value="$PROJECT_DIR$/src/main/resources/fxml/Roulette.fxml" />
         <option value="$PROJECT_DIR$/src/main/java/ch/bbbaden/casino/games/RouletteController.java" />
       </list>
@@ -79,15 +122,15 @@
   <component name="MavenRunner">
     <option name="delegateBuildToMaven" value="true" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="762" />
-    <option name="y" value="-29" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="513" />
+    <option name="y" value="-22" />
     <option name="width" value="976" />
     <option name="height" value="1088" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
-    <navigator currentView="Scope" currentSubView="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope" proportions="" version="1">
+    <navigator currentView="PackagesPane" proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
@@ -128,12 +171,66 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="casino" type="58d84e3e:PackageViewProjectNode" />
+              <item name="casino" type="616d4139:PackageViewModuleNode" />
+            </path>
+            <path>
+              <item name="casino" type="58d84e3e:PackageViewProjectNode" />
+              <item name="casino" type="616d4139:PackageViewModuleNode" />
+              <item name="ch.bbbaden.casino" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="casino" type="58d84e3e:PackageViewProjectNode" />
+              <item name="casino" type="616d4139:PackageViewModuleNode" />
+              <item name="ch.bbbaden.casino" type="1f31426a:PackageElementNode" />
+              <item name="games" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="casino" type="58d84e3e:PackageViewProjectNode" />
+              <item name="casino" type="616d4139:PackageViewModuleNode" />
+              <item name="ch.bbbaden.casino" type="1f31426a:PackageElementNode" />
+              <item name="scenes" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="casino" type="58d84e3e:PackageViewProjectNode" />
+              <item name="casino" type="616d4139:PackageViewModuleNode" />
+              <item name="fonts" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="casino" type="58d84e3e:PackageViewProjectNode" />
+              <item name="casino" type="616d4139:PackageViewModuleNode" />
+              <item name="fxml" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="casino" type="58d84e3e:PackageViewProjectNode" />
+              <item name="casino" type="616d4139:PackageViewModuleNode" />
+              <item name="images" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="casino" type="58d84e3e:PackageViewProjectNode" />
+              <item name="casino" type="616d4139:PackageViewModuleNode" />
+              <item name="images" type="1f31426a:PackageElementNode" />
+              <item name="roulette" type="1f31426a:PackageElementNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="Scope">
         <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
           <expand>
             <path>
               <item name="casino" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="casino" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+            </path>
+            <path>
+              <item name="casino" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="casino" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name=".idea" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
               <item name="casino" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
@@ -179,76 +276,6 @@
               <item name="ch" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="bbbaden" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="casino" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="casino" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="casino" type="2674bda8:ScopeViewTreeModel$GroupNode" />
-              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="casino" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="casino" type="2674bda8:ScopeViewTreeModel$GroupNode" />
-              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="fxml" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="casino" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="casino" type="2674bda8:ScopeViewTreeModel$GroupNode" />
-              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="images" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="casino" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="casino" type="2674bda8:ScopeViewTreeModel$GroupNode" />
-              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="images" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="roulette" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="PackagesPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="casino" type="58d84e3e:PackageViewProjectNode" />
-              <item name="casino" type="616d4139:PackageViewModuleNode" />
-            </path>
-            <path>
-              <item name="casino" type="58d84e3e:PackageViewProjectNode" />
-              <item name="casino" type="616d4139:PackageViewModuleNode" />
-              <item name="ch.bbbaden.casino" type="1f31426a:PackageElementNode" />
-            </path>
-            <path>
-              <item name="casino" type="58d84e3e:PackageViewProjectNode" />
-              <item name="casino" type="616d4139:PackageViewModuleNode" />
-              <item name="ch.bbbaden.casino" type="1f31426a:PackageElementNode" />
-              <item name="games" type="1f31426a:PackageElementNode" />
-            </path>
-            <path>
-              <item name="casino" type="58d84e3e:PackageViewProjectNode" />
-              <item name="casino" type="616d4139:PackageViewModuleNode" />
-              <item name="ch.bbbaden.casino" type="1f31426a:PackageElementNode" />
-              <item name="scenes" type="1f31426a:PackageElementNode" />
-            </path>
-            <path>
-              <item name="casino" type="58d84e3e:PackageViewProjectNode" />
-              <item name="casino" type="616d4139:PackageViewModuleNode" />
-              <item name="fonts" type="1f31426a:PackageElementNode" />
-            </path>
-            <path>
-              <item name="casino" type="58d84e3e:PackageViewProjectNode" />
-              <item name="casino" type="616d4139:PackageViewModuleNode" />
-              <item name="fxml" type="1f31426a:PackageElementNode" />
             </path>
           </expand>
           <select />
@@ -302,8 +329,8 @@
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1098" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49839744" visible="true" weight="0.16971" />
-      <window_info id="Structure" order="1" sideWeight="0.5016026" side_tool="true" visible="true" weight="0.16971" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.7110634" visible="true" weight="0.17185822" />
+      <window_info id="Structure" order="1" sideWeight="0.28893661" side_tool="true" visible="true" weight="0.17185822" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="Capture Tool" order="4" />
@@ -311,20 +338,20 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32975295" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32975295" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49946293" weight="0.32975295" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39957035" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.50053704" side_tool="true" weight="0.32975295" />
       <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info anchor="bottom" id="Build" order="10" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="right" id="Maven" order="4" visible="true" weight="0.32975295" />
+      <window_info anchor="right" id="Maven" order="4" weight="0.32975295" />
       <window_info anchor="right" id="Theme Preview" order="5" />
       <window_info anchor="right" id="Capture Analysis" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
@@ -343,39 +370,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/ch/bbbaden/casino/games/RouletteController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="183" column="77" selection-start-line="183" selection-start-column="77" selection-end-line="183" selection-end-column="77" />
-          <folding>
-            <element signature="e#6132#6133#0" expanded="true" />
-            <element signature="e#6169#6170#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ch/bbbaden/casino/MainApp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ch/bbbaden/casino/Model.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="166">
-          <caret line="28" column="36" selection-start-line="28" selection-start-column="36" selection-end-line="28" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/fxml/Roulette.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="21" column="55" selection-start-line="21" selection-start-column="55" selection-end-line="21" selection-end-column="55" />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="273">
@@ -395,10 +389,58 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ch/bbbaden/casino/NormalUser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="521">
-          <caret line="64" column="37" selection-start-line="64" selection-start-column="37" selection-end-line="64" selection-end-column="37" />
+        <state relative-caret-position="-126">
+          <caret line="6" column="25" selection-start-line="6" selection-start-column="25" selection-end-line="6" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ch/bbbaden/casino/MainApp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="21" column="32" selection-start-line="21" selection-start-column="32" selection-end-line="21" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ch/bbbaden/casino/ModelManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="16" column="14" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ch/bbbaden/casino/Model.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="45" selection-start-line="45" selection-end-line="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ch/bbbaden/casino/games/RouletteModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="353">
+          <caret line="24" column="27" lean-forward="true" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/fxml/Roulette.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="97" column="194" selection-start-line="97" selection-start-column="194" selection-end-line="97" selection-end-column="194" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ch/bbbaden/casino/games/RouletteController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="278">
+          <caret line="323" column="36" lean-forward="true" selection-start-line="323" selection-start-column="36" selection-end-line="323" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#2599#2600#0" expanded="true" />
+            <element signature="e#2688#2689#0" expanded="true" />
+            <element signature="e#5754#5755#0" expanded="true" />
+            <element signature="e#16844#16845#0" expanded="true" />
+            <element signature="e#16881#16882#0" expanded="true" />
           </folding>
         </state>
       </provider>

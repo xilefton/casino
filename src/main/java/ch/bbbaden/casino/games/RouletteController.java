@@ -2,7 +2,6 @@ package ch.bbbaden.casino.games;
 
 import ch.bbbaden.casino.Controller;
 import ch.bbbaden.casino.Model;
-import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.event.ActionEvent;
@@ -17,10 +16,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Circle;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Random;
 
 public class RouletteController implements Controller {
 
@@ -30,36 +31,35 @@ public class RouletteController implements Controller {
     public ImageView abbrechenimageview;
     public ImageView drehenimageview;
     public ImageView entfernenimageview;
-    public ImageView roulettespinner;
     public ImageView rotaterad;
-    SelectedJeton selectedJeton;
-
+    public Label labelrndnumber;
+    public Label gewinnlabel;
+    public Button buttonzero;
+    public Button buttonzerozero;
     public AnchorPane anchorPane;
     public ImageView jeton5;
     public ImageView jeton25;
     public ImageView jeton50;
     public ImageView jeton10;
     private RouletteModel rouletteModel;
-    private ArrayList<Button> buttons = new ArrayList<Button>();
     @FXML
     private GridPane gridPane;
     private boolean jetonausg = false;
     private String image = "";
+    private int selectedValue;
+    String[] numbers = new String[38];
+    ArrayList<Integer> buttonwert = new ArrayList<>();
+    private boolean spinning = false;
+    private int jeton = 0;
 
-    private void handleButtonAction(Button button, ActionEvent actionEvent) {
+    // Jeton Bilder auf Gridpane setzen
+    private void handleButtonAction(Button button, ActionEvent actionEvent){
         if(jetonausg) {
-            System.out.println(button);
             ImageView iv = new ImageView(image);
-            System.out.println(GridPane.getColumnIndex(button));
-            System.out.println(GridPane.getRowIndex(button));
             anchorPane.getChildren().add(iv);
             double nodeMinX = button.getLayoutBounds().getMinX();
             double nodeMinY = button.getLayoutBounds().getMinY();
             Point2D nodeInScene = button.localToScene(nodeMinX, nodeMinY);
-
-            double gridPaneMinX = button.getLayoutBounds().getMinX();
-            double gridPaneMinY = button.getLayoutBounds().getMinY();
-            Point2D gridPaneInScene = button.localToScene(gridPaneMinX, gridPaneMinY);
 
             int offset = 30;
 
@@ -68,21 +68,102 @@ public class RouletteController implements Controller {
                     + iv.getLayoutBounds().getMinY() - offset);
             iv.setScaleX(0.4);
             iv.setScaleY(0.4);
+
+            try {
+                rouletteModel.addCoins(selectedValue);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            update();
+            setWert(button);
         }
     }
 
+    // Jeton Bild auf 0
+    public void buttonzero(ActionEvent actionEvent) {
+        if(jetonausg) {
+            buttonwert.clear();
+            ImageView iv = new ImageView(image);
+            anchorPane.getChildren().add(iv);
+            double nodeMinX = buttonzero.getLayoutBounds().getMinX();
+            double nodeMinY = buttonzero.getLayoutBounds().getMinY();
+            Point2D nodeInScene = buttonzero.localToScene(nodeMinX, nodeMinY);
+
+            int offset = 30;
+
+            iv.relocate(nodeInScene.getX() - 10
+                    + iv.getLayoutBounds().getMinX() - 49, nodeInScene.getY() - offset
+                    + iv.getLayoutBounds().getMinY() - offset);
+            iv.setScaleX(0.4);
+            iv.setScaleY(0.4);
+
+            try {
+                rouletteModel.addCoins(selectedValue);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            update();
+            buttonwert.add(0);
+
+            System.out.println(buttonwert);
+        }
+    }
+
+    // Jeton Bild auf 00
+    public void buttonzerozero(ActionEvent actionEvent) {
+        if(jetonausg) {
+            buttonwert.clear();
+            ImageView iv = new ImageView(image);
+            anchorPane.getChildren().add(iv);
+            double nodeMinX = buttonzero.getLayoutBounds().getMinX();
+            double nodeMinY = buttonzero.getLayoutBounds().getMinY();
+            Point2D nodeInScene = buttonzero.localToScene(nodeMinX, nodeMinY);
+
+            int offset = 70;
+
+            iv.relocate(nodeInScene.getX() - 10
+                    + iv.getLayoutBounds().getMinX() - 49, nodeInScene.getY() - offset
+                    + iv.getLayoutBounds().getMinY() - offset);
+            iv.setScaleX(0.4);
+            iv.setScaleY(0.4);
+
+            try {
+                rouletteModel.addCoins(selectedValue);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            update();
+            buttonwert.add(420);
+
+            System.out.println(buttonwert);
+        }
+
+    }
+
+    // Geldbetrag anzeigen
     public void update() {
         anzeige_geldbetrag.setText("Ihr Geldbetrag: " + rouletteModel.getCoins());
     }
 
     public void initialize(Model model) {
+        // Array für die Roulette Rad Zahlen
+        numbers[0] = "00";
+        numbers[1] = "0";
+        for(int i = 2; i < 38; i++){
+            int c = i - 1;
+            numbers[i] = "" + c;
+        }
 
         btn_block.setShape(new Circle(10));
-
         rouletteModel = (RouletteModel) model;
 
+        //Buttons im GridPane generieren
         int rows = gridPane.getRowConstraints().size();
         int columns = gridPane.getColumnConstraints().size();
+
         for (int row = 0; row < rows; row++) {
             for (int column = 0; column < columns; column++) {
                 Button button = new Button("Text");
@@ -99,7 +180,7 @@ public class RouletteController implements Controller {
         update();
     }
 
-
+    // Jeton Bilder und Werte setzen
     public void handleJeton5(MouseEvent mouseEvent) {
         jeton5.setImage(new Image("/images/roulette/Jetons-5-Ausgewählt.png"));
         image = "/images/roulette/Jetons-5.png";
@@ -108,6 +189,8 @@ public class RouletteController implements Controller {
         jeton50.setImage(new Image("/images/roulette/jetons-50.png"));
         jeton100.setImage(new Image("/images/roulette/jetons-100.png"));
         jetonausg = true;
+        selectedValue = -5;
+        jeton = 5;
     }
 
     public void handleJeton10(MouseEvent mouseEvent) {
@@ -118,6 +201,8 @@ public class RouletteController implements Controller {
         jeton50.setImage(new Image("/images/roulette/jetons-50.png"));
         jeton100.setImage(new Image("/images/roulette/jetons-100.png"));
         jetonausg = true;
+        selectedValue = -10;
+        jeton = 10;
     }
 
     public void handleJeton25(MouseEvent mouseEvent) {
@@ -128,6 +213,8 @@ public class RouletteController implements Controller {
         jeton50.setImage(new Image("/images/roulette/jetons-50.png"));
         jeton100.setImage(new Image("/images/roulette/jetons-100.png"));
         jetonausg = true;
+        selectedValue = -25;
+        jeton = 25;
     }
 
     public void handleJeton50(MouseEvent mouseEvent) {
@@ -138,6 +225,8 @@ public class RouletteController implements Controller {
         jeton25.setImage(new Image("/images/roulette/jetons-25.png"));
         jeton100.setImage(new Image("/images/roulette/jetons-100.png"));
         jetonausg = true;
+        selectedValue = -50;
+        jeton = 50;
     }
 
     public void handleJeton100(MouseEvent mouseEvent) {
@@ -148,28 +237,36 @@ public class RouletteController implements Controller {
         jeton25.setImage(new Image("/images/roulette/jetons-25.png"));
         jeton50.setImage(new Image("/images/roulette/jetons-50.png"));
         jetonausg = true;
+        selectedValue = -100;
+        jeton = 100;
     }
 
-    public void abbrechen_onClick(MouseEvent mouseEvent) {
-        rouletteModel.close();
-    }
-
-    public void handlepressing(MouseEvent mouseEvent) {
-        abbrechenimageview.setImage(new Image("/images/roulette/abbrechen-ausg.png"));
-    }
-
+    // Rotation des Roulette Rads
     public void handleDrehen(MouseEvent mouseEvent) {
-        RotateTransition rt = new RotateTransition(Duration.millis(3000), rotaterad);
-        rt.setByAngle(360);
-        rt.setInterpolator(Interpolator.LINEAR);
-        rt.play();
+        if(spinning){
+
+        }else {
+            drehenimageview.setImage(new Image("/images/roulette/drehen-transp.png"));
+            RotateTransition rt = new RotateTransition(Duration.millis(3000), rotaterad);
+            rt.setByAngle(750);
+            rt.setInterpolator(Interpolator.LINEAR);
+            rt.play();
+            spinning = true;
+
+            rt.setOnFinished(event -> {
+                test();
+                spinning = false;
+            });
+        }
     }
 
+    // Bilder der Buttons anpassen
     public void handledrepressing(MouseEvent mouseEvent) {
-        drehenimageview.setImage(new Image("/images/roulette/drehen-ausg.png"));
-    }
+        if(spinning){
 
-    public void handleEntfernen(MouseEvent mouseEvent) {
+        }else {
+            drehenimageview.setImage(new Image("/images/roulette/drehen-ausg.png"));
+        }
     }
 
     public void handleentpressing(MouseEvent mouseEvent) {
@@ -177,7 +274,11 @@ public class RouletteController implements Controller {
     }
 
     public void handledrerelease(MouseEvent mouseEvent) {
-        drehenimageview.setImage(new Image("/images/roulette/drehen-button.png"));
+        if(spinning){
+
+        }else {
+            drehenimageview.setImage(new Image("/images/roulette/drehen-button.png"));
+        }
     }
 
     public void handleentrelease(MouseEvent mouseEvent) {
@@ -185,5 +286,231 @@ public class RouletteController implements Controller {
     }
 
     public void handlerelease(MouseEvent mouseEvent) {
+    }
+
+    public void handlepressing(MouseEvent mouseEvent) {
+        abbrechenimageview.setImage(new Image("/images/roulette/abbrechen-ausg.png"));
+    }
+
+    public void handleEntfernen(MouseEvent mouseEvent) {
+
+    }
+
+    // Nummer aus dem Rad generieren
+    private void test(){
+        Random rnd = new Random();
+        int d = rnd.nextInt(38);
+        String rndnumber = numbers[d];
+        labelrndnumber.setText("Gedrehte Nummer: " + rndnumber);
+        drehenimageview.setImage(new Image("/images/roulette/drehen-button.png"));
+    }
+
+    // Werte den Buttons zuordnen
+    private void setWert(Button button){
+        //Obere Seite
+        int column = GridPane.getColumnIndex(button);
+        //Linke Seite
+        int row = GridPane.getRowIndex(button);
+        buttonwert.clear();
+
+        chips.add(jeton);
+
+        switch (row){
+            case 0:
+                scColumn(column, 0);
+                break;
+            case 1:
+                scColumn(column, 0);
+                scColumn(column, 1);
+                break;
+            case 2:
+                scColumn(column, 1);
+                break;
+            case 3:
+                scColumn(column, 1);
+                scColumn(column, 2);
+                break;
+            case 4:
+
+                scColumn(column, 2);
+                break;
+            case 5:
+                scColumn(column, 0);
+                scColumn(column, 1);
+                scColumn(column, 2);
+                break;
+            case 6:
+                break;
+            case 7:
+                break;
+        }
+        System.out.println(buttonwert);
+    }
+    HashMap<Integer, Integer> betrag = new HashMap();
+
+
+    ArrayList<Integer> chips = new ArrayList<>();
+
+    // 36 18 12 9 7 3 2
+    private void addBetrag(int i, int multiplicator){
+        int d = 0;
+        if(betrag.containsKey(i)){
+             d = betrag.get(i);
+            betrag.remove(i);
+        }
+
+        int mult = chips.get(chips.size() - 1) * multiplicator ;
+        d += mult;
+        betrag.put(i, d);
+    }
+
+    private void scColumn(int column, int row){
+
+        switch (column){
+            case 0:
+                buttonwert.add(3 - row);
+                addBetrag(3 - row, 36);
+                break;
+            case 2:
+                buttonwert.add(6 - row);
+                addBetrag(6 - row, 36);
+                break;
+            case 4:
+                buttonwert.add(9 - row);
+                addBetrag(9 - row, 36);
+                break;
+            case 6:
+                buttonwert.add(12 - row);
+                addBetrag(12 - row, 36);
+                break;
+            case 8:
+                buttonwert.add(15 - row);
+                addBetrag(15 - row, 36);
+                break;
+            case 10:
+                buttonwert.add(18 - row);
+                addBetrag(18 - row, 36);
+                break;
+            case 12:
+                buttonwert.add(21 - row);
+                addBetrag(21 - row, 36);
+                break;
+            case 14:
+                buttonwert.add(24 - row);
+                addBetrag(24 - row, 36);
+                break;
+            case 16:
+                buttonwert.add(27 - row);
+                addBetrag(27 - row, 36);
+                break;
+            case 18:
+                buttonwert.add(30 - row);
+                addBetrag(30 - row, 36);
+                break;
+            case 20:
+                buttonwert.add(33 - row);
+                addBetrag(33 - row, 36);
+                break;
+            case 22:
+                buttonwert.add(36 - row);
+                addBetrag(36 - row, 36);
+                break;
+            case 1:
+                if()
+                buttonwert.add(3 - row);
+                addBetrag(3 - row, 18);
+                buttonwert.add(6 - row);
+                addBetrag(6 - row);
+                break;
+            case 3:
+                buttonwert.add(6 - row);
+                addBetrag(6 - row);
+                buttonwert.add(9 - row);
+                addBetrag(9 - row);
+                break;
+            case 5:
+                buttonwert.add(9 - row);
+                addBetrag(9 - row);
+                buttonwert.add(12 - row);
+                addBetrag(12 - row);
+                break;
+            case 7:
+                buttonwert.add(12 - row);
+                addBetrag(12 - row);
+                buttonwert.add(15 - row);
+                addBetrag(15 - row);
+                break;
+            case 9:
+                buttonwert.add(15 - row);
+                addBetrag(15 - row);
+                buttonwert.add(18 - row);
+                addBetrag(18 - row);
+                break;
+            case 11:
+                buttonwert.add(18 - row);
+                addBetrag(18 - row);
+                buttonwert.add(21 - row);
+                addBetrag(21 - row);
+                break;
+            case 13:
+                buttonwert.add(21 - row);
+                addBetrag(21 - row);
+                buttonwert.add(24 - row);
+                addBetrag(24 - row);
+                break;
+            case 15:
+                buttonwert.add(24 - row);
+                addBetrag(24 - row);
+                buttonwert.add(27 - row);
+                addBetrag(27 - row);
+                break;
+            case 17:
+                buttonwert.add(27 - row);
+                addBetrag(27 - row);
+                buttonwert.add(30 - row);
+                addBetrag(30 - row);
+                break;
+            case 19:
+                buttonwert.add(30 - row);
+                addBetrag(30 - row);
+                buttonwert.add(33 - row);
+                addBetrag(33 - row);
+                break;
+            case 21:
+                buttonwert.add(33 - row);
+                addBetrag(33 - row);
+                buttonwert.add(36 - row);
+                addBetrag(36 - row);
+                break;
+    }
+}
+
+    public void drehenter(MouseEvent mouseEvent) {
+        drehenimageview.setImage(new Image("/images/roulette/drehen-ausg.png"));
+    }
+
+    public void drehexit(MouseEvent mouseEvent) {
+        drehenimageview.setImage(new Image("/images/roulette/drehen-button.png"));
+    }
+
+    public void entfenter(MouseEvent mouseEvent) {
+        entfernenimageview.setImage(new Image("/images/roulette/entfernen-ausg.png"));
+    }
+
+    public void entfexit(MouseEvent mouseEvent) {
+        entfernenimageview.setImage(new Image("/images/roulette/entfernen-button.png"));
+    }
+
+    public void abbenter(MouseEvent mouseEvent) {
+        abbrechenimageview.setImage(new Image("/images/roulette/abbrechen-ausg.png"));
+    }
+
+
+    public void abbexit(MouseEvent mouseEvent) {
+        abbrechenimageview.setImage(new Image("/images/roulette/abbrechen-button.png"));
+    }
+
+    public void abbrechen_onClick(MouseEvent mouseEvent) {
+        rouletteModel.close();
     }
 }

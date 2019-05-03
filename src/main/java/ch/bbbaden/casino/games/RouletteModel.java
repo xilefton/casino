@@ -8,6 +8,7 @@ import java.sql.SQLException;
 public class RouletteModel extends Game {
     public RouletteModel(NormalUser normalUser) {
         super("/fxml/Roulette.fxml", "Roulette","/images/Roulette_Logo.png", normalUser);
+
     }
 
     public int getCoins(){
@@ -18,4 +19,10 @@ public class RouletteModel extends Game {
         }
         return 0;
     }
+
+
+    public void addCoins(int coins) throws SQLException {
+        getNormalUser().addCoins(coins, false);
+    }
+
 }
