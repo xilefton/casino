@@ -59,4 +59,10 @@ class HomeModel extends Model {
     String getImagePath() {
         return games[currIndex].getImagePath();
     }
+
+    public void showShop() {
+        hide();
+        changeScene(new ShopModel());
+        show();
+    }
 }
