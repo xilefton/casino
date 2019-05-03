@@ -5,6 +5,8 @@ import javafx.application.Application;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.sql.SQLException;
+
 public class MainApp extends Application {
 
     public static void main(String[] args) {
@@ -12,8 +14,11 @@ public class MainApp extends Application {
     }
 
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage) throws SQLException {
         Font.loadFont(getClass().getResourceAsStream("/fonts/casino.ttf"), 20);
+        NormalUser normalUser = new NormalUser();
+        normalUser.login("OTTO", "otto");
+        //new ModelManager(stage).setModel(new HomeModel(normalUser));
         new ModelManager(stage).setModel(new StartModel());
     }
 }

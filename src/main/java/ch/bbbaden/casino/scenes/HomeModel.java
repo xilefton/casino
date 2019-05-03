@@ -2,20 +2,22 @@ package ch.bbbaden.casino.scenes;
 
 import ch.bbbaden.casino.Model;
 import ch.bbbaden.casino.NormalUser;
+import ch.bbbaden.casino.State;
 import ch.bbbaden.casino.games.Game;
 import ch.bbbaden.casino.games.TestGame2Model;
 import ch.bbbaden.casino.games.TestGameModel;
+import javafx.scene.image.Image;
 
 import java.sql.SQLException;
 
 
-class HomeModel extends Model {
+public class HomeModel extends Model {
 
     private NormalUser normalUser;
     private Game[] games;
     private int currIndex = 0;
 
-    HomeModel(NormalUser normalUser) {
+    public HomeModel(NormalUser normalUser) {
         super("/fxml/Home.fxml", "Welcome", true);
         this.normalUser = normalUser;
         games = new Game[]{new TestGameModel(normalUser), new TestGame2Model(normalUser)};
@@ -23,26 +25,24 @@ class HomeModel extends Model {
 
     String getCoins() {
         try {
-            return Integer.toString(normalUser.getCoins());
+            return Long.toString(normalUser.getCoins());
         } catch (SQLException e) {
-            System.err.println(e);
-        }
-        return null;
-    }
-
-    String getPurchasedCoins() {
-        try {
-            return Integer.toString(normalUser.getPurchasedCoins());
-        } catch (SQLException e) {
-            System.err.println(e);
+            showErrorMessage("Fehler beim einlesen aus der Datenbank: " + e.getMessage(), "Kritischer Fehler", ErrorType.CONNECTION);
         }
         return null;
     }
 
     void playGame() {
+        State saveState = normalUser.getState();
+        String game = games[currIndex].getName();
         hide();
         changeScene(games[currIndex]);
         show();
+        //try {
+        normalUser.recordChanges(game, saveState);
+      /*  } catch (SQLException e) {
+            System.err.println("Failed to save game");
+        }*/
     }
 
     void changeGame(int indexOffset) {
@@ -56,7 +56,7 @@ class HomeModel extends Model {
         notifyController();
     }
 
-    String getImagePath() {
-        return games[currIndex].getImagePath();
+    Image getImage() {
+        return games[currIndex].getImage();
     }
 }

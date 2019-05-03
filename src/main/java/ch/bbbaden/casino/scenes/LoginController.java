@@ -18,17 +18,21 @@ public class LoginController implements Controller {
         loginModel = (LoginModel) model;
         username.textProperty().addListener((ov, oldValue, newValue) -> username.setText(newValue.toUpperCase()));
         username.setOnKeyPressed(ke -> {
-            if (ke.getCode().equals(KeyCode.ENTER)) {
-                password.requestFocus();
-                password.selectAll();
+            if (username.getText() != null) {
+                if (ke.getCode().equals(KeyCode.ENTER)) {
+                    password.requestFocus();
+                    password.selectAll();
+                }
             }
         });
         password.setOnKeyPressed(ke -> {
-            if (ke.getCode().equals(KeyCode.ENTER)) {
-                if (username.getText().equals("")) {
-                    username.requestFocus();
-                } else {
-                    loginModel.login(username.getText(), password.getText());
+            if (password.getText() != null) {
+                if (ke.getCode().equals(KeyCode.ENTER)) {
+                    if (username.getText().equals("")) {
+                        username.requestFocus();
+                    } else {
+                        on_login();
+                    }
                 }
             }
         });
@@ -41,7 +45,13 @@ public class LoginController implements Controller {
 
     @FXML
     private void on_login() {
-        loginModel.login(username.getText(), password.getText());
+        if (username.getText().equals("")) {
+            username.requestFocus();
+        } else if (password.getText().equals("")) {
+            username.requestFocus();
+        } else {
+            loginModel.login(username.getText(), password.getText());
+        }
     }
 
     @FXML

@@ -30,42 +30,50 @@ public class RegisterController implements Controller {
         registerModel = (RegisterModel) model;
 
         username.textProperty().addListener((ov, oldValue, newValue) -> {
-            username.setText(newValue.toUpperCase());
-            if (username.getLength() >= 15) {
-                username.setText(oldValue);
+            if (username.getText() != null) {
+                username.setText(newValue.toUpperCase());
+                if (username.getLength() >= 15) {
+                    username.setText(oldValue);
+                }
             }
         });
         username.setOnKeyPressed(ke -> {
-            if (ke.getCode().equals(KeyCode.ENTER)) {
-                password.requestFocus();
-                password.selectAll();
+            if (username.getText() != null) {
+                if (ke.getCode().equals(KeyCode.ENTER)) {
+                    password.requestFocus();
+                    password.selectAll();
+                }
             }
         });
         password.setOnKeyPressed(ke -> {
-            if (ke.getCode().equals(KeyCode.ENTER)) {
-                startCoins.requestFocus();
+            if (password.getText() != null) {
+                if (ke.getCode().equals(KeyCode.ENTER)) {
+                    startCoins.requestFocus();
+                }
             }
         });
         startCoins.setOnKeyPressed(ke -> {
             if (ke.getCode().equals(KeyCode.ENTER)) {
-                if (username.getText().equals("")) {
-                    startCoins.requestFocus();
-                } else {
-                    if (username.getText() == null) {
-                        username.requestFocus();
-                    } else if (password.getText() == null) {
-                        password.requestFocus();
-                    } else if (startCoins.getText() == null) {
+                if (!startCoins.getText().equals("")) {
+                    if (username.getText().equals("")) {
                         startCoins.requestFocus();
                     } else {
-                        registerModel.register(username.getText(), password.getText(), Integer.parseInt(startCoins.getText()));
+                        if (username.getText().equals("")) {
+                            username.requestFocus();
+                        } else if (password.getText().equals("")) {
+                            password.requestFocus();
+                        } else if (startCoins.getText().equals("")) {
+                            startCoins.requestFocus();
+                        } else {
+                            on_register();
+                        }
                     }
                 }
             }
         });
         startCoins.textProperty().addListener((ov, oldValue, newValue) -> {
-            if (newValue != null) {
-                if (!newValue.matches("[0-9]*") || Integer.parseInt(newValue) > 1000) {
+            if (!newValue.equals("")) {
+                if (!newValue.matches("[0-9]*") || Integer.parseInt(newValue) > 10000) {
                     startCoins.setText(oldValue);
                 }
             }
@@ -76,7 +84,19 @@ public class RegisterController implements Controller {
 
     }
 
-    public void on_register(ActionEvent actionEvent) throws NumberFormatException {
-        registerModel.register(username.getText(), password.getText(), Integer.parseInt(startCoins.getText()));
+    public void on_register() throws NumberFormatException {
+        if (username.getText().equals("")) {
+            username.requestFocus();
+        } else if (password.getText().equals("")) {
+            password.requestFocus();
+        } else if (startCoins.getText().equals("")) {
+            startCoins.requestFocus();
+        } else {
+            registerModel.register(username.getText(), password.getText(), Integer.parseInt(startCoins.getText()));
+        }
+    }
+
+    public void btn_back_onAction(ActionEvent actionEvent) {
+        registerModel.showStartMenu();
     }
 }

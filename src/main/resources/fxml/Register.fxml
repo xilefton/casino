@@ -17,4 +17,6 @@
                    promptText="Passwort"/>
     <TextField fx:id="startCoins" layoutX="299.0" layoutY="251.0" prefHeight="32.0" prefWidth="170.0"
                promptText="Startbetrag"/>
+    <Button layoutX="618.0" layoutY="380.0" mnemonicParsing="false" onAction="#btn_back_onAction" prefHeight="38.0"
+            prefWidth="136.0" text="Zurück"/>
 </AnchorPane>

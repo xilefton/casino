@@ -3,14 +3,15 @@ package ch.bbbaden.casino;
 import javax.xml.bind.DatatypeConverter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class User {
 
-    Connection connie;
+    private Connection con;
     private String username, password;
-    private Statement statement;
-    private ResultSet rs;
     private boolean admin;
 
     User(boolean admin) {
@@ -19,33 +20,33 @@ public class User {
 
     public void login(String username, String password) throws SQLException {
         this.username = username;
-        this.password = password;
-
         openConnection();
 
-        statement = connie.createStatement();
-        if (admin) {
-            rs = statement.executeQuery("SELECT * FROM `adminusers`");
+        ResultSet rs;
+
+        if (userExists(username)) {
+            if (admin) {
+                rs = con.createStatement().executeQuery("SELECT password FROM `adminusers` WHERE username = \"" + username + "\"");
+            } else {
+                rs = con.createStatement().executeQuery("SELECT password FROM `normalusers` WHERE username = \"" + username + "\"");
+            }
         } else {
-            rs = statement.executeQuery("SELECT * FROM `normalusers`");
+            throw new SQLException("Benutzer nicht gefunden oder Passwort falsch");
         }
 
-        while (rs.next()) {
-            if (rs.getString(1).equals(username)) {
-                try {
-                    if (calculateHashWithSalt(password).equals(rs.getString(2))) {
-                        return;
-                    } else {
-                        throw new SQLException("Falsches Passwort");
-                    }
-                } catch (NoSuchAlgorithmException e) {
-                    System.err.println(e);
-                }
+        try {
+            rs.next();
+            if (!calculateHashWithSalt(password).equals(rs.getString(1))) {
+                throw new SQLException("Benutzer nicht gefunden oder Passwort Falsch");
             }
+        } catch (NoSuchAlgorithmException e) {
+            throw new SQLException("Fehler beim verarbeiten der eingabe");
         }
-        throw new SQLException("Benutzer nicht gefunden");
     }
 
+    protected Connection getConnection() {
+        return con;
+    }
 
     String calculateHashWithSalt(String password) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("MD5");
@@ -55,12 +56,11 @@ public class User {
     }
 
     void openConnection() throws SQLException {
-        connie = DriverManager.getConnection("jdbc:mysql://localhost:3306/casino", "root", "");
+        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/casino", "root", "");
     }
 
     boolean userExists(String username) throws SQLException {
-        statement = connie.createStatement();
-        rs = statement.executeQuery("SELECT * FROM `normalusers`");
+        ResultSet rs = con.createStatement().executeQuery("SELECT `username` FROM `normalusers`");
         while (rs.next()) {
             if (rs.getString(1).equals(username)) {
                 return true;

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="260.0" stylesheets="@../styles/BasicStyle.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.bbbaden.casino.scenes.ErrorMessageController">
+    <stylesheets>
+        <URL value="@../styles/BasicStyle.css" />
+        <URL value="@../styles/ErrorStyle.css" />
+    </stylesheets>
+    <Label fx:id="errorMessage" alignment="CENTER" layoutX="5.0" layoutY="4.0" prefHeight="130.0" prefWidth="250.0" text="Fehler" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" wrapText="true" />
+    <ButtonBar fx:id="buttonBar" layoutX="5.0" layoutY="137.0" prefHeight="40.0" prefWidth="250.0">
+        <buttons>
+        </buttons>
+    </ButtonBar>
+</AnchorPane>
