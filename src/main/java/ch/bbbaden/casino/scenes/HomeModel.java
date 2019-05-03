@@ -59,4 +59,10 @@ public class HomeModel extends Model {
     Image getImage() {
         return games[currIndex].getImage();
     }
+
+    public void showShop() {
+        hide();
+        changeScene(new ShopModel());
+        show();
+    }
 }
