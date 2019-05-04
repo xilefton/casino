@@ -11,7 +11,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 
-import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 
 public class SlotMachineController implements Controller {
@@ -31,9 +30,9 @@ public class SlotMachineController implements Controller {
     public ImageView TwoFactorLight;
     public ImageView ThreeFactorLight;
     public ImageView FiveFactorLight;
-    public ScrollPane firstScrollPane;
-    public ScrollPane secondScrollPane;
-    public ScrollPane thirdScrollPane;
+    public ImageView firstFruitRow;
+    public ImageView secondFruitRow;
+    public ImageView thirdFruitRow;
     public HBox hBoxScrollBars;
     public Label coins;
     public Button addCoins;
@@ -43,46 +42,79 @@ public class SlotMachineController implements Controller {
     public Label winLabel;
     public Label addCoinsLabel;
     private SlotMachineModel slotMachineModel;
+    private int inputCoins = 0;
+    private  int gameCoins;
+
+    public SlotMachineController(int gameCoins) {
+        this.gameCoins = gameCoins;
+    }
 
     public void update() {
         coins.setText(slotMachineModel.getCoins()); 
     }
+    private void updateInputCoins() { addCoinsLabel.setText(Integer.toString(inputCoins)); }
+    private  void updateGameCoins() {winLabel.setText(Integer.toString(gameCoins));}
 
     public void initialize(Model model) {
+        stopButton.setDisable(true);
+        addCoins.setDisable(true);
+        betButton.setDisable(true);
+        gambleButton.setDisable(true);
+        mysteryButton.setDisable(true);
+        minusCoins.setDisable(true);
+        plusCoins.setDisable(false);
         slotMachineModel = (SlotMachineModel) model;
         update();
+        Image fruit1 = new Image(getClass().getResourceAsStream("../images/supercherry/BELL.png"));
+        firstFruitRow = new ImageView(fruit1);
+        Image fruit2 = new Image(getClass().getResourceAsStream("../images/supercherry/LEMON.png"));
+        firstFruitRow = new ImageView(fruit2);
+        Image fruit3 = new Image(getClass().getResourceAsStream("../images/supercherry/MELON.png"));
+        firstFruitRow = new ImageView(fruit3);
     }
-    public void onClick(MouseEvent mouseEvent) {
-        getFruitsView();
-    }
-    public void plusCoins(MouseEvent mouseEvent) throws SQLException { slotMachineModel.addCoins();
-    }
-
-
-    private void getFruitsView() {
-        Image[] images = new Image[8];
-        ImageView[] pics = new ImageView[8];
-        final String[] imageNames = new String[]{"../images/supercherry/fruits/BELL.png", "../images/supercherry/fruits/CHERRY.png",
-                "../images/supercherry/fruits/GRAPES.png", "../images/supercherry/fruits/LEMON.png", "../images/supercherry/fruits/MELON.png",
-                "../images/supercherry/fruits/PEACH.png", "../images/supercherry/fruits/POTATO.png", "../images/supercherry/fruits/STAR.png",
-                "../images/supercherry/fruits/STRAWBERRY.png"};
-
-        for (int i = 0; i < 8; i++) {
-            images[i] = new Image(getClass().getResourceAsStream(imageNames[i]));
-            pics[i] = new ImageView(images[i]);
-            pics[i].setFitWidth(100);
-            pics[i].setPreserveRatio(true);
-            hBoxScrollBars.getChildren().add(pics[i]);
-            firstScrollPane.setContent(hBoxScrollBars);
-            secondScrollPane.setContent(hBoxScrollBars);
-            thirdScrollPane.setContent(hBoxScrollBars);
-
+    public void plusCoins(MouseEvent mouseEvent) throws SQLException {
+        minusCoins.setDisable(false);
+        addCoins.setDisable(false);
+        if (Integer.parseInt(slotMachineModel.getCoins()) >= 0) {
+            inputCoins += 1;
+            int coins = Integer.parseInt(slotMachineModel.getCoins()) - 1;
+            slotMachineModel.updateCoins(coins, false);
+            updateInputCoins();
+            update();
+        } else {
+           plusCoins.setDisable(true);
         }
     }
-    public void addCoins() {
+    public void minusCoins(MouseEvent mouseEvent) throws SQLException {
+        if (inputCoins >= 0) {
+            inputCoins -= 1;
+            int coins = Integer.parseInt(slotMachineModel.getCoins()) + 1;
+            slotMachineModel.updateCoins(coins, false);
+            updateInputCoins();
+            update();
+        } else {
+            minusCoins.setDisable(true);
+        }
     }
-
-
-
+    public void addCoins(MouseEvent mouseEvent) {
+        addCoins.setDisable(true);
+        gambleButton.setDisable(true);
+        mysteryButton.setDisable(true);
+        stopButton.setDisable(false);
+        betButton.setDisable(false);
+        plusCoins.setDisable(false);
+        minusCoins.setDisable(true);
+        gameCoins = inputCoins;
+        inputCoins = 0;
+        updateInputCoins();
+        updateGameCoins();
+        update();
+    }
+    public void stopButton(MouseEvent mouseEvent) {
+       slotMachineModel.play();
+    }
+    public void mysteryButton(MouseEvent mouseEvent) { }
+    public void gambleButton(MouseEvent mouseEvent) { }
+    public void betButton(MouseEvent mouseEvent) { }
 }
 

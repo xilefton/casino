@@ -27,23 +27,23 @@
             <Image url="@../images/supercherry/WIN_LINE_BACKGROUND.png" />
          </image>
       </ImageView>
-      <HBox fx:id="hBowScrollBars" layoutX="320.0" layoutY="480.0" prefHeight="116.0" prefWidth="270.0">
+      <HBox fx:id="hBoxScrollBars" layoutX="320.0" layoutY="480.0" prefHeight="116.0" prefWidth="270.0">
          <children>
-            <ScrollPane fx:id="firstScrollPane" prefHeight="116.0" prefWidth="103.0">
-               <HBox.margin>
-                  <Insets right="10.0" />
-               </HBox.margin>
-            </ScrollPane>
-            <ScrollPane fx:id="secondScrollPane" prefHeight="116.0" prefWidth="103.0">
-               <HBox.margin>
-                  <Insets left="17.0" />
-               </HBox.margin>
-            </ScrollPane>
-            <ScrollPane fx:id="thirdScrollPane" prefHeight="116.0" prefWidth="103.0">
-               <HBox.margin>
-                  <Insets left="28.0" />
-               </HBox.margin>
-            </ScrollPane>
+             <ImageView fx:id="firstFruitRow" fitHeight="116.0" fitWidth="103.0"  pickOnBounds="true" preserveRatio="true">
+                 <HBox.margin>
+                     <Insets right="10.0" />
+                 </HBox.margin>
+             </ImageView>
+             <ImageView fx:id="secondFruitRow" fitHeight="116.0" fitWidth="103.0"  pickOnBounds="true" preserveRatio="true">
+                 <HBox.margin>
+                     <Insets left="17.0" />
+                 </HBox.margin>
+             </ImageView>
+             <ImageView fx:id="thirdFruitRow" fitHeight="116.0" fitWidth="103.0"  pickOnBounds="true" preserveRatio="true">
+                 <HBox.margin>
+                     <Insets left="28.0" />
+                 </HBox.margin>
+             </ImageView>
          </children>
       </HBox>
       <ImageView fitHeight="150.0" fitWidth="398.0" layoutX="307.0" layoutY="468.0" pickOnBounds="true" preserveRatio="true">
@@ -61,22 +61,22 @@
             <Image url="@../images/supercherry/3-STAR-SELECTION.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="betButton" fitHeight="100.0" fitWidth="138.0" layoutX="457.0" layoutY="773.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="betButton" fitHeight="100.0" fitWidth="138.0" layoutX="457.0" layoutY="773.0" onMouseClicked="#betButton" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/supercherry/buttons/bet/BUTTON_BET_ACTIVE.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="gambleButton" fitHeight="102.0" fitWidth="138.0" layoutX="605.0" layoutY="773.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="gambleButton" fitHeight="102.0" fitWidth="138.0" layoutX="605.0" layoutY="773.0" onMouseClicked="#gambleButton" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/supercherry/buttons/gamble/BUTTON_GAMBLE_ACTIVE.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="mysteryButton" fitHeight="96.0" fitWidth="138.0" layoutX="303.0" layoutY="773.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="mysteryButton" fitHeight="96.0" fitWidth="138.0" layoutX="303.0" layoutY="773.0" onMouseClicked="#mysteryButton" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/supercherry/buttons/mystery/BUTTON_MYSTERY_ACTIVE.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="stopButton" fitHeight="96.0" fitWidth="138.0" layoutX="758.0" layoutY="773.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="stopButton" fitHeight="96.0" fitWidth="138.0" layoutX="758.0" layoutY="773.0" onMouseClicked="#stopButton" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/supercherry/buttons/stop/BUTTON_STOP_ACTIVE.png" />
          </image>
@@ -121,9 +121,9 @@
             <Image url="@../images/supercherry/lights/FAKTOR_5X_Light.png" />
          </image>
       </ImageView>
-      <Button fx:id="minusCoins" layoutX="454.0" layoutY="680.0" mnemonicParsing="false" opacity="0.0" prefHeight="25.0" prefWidth="13.0" />
+      <Button fx:id="minusCoins" layoutX="454.0" layoutY="680.0" onMouseClicked="#minusCoins" mnemonicParsing="false" opacity="0.0" prefHeight="25.0" prefWidth="13.0" />
       <Button fx:id="plusCoins" layoutX="537.0" layoutY="680.0" onMouseClicked="#plusCoins" mnemonicParsing="false" opacity="0.0" prefHeight="25.0" prefWidth="24.0" />
-      <Button fx:id="addCoins" layoutX="452.0" layoutY="642.0" mnemonicParsing="false" opacity="0.0" prefHeight="32.0" prefWidth="112.0" />
+      <Button fx:id="addCoins" layoutX="452.0" layoutY="642.0" onMouseClicked="#addCoins" mnemonicParsing="false" opacity="0.0" prefHeight="32.0" prefWidth="112.0" />
       <Label fx:id="riskLabel" layoutX="500.0" layoutY="346.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="5.0" prefWidth="169.0" text="Test" textFill="#e9e9e9">
          <font>
             <Font size="10.0" />
