@@ -21,6 +21,8 @@ public class SlotMachineModel extends Game {
             System.err.println(e);
         } return null;
     }
-    public void addCoins() {
+    public void addCoins() throws SQLException {
+        int coins = normalUser.getCoins() - 1;
+        normalUser.addCoins(coins, false);
     }
 }

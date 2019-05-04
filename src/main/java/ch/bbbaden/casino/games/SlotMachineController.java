@@ -12,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 
 import java.awt.event.ActionEvent;
+import java.sql.SQLException;
 
 public class SlotMachineController implements Controller {
 
@@ -38,6 +39,9 @@ public class SlotMachineController implements Controller {
     public Button addCoins;
     public Button plusCoins;
     public Button minusCoins;
+    public Label riskLabel;
+    public Label winLabel;
+    public Label addCoinsLabel;
     private SlotMachineModel slotMachineModel;
 
     public void update() {
@@ -48,9 +52,12 @@ public class SlotMachineController implements Controller {
         slotMachineModel = (SlotMachineModel) model;
         update();
     }
-    public void OnClick(MouseEvent mouseEvent) {
+    public void onClick(MouseEvent mouseEvent) {
         getFruitsView();
     }
+    public void plusCoins(MouseEvent mouseEvent) throws SQLException { slotMachineModel.addCoins();
+    }
+
 
     private void getFruitsView() {
         Image[] images = new Image[8];
@@ -72,6 +79,9 @@ public class SlotMachineController implements Controller {
 
         }
     }
+    public void addCoins() {
+    }
+
 
 
 }
