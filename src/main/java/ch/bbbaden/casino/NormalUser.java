@@ -60,14 +60,10 @@ public class NormalUser extends User {
         return new State(coins, playerPurchase, playerBet);
     }
 
-    public void recordChanges(String game, State oldState) {
+    public void recordChanges(String game, State oldState) throws SQLException {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-        try {
-            getConnection().createStatement().executeUpdate("INSERT INTO `games`(`game`, `bet`, `achievement`, `date`) VALUES ( \"" + game + "\", \"" +
-                    (this.playerBet - oldState.getPlayerBet()) + "\", \"" + (oldState.getCoins() - coins) + "\", \"" + new SimpleDateFormat("yyyy/MM/dd").format(new Date()) + "\")");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        getConnection().createStatement().executeUpdate("INSERT INTO `games`(`game`, `bet`, `achievement`, `date`) VALUES ( \"" + game + "\", \"" +
+                (this.playerBet - oldState.getPlayerBet()) + "\", \"" + (oldState.getCoins() - coins) + "\", \"" + new SimpleDateFormat("yyyy/MM/dd").format(new Date()) + "\")");
     }
 
     private void updateValues() throws SQLException {

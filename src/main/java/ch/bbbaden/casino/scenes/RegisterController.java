@@ -10,6 +10,7 @@ import ch.bbbaden.casino.Model;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 
@@ -23,7 +24,7 @@ public class RegisterController implements Controller {
     public TextField username;
     public Button register;
     public PasswordField password;
-    public TextField startCoins;
+    public Spinner<Integer> startCoins;
     private RegisterModel registerModel;
 
     public void initialize(Model model) {
@@ -54,7 +55,7 @@ public class RegisterController implements Controller {
         });
         startCoins.setOnKeyPressed(ke -> {
             if (ke.getCode().equals(KeyCode.ENTER)) {
-                if (!startCoins.getText().equals("")) {
+                if (startCoins.getValue().equals("") && String.valueOf(startCoins.getValue()).matches("\\d+") && startCoins.getValue() != null) {
                     if (username.getText().equals("")) {
                         startCoins.requestFocus();
                     } else {
@@ -62,19 +63,12 @@ public class RegisterController implements Controller {
                             username.requestFocus();
                         } else if (password.getText().equals("")) {
                             password.requestFocus();
-                        } else if (startCoins.getText().equals("")) {
-                            startCoins.requestFocus();
                         } else {
                             on_register();
                         }
                     }
-                }
-            }
-        });
-        startCoins.textProperty().addListener((ov, oldValue, newValue) -> {
-            if (!newValue.equals("")) {
-                if (!newValue.matches("[0-9]*") || Integer.parseInt(newValue) > 10000) {
-                    startCoins.setText(oldValue);
+                } else {
+                    startCoins.requestFocus();
                 }
             }
         });
@@ -89,10 +83,10 @@ public class RegisterController implements Controller {
             username.requestFocus();
         } else if (password.getText().equals("")) {
             password.requestFocus();
-        } else if (startCoins.getText().equals("")) {
+        } else if (startCoins.getValue() == null) {
             startCoins.requestFocus();
         } else {
-            registerModel.register(username.getText(), password.getText(), Integer.parseInt(startCoins.getText()));
+            registerModel.register(username.getText(), password.getText(), startCoins.getValue());
         }
     }
 

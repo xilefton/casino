@@ -27,7 +27,7 @@ public class HomeModel extends Model {
         try {
             return Long.toString(normalUser.getCoins());
         } catch (SQLException e) {
-            showErrorMessage("Fehler beim einlesen aus der Datenbank: " + e.getMessage(), "Kritischer Fehler", ErrorType.CONNECTION);
+            showErrorMessage("Fehler beim einlesen aus der Datenbank überprüfen Sie ihre Internetverbindung.", "Verbindungsfehler", ErrorType.CONNECTION);
         }
         return null;
     }
@@ -38,11 +38,11 @@ public class HomeModel extends Model {
         hide();
         changeScene(games[currIndex]);
         show();
-        //try {
-        normalUser.recordChanges(game, saveState);
-      /*  } catch (SQLException e) {
-            System.err.println("Failed to save game");
-        }*/
+        try {
+            normalUser.recordChanges(game, saveState);
+        } catch (SQLException e) {
+            showErrorMessage("Fehler beim einlesen aus der Datenbank überprüfen Sie ihre Internetverbindung.", "Verbindungsfehler", ErrorType.CONNECTION);
+        }
     }
 
     void changeGame(int indexOffset) {
@@ -62,7 +62,7 @@ public class HomeModel extends Model {
 
     public void showShop() {
         hide();
-        changeScene(new ShopModel());
+        changeScene(new ShopModel(normalUser));
         show();
     }
 }

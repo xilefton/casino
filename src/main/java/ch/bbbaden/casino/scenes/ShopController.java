@@ -4,20 +4,22 @@ import ch.bbbaden.casino.Controller;
 import ch.bbbaden.casino.Model;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 
 public class ShopController implements Controller {
-    public Spinner spinner_value;
+    public Spinner<Integer> spinner_value;
     public Label coins;
     private ShopModel shopModel;
 
     @Override
     public void update() {
-        shopModel.getCoins();
+        coins.setText(String.valueOf(shopModel.getCoins()));
     }
 
     @Override
     public void initialize(Model model) {
         shopModel = (ShopModel) model;
+        spinner_value.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 10000));
         update();
     }
 
@@ -29,7 +31,7 @@ public class ShopController implements Controller {
         if (spinner_value.getValue().equals(0)) {
             spinner_value.requestFocus();
         } else {
-            shopModel.buy((int) spinner_value.getValue());
+            shopModel.buy(spinner_value.getValue());
         }
     }
 }

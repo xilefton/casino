@@ -10,7 +10,7 @@
         <URL value="@../styles/BasicStyle.css" />
         <URL value="@../styles/ErrorStyle.css" />
     </stylesheets>
-    <Label fx:id="errorMessage" alignment="CENTER" layoutX="5.0" layoutY="4.0" prefHeight="130.0" prefWidth="250.0" text="Fehler" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" wrapText="true" />
+    <Label fx:id="errorMessage" alignment="CENTER" layoutX="5.0" layoutY="4.0" prefHeight="130.0" prefWidth="250.0" text="Fehler" textAlignment="CENTER" wrapText="true" />
     <ButtonBar fx:id="buttonBar" layoutX="5.0" layoutY="137.0" prefHeight="40.0" prefWidth="250.0">
         <buttons>
         </buttons>
