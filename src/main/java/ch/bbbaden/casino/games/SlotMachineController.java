@@ -4,13 +4,14 @@ import ch.bbbaden.casino.Controller;
 import ch.bbbaden.casino.Model;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import java.io.InputStream;
 
+import java.io.File;
 import java.sql.SQLException;
 
 public class SlotMachineController implements Controller {
@@ -33,7 +34,6 @@ public class SlotMachineController implements Controller {
     public ImageView firstFruitRow;
     public ImageView secondFruitRow;
     public ImageView thirdFruitRow;
-    public HBox hBoxScrollBars;
     public Label coins;
     public Button addCoins;
     public Button plusCoins;
@@ -41,19 +41,18 @@ public class SlotMachineController implements Controller {
     public Label riskLabel;
     public Label winLabel;
     public Label addCoinsLabel;
+    public static Label firstRowLabel;
+    public static Label secondRowLabel;
+    public static Label thirdRowLabel;
     private SlotMachineModel slotMachineModel;
     private int inputCoins = 0;
     private  int gameCoins;
 
-    public SlotMachineController(int gameCoins) {
-        this.gameCoins = gameCoins;
-    }
-
     public void update() {
-        coins.setText(slotMachineModel.getCoins()); 
+        coins.setText(slotMachineModel.getCoins());
+        addCoinsLabel.setText(Integer.toString(inputCoins));
+        winLabel.setText(Integer.toString(gameCoins));
     }
-    private void updateInputCoins() { addCoinsLabel.setText(Integer.toString(inputCoins)); }
-    private  void updateGameCoins() {winLabel.setText(Integer.toString(gameCoins));}
 
     public void initialize(Model model) {
         stopButton.setDisable(true);
@@ -64,33 +63,35 @@ public class SlotMachineController implements Controller {
         minusCoins.setDisable(true);
         plusCoins.setDisable(false);
         slotMachineModel = (SlotMachineModel) model;
+
+        /*firstRowLabel.setGraphic(firstFruitRow);
+        secondRowLabel.setGraphic(secondFruitRow);
+        thirdRowLabel.setGraphic(thirdFruitRow);*/
         update();
-        Image fruit1 = new Image(getClass().getResourceAsStream("../images/supercherry/BELL.png"));
-        firstFruitRow = new ImageView(fruit1);
-        Image fruit2 = new Image(getClass().getResourceAsStream("../images/supercherry/LEMON.png"));
-        firstFruitRow = new ImageView(fruit2);
-        Image fruit3 = new Image(getClass().getResourceAsStream("../images/supercherry/MELON.png"));
-        firstFruitRow = new ImageView(fruit3);
+
+        File file = new File("src/main/resources/images/supercherry/fruits/BELL.png");
+        Image image = new Image(file.toURI().toString());
+        firstFruitRow.setImage(image);
+
     }
+
+
     public void plusCoins(MouseEvent mouseEvent) throws SQLException {
         minusCoins.setDisable(false);
         addCoins.setDisable(false);
         if (Integer.parseInt(slotMachineModel.getCoins()) >= 0) {
             inputCoins += 1;
-            int coins = Integer.parseInt(slotMachineModel.getCoins()) - 1;
-            slotMachineModel.updateCoins(coins, false);
-            updateInputCoins();
+            slotMachineModel.updateCoins(-1, false);
             update();
         } else {
            plusCoins.setDisable(true);
+           update();
         }
     }
     public void minusCoins(MouseEvent mouseEvent) throws SQLException {
         if (inputCoins >= 0) {
             inputCoins -= 1;
-            int coins = Integer.parseInt(slotMachineModel.getCoins()) + 1;
-            slotMachineModel.updateCoins(coins, false);
-            updateInputCoins();
+            slotMachineModel.updateCoins(+1, false);
             update();
         } else {
             minusCoins.setDisable(true);
@@ -106,13 +107,9 @@ public class SlotMachineController implements Controller {
         minusCoins.setDisable(true);
         gameCoins = inputCoins;
         inputCoins = 0;
-        updateInputCoins();
-        updateGameCoins();
         update();
     }
-    public void stopButton(MouseEvent mouseEvent) {
-       slotMachineModel.play();
-    }
+    public void stopButton(MouseEvent mouseEvent) { slotMachineModel.spinFruits();}
     public void mysteryButton(MouseEvent mouseEvent) { }
     public void gambleButton(MouseEvent mouseEvent) { }
     public void betButton(MouseEvent mouseEvent) { }

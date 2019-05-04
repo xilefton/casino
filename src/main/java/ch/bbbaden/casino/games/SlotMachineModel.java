@@ -25,26 +25,26 @@ public class SlotMachineModel extends Game {
             System.err.println(e);
         } return null;
     }
-    public void updateCoins(int coins, boolean purchased) throws SQLException {
-        normalUser.addCoins(coins, purchased);
-    }
-    public void play() {
-        Image[] images = new Image[8];
-        ImageView[] pics = new ImageView[8];
-        final String[] imageNames = new String[]{"../images/supercherry/fruits/BELL.png", "../images/supercherry/fruits/CHERRY.png",
-                "../images/supercherry/fruits/GRAPES.png", "../images/supercherry/fruits/LEMON.png", "../images/supercherry/fruits/MELON.png",
-                "../images/supercherry/fruits/PEACH.png", "../images/supercherry/fruits/POTATO.png", "../images/supercherry/fruits/STAR.png",
-                "../images/supercherry/fruits/STRAWBERRY.png"};
-
-        for (int i = 0; i < 8; i++) {
-            images[i] = new Image(getClass().getResourceAsStream(imageNames[i]));
-            pics[i] = new ImageView(images[i]);
-            pics[i].setFitWidth(100);
-            pics[i].setPreserveRatio(true);
-            /*hBoxScrollBars.getChildren().add(pics[i]);
-            firstScrollPane.setContent(hBoxScrollBars);
-            secondScrollPane.setContent(hBoxScrollBars);
-            thirdScrollPane.setContent(hBoxScrollBars);*/
+    public void updateCoins(int coins, boolean purchased)  {
+        try {
+            normalUser.addCoins(coins, purchased);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+    }
+    public static void spinFruits() {
+
+        SlotMachineRow firstRow = new SlotMachineRow(SlotMachineController.firstRowLabel);
+        Thread firstThread = new Thread(firstRow);
+        firstThread.start();
+
+        SlotMachineRow secondRow = new SlotMachineRow(SlotMachineController.secondRowLabel);
+        Thread secondThread = new Thread(secondRow);
+        secondThread.start();
+
+        SlotMachineRow thirdRow = new SlotMachineRow(SlotMachineController.thirdRowLabel);
+        Thread thirdThread = new Thread(thirdRow);
+        thirdThread.start();
+
     }
 }
