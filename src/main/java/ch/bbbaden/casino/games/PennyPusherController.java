@@ -26,6 +26,7 @@ public class PennyPusherController implements Controller {
     public Button btn_slot3;
     public Button btn_push;
     public AnchorPane anchorPane;
+    public Label label_profit;
 
     private Image[] coinImages = new Image[]{
             new Image("/images/pennypusher/coin_none.png"), new Image("/images/pennypusher/coin_stack1.png"),
@@ -71,6 +72,7 @@ public class PennyPusherController implements Controller {
         // coins.setText(pennyPusherModel.getCoins());
         animateFieldChanges();
         updateField(pennyPusherModel.getField());
+        label_profit.setText(Integer.toString(pennyPusherModel.getRoundProfit()));
         btn_push.setDisable(pennyPusherModel.isBtn_push_disabled());
         btn_slot1.setDisable(pennyPusherModel.isBtn_slot1_disabled());
         btn_slot2.setDisable(pennyPusherModel.isBtn_slot2_disabled());

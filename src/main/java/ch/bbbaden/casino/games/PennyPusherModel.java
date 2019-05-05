@@ -1,11 +1,12 @@
 package ch.bbbaden.casino.games;
 
-import ch.bbbaden.casino.Model;
+import ch.bbbaden.casino.NormalUser;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class PennyPusherModel extends Model {
+public class PennyPusherModel extends Game {
 
     private int[][] field = new int[6][13];
     private boolean btn_push_disabled = true;
@@ -14,9 +15,10 @@ public class PennyPusherModel extends Model {
     private boolean btn_slot3_disabled = false;
     private Random rnd = new Random();
     private ArrayList<FieldChange> fieldChanges = new ArrayList<>();
+    private int roundProfit;
 
-    public PennyPusherModel() {
-        super("/fxml/PennyPusher.fxml", "Penny Pusher", true);
+    public PennyPusherModel(NormalUser normalUser) {
+        super("/fxml/PennyPusher.fxml", "Penny Pusher", "/images/pennypusher_logo.png", normalUser);
         generateField();
     }
 
@@ -26,6 +28,10 @@ public class PennyPusherModel extends Model {
                 field[i][j] = rnd.nextInt(6);
             }
         }
+    }
+
+    int getRoundProfit() {
+        return roundProfit;
     }
 
     boolean isBtn_push_disabled() {
@@ -44,7 +50,7 @@ public class PennyPusherModel extends Model {
         return btn_slot3_disabled;
     }
 
-    /*public String getCoins() {
+    public String getCoins() {
         try {
             return Integer.toString(getNormalUser().getCoins());
         } catch (SQLException e) {
@@ -52,14 +58,13 @@ public class PennyPusherModel extends Model {
         }
         return null;
     }
-      */
 
     void slot1() {
-       /* try {
-            //getNormalUser().addCoins(-1, false);
+        try {
+            getNormalUser().addCoins(-1, false);
         } catch (SQLException e) {
             e.printStackTrace();
-        } */
+        }
         field[rnd.nextInt(1)][rnd.nextInt(4)]++;
         btn_push_disabled = false;
         btn_slot1_disabled = true;
@@ -67,14 +72,14 @@ public class PennyPusherModel extends Model {
     }
 
     void slot2() {
-        /*
+
         try {
-           // getNormalUser().addCoins(-1, false);
+            getNormalUser().addCoins(-1, false);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-         */
+
         field[rnd.nextInt(1)][4 + rnd.nextInt(4)]++;
         btn_push_disabled = false;
         btn_slot2_disabled = true;
@@ -82,13 +87,13 @@ public class PennyPusherModel extends Model {
     }
 
     void slot3() {
-        /*
+
         try {
             getNormalUser().addCoins(-1, false);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-         */
+
         field[0][8 + rnd.nextInt(4)]++;
         btn_push_disabled = false;
         btn_slot3_disabled = true;
@@ -101,6 +106,13 @@ public class PennyPusherModel extends Model {
         btn_slot2_disabled = true;
         btn_slot3_disabled = true;
         notifyController();
+
+        int beforeRound = 0;
+        try {
+            beforeRound = getNormalUser().getCoins();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         for (int i = 0; i < field[0].length; i++) {
             field[1][i] += field[0][i];
@@ -142,12 +154,12 @@ public class PennyPusherModel extends Model {
                         }
                     } else {
                         if (i + 1 >= 6) {
-                           /* try {
+                            try {
                                 getNormalUser().addCoins(1, false);
                             } catch (SQLException e) {
                                 e.printStackTrace();
                             }
-                            */
+
                         } else
                             field[i + 1][j]++;
                         fieldChange.setEndX(j);
@@ -157,7 +169,17 @@ public class PennyPusherModel extends Model {
                 }
             }
         }
-        cleanup();
+
+        try {
+            cleanup();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            roundProfit = beforeRound - getNormalUser().getCoins();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         btn_slot1_disabled = false;
         btn_slot2_disabled = false;
@@ -165,7 +187,7 @@ public class PennyPusherModel extends Model {
         notifyController();
     }
 
-    private void cleanup() {
+    private void cleanup() throws SQLException {
         //in case there are too many coins on one field they get cleaned up
         for (int i = 0; i < field.length; i++) {
             for (int j = 0; j < field[i].length; j++) {
@@ -178,9 +200,8 @@ public class PennyPusherModel extends Model {
                         field[i + 1][j] += field[i][j] - 6;
                         fieldChange.setEndX(j);
                         fieldChange.setEndY(i + 1);
-                    }
+                    } else getNormalUser().addCoins(1, false);
                     fieldChanges.add(fieldChange);
-                    //else getNormalUser().addCoins(1, false);
                 }
             }
         }
