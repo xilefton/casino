@@ -16,7 +16,7 @@ public class BaccaratModel extends Game {
     private Card card;
     private ArrayList<Card> cards = new ArrayList();
     private Random random = new Random();
-    private int selectedBet, pointsPlayer, pointsThirdPlayer, pointsCroupier;
+    private int selectedBet, pointsPlayer, pointsThirdPlayer, pointsCroupier, i = 1;
     private boolean forPlayer = true;
 
     public BaccaratModel(NormalUser normalUser) {
