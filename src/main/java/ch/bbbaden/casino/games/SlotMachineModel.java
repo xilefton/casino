@@ -11,6 +11,9 @@ import java.sql.SQLException;
 public class SlotMachineModel extends Game {
 
     private NormalUser normalUser;
+    private static  SlotMachineRow firstRow, secondRow, thirdRow;
+    private static String urlOfFirstImage, urlOfSecondImage, urlOfThirdImage;
+    private static Thread firstThread, secondThread, thirdThread;
 
     public SlotMachineModel(NormalUser normalUser) {
         super("/fxml/SlotMachine.fxml", "Super Cherry", "/images/SuperCherry_Logo.png", normalUser);
@@ -34,17 +37,25 @@ public class SlotMachineModel extends Game {
     }
     public static void spinFruits() {
 
-        SlotMachineRow firstRow = new SlotMachineRow(SlotMachineController.firstRowLabel);
-        Thread firstThread = new Thread(firstRow);
+        firstRow = new SlotMachineRow(SlotMachineController.firstFruitRow);
+        firstThread = new Thread(firstRow);
         firstThread.start();
 
-        SlotMachineRow secondRow = new SlotMachineRow(SlotMachineController.secondRowLabel);
-        Thread secondThread = new Thread(secondRow);
+        secondRow = new SlotMachineRow(SlotMachineController.secondFruitRow);
+        secondThread = new Thread(secondRow);
         secondThread.start();
 
-        SlotMachineRow thirdRow = new SlotMachineRow(SlotMachineController.thirdRowLabel);
-        Thread thirdThread = new Thread(thirdRow);
+        thirdRow = new SlotMachineRow(SlotMachineController.thirdFruitRow);
+        thirdThread = new Thread(thirdRow);
         thirdThread.start();
 
+    }
+    public static void stopSpinning() {
+        firstThread.stop();
+        secondThread.stop();
+        thirdThread.stop();
+        urlOfFirstImage=firstRow.getUrlOfImage();
+        urlOfSecondImage=secondRow.getUrlOfImage();
+        urlOfThirdImage=thirdRow.getUrlOfImage();
     }
 }

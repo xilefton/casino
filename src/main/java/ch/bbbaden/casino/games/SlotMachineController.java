@@ -13,6 +13,7 @@ import java.io.InputStream;
 
 import java.io.File;
 import java.sql.SQLException;
+import java.util.concurrent.Delayed;
 
 public class SlotMachineController implements Controller {
 
@@ -31,9 +32,9 @@ public class SlotMachineController implements Controller {
     public ImageView TwoFactorLight;
     public ImageView ThreeFactorLight;
     public ImageView FiveFactorLight;
-    public ImageView firstFruitRow;
-    public ImageView secondFruitRow;
-    public ImageView thirdFruitRow;
+    public static ImageView firstFruitRow;
+    public static ImageView secondFruitRow;
+    public static ImageView thirdFruitRow;
     public Label coins;
     public Button addCoins;
     public Button plusCoins;
@@ -44,6 +45,9 @@ public class SlotMachineController implements Controller {
     public static Label firstRowLabel;
     public static Label secondRowLabel;
     public static Label thirdRowLabel;
+    public ImageView firstFruitRowImage;
+    public ImageView secondFruitRowImage;
+    public ImageView thirdFruitRowImage;
     private SlotMachineModel slotMachineModel;
     private int inputCoins = 0;
     private  int gameCoins;
@@ -64,14 +68,16 @@ public class SlotMachineController implements Controller {
         plusCoins.setDisable(false);
         slotMachineModel = (SlotMachineModel) model;
 
-        /*firstRowLabel.setGraphic(firstFruitRow);
-        secondRowLabel.setGraphic(secondFruitRow);
-        thirdRowLabel.setGraphic(thirdFruitRow);*/
+        String urlOfImage = SlotMachineRow.getRandomFruit();
+        File file = new File(urlOfImage);
+        Image image = new Image(file.toURI().toString());
+        thirdFruitRowImage.setImage(image);
+        System.out.println(urlOfImage);
         update();
 
-        File file = new File("src/main/resources/images/supercherry/fruits/BELL.png");
+        /*File file = new File("src/main/resources/images/supercherry/fruits/BELL.png");
         Image image = new Image(file.toURI().toString());
-        firstFruitRow.setImage(image);
+        firstFruitRowImage.setImage(image);*/
 
     }
 
@@ -89,7 +95,7 @@ public class SlotMachineController implements Controller {
         }
     }
     public void minusCoins(MouseEvent mouseEvent) throws SQLException {
-        if (inputCoins >= 0) {
+        if (inputCoins >= 1) {
             inputCoins -= 1;
             slotMachineModel.updateCoins(+1, false);
             update();
@@ -109,7 +115,22 @@ public class SlotMachineController implements Controller {
         inputCoins = 0;
         update();
     }
-    public void stopButton(MouseEvent mouseEvent) { slotMachineModel.spinFruits();}
+    public void stopButton(MouseEvent mouseEvent) {
+        addCoins.setDisable(true);
+        gambleButton.setDisable(true);
+        mysteryButton.setDisable(true);
+        stopButton.setDisable(true);
+        betButton.setDisable(true);
+        plusCoins.setDisable(true);
+        minusCoins.setDisable(true);
+        SlotMachineModel.spinFruits();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        SlotMachineModel.stopSpinning();
+    }
     public void mysteryButton(MouseEvent mouseEvent) { }
     public void gambleButton(MouseEvent mouseEvent) { }
     public void betButton(MouseEvent mouseEvent) { }

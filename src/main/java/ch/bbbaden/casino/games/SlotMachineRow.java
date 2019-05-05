@@ -10,39 +10,40 @@ import java.util.ArrayList;
 
 public class SlotMachineRow implements Runnable {
 
-    private String urlOfImage;
-    private int randomNumber;
-    private Label label;
+    private static int randomNumber;
+    private static String urlOfImage;
+    private ImageView imageView;
 
-    public SlotMachineRow(Label label) {
-        this.label = label;
+    public SlotMachineRow(ImageView imageView) {
+        this.imageView = imageView;
     }
     @Override
     public void run() {
         while (true) {
             Platform.runLater(() -> {
-                ImageView imageView = new ImageView(getRandomFruit());
+                getRandomFruit();
+                //Image image = new Image(getRandomFruit().toURI().toString());
+                //ImageView imageView = new ImageView(image);
+                //File file = new File(urlOfImage);
+                //imageView.setImage(new Image(getRandomFruit().toURI().toString()));
+                //imageView = new ImageView(image);
                 //label.setGraphic(imageView);
                 /*File file = new File(urlOfImage);
                 Image image = new Image(file.toURI().toString());*/
                 System.out.println(urlOfImage);
-                //imageView = new ImageView(image);
             });
             try { Thread.sleep(70);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-
 }
-    public Image getRandomFruit() {
+    public static String getRandomFruit() {
         ArrayList<Fruits> fruitsArray;
         fruitsArray = SlotMachineRow.spin();
         randomNumber = (int) (Math.random() * 9);
         urlOfImage = (fruitsArray.get(randomNumber).getImage());
-        File file = new File(urlOfImage);
-        Image image = new Image(file.toURI().toString());
-        return image;
+        return urlOfImage;
     }
     private static ArrayList<Fruits> fruitsArray = new ArrayList<>();
 

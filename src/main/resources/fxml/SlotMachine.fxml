@@ -28,6 +28,12 @@
         </ImageView>
         <ImageView fx:id="thirdFruitRow" fitHeight="116.0" fitWidth="71.0" layoutX="521.0" layoutY="480.0" pickOnBounds="true" preserveRatio="true">
         </ImageView>
+        <ImageView fx:id="firstFruitRowImage" fitHeight="116.0" fitWidth="71.0" layoutX="320.0" layoutY="480.0" pickOnBounds="true" preserveRatio="true">
+        </ImageView>
+        <ImageView fx:id="secondFruitRowImage" fitHeight="116.0" fitWidth="74.0" layoutX="420.0" layoutY="480.0" pickOnBounds="true" preserveRatio="true">
+        </ImageView>
+        <ImageView fx:id="thirdFruitRowImage" fitHeight="116.0" fitWidth="71.0" layoutX="521.0" layoutY="480.0" pickOnBounds="true" preserveRatio="true">
+        </ImageView>
         <ImageView fitHeight="150.0" fitWidth="398.0" layoutX="307.0" layoutY="468.0" pickOnBounds="true"
                    preserveRatio="true">
             <Image url="@../images/supercherry/WIN_LINE.png"/>
