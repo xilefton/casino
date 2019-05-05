@@ -1,6 +1,6 @@
 package ch.bbbaden.casino;
 
-import ch.bbbaden.casino.scenes.StartModel;
+import ch.bbbaden.casino.games.PennyPusherModel;
 import javafx.application.Application;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -14,6 +14,6 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) {
         Font.loadFont(getClass().getResourceAsStream("/fonts/casino.ttf"), 20);
-        new ModelManager(stage).setModel(new StartModel());
+        new ModelManager(stage).setModel(new PennyPusherModel());
     }
 }
