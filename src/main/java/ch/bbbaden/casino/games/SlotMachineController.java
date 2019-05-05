@@ -118,20 +118,15 @@ public class SlotMachineController implements Controller {
     public void stopButton(MouseEvent mouseEvent) {
         addCoins.setDisable(true);
         gambleButton.setDisable(true);
-        mysteryButton.setDisable(true);
+        mysteryButton.setDisable(false);
         stopButton.setDisable(true);
         betButton.setDisable(true);
         plusCoins.setDisable(true);
         minusCoins.setDisable(true);
         SlotMachineModel.spinFruits();
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        SlotMachineModel.stopSpinning();
+        System.out.println(SlotMachineModel.calculateWin());
     }
-    public void mysteryButton(MouseEvent mouseEvent) { }
+    public void mysteryButton(MouseEvent mouseEvent) { SlotMachineModel.stopSpinning();}
     public void gambleButton(MouseEvent mouseEvent) { }
     public void betButton(MouseEvent mouseEvent) { }
 }

@@ -32,10 +32,6 @@ public class SlotMachineRow implements Runnable {
                 Image image = new Image(file.toURI().toString());*/
                 System.out.println(urlOfImage);
             });
-            try { Thread.sleep(70);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
 }
     public static String getRandomFruit() {
