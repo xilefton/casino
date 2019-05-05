@@ -52,6 +52,7 @@ public class SlotMachineController implements Controller {
     private int inputCoins = 0;
     private  int gameCoins;
 
+
     public void update() {
         coins.setText(slotMachineModel.getCoins());
         addCoinsLabel.setText(Integer.toString(inputCoins));
@@ -128,6 +129,7 @@ public class SlotMachineController implements Controller {
     }
     public void mysteryButton(MouseEvent mouseEvent) { SlotMachineModel.stopSpinning();}
     public void gambleButton(MouseEvent mouseEvent) { }
-    public void betButton(MouseEvent mouseEvent) { }
+    public void betButton(MouseEvent mouseEvent) { SlotMachineModel.bet();}
 }
+
 

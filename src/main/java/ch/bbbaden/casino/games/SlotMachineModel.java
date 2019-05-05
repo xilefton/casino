@@ -15,9 +15,12 @@ public class SlotMachineModel extends Game {
     private static String urlOfFirstImage, urlOfSecondImage, urlOfThirdImage;
     private static Thread firstThread, secondThread, thirdThread;
     private static int winFactor;
-    private int randomNumber;
     private String threeStarWin;
     private int mysteryFactor;
+    private static boolean win = false;
+    private static String betFactor;
+    private static int bet = 1;
+    private static int betCoins;
 
     public SlotMachineModel(NormalUser normalUser) {
         super("/fxml/SlotMachine.fxml", "Super Cherry", "/images/SuperCherry_Logo.png", normalUser);
@@ -101,37 +104,63 @@ public class SlotMachineModel extends Game {
         return winFactor;
     }
     public void gamble() {
-        randomNumber = (int) (Math.random() * 2);
+        int randomNumber = (int) (Math.random() * 2);
         if(randomNumber == 1) {
             winFactor = 4;
         } else {
             winFactor = 0;
         }
     }
+    public static void bet() {
+        if(win) {
+            betCoins++;
+        } else {
+            switch (bet) {
+                case 1:
+                    bet++;
+                    betFactor = "1x";
+                    break;
+                case 2:
+                    bet++;
+                    betFactor = "2x";
+                    break;
+                case 3:
+                    bet++;
+                    betFactor = "5x";
+                    break;
+                case 4:
+                    bet++;
+                    betFactor = "10x";
+                    break;
+                case 5:
+                    bet++;
+                    betFactor = "20x";
+                    break;
+                case 6:
+                    bet = 0;
+                    betFactor = "50x";
+                    break;
+            }
+        }
+    }
     public int mystery() {
-        randomNumber = (int) (Math.random() * 2);
-        if(randomNumber == 1) {
-            randomNumber = (int) (Math.random() * 30);
+        int rN = (int) (Math.random() * 2);
+        int randomNumber = (int) (Math.random() * 30);
+        if(rN == 1) {
             if (randomNumber <= 15) {
             mysteryFactor = 2;
-            } else if (randomNumber >= 16 && randomNumber <= 25) {
+            } else if (randomNumber <= 25) {
                 mysteryFactor = 3;
-            } else if (randomNumber >= 26) {
+            } else if (randomNumber <= 30) {
                 mysteryFactor = 5;
             }
         } else {
             mysteryFactor = 0;
         } return mysteryFactor;
     }
-    public void bet(Boolean win) {
-        if(win) {
 
-        } else {
-
-        }
-    }
     public String threeStarWin() {
-        randomNumber = (int) (Math.random() * 5);
+        int randomNumber = (int) (Math.random() * 5);
         switch (randomNumber) {
             case 1:
                 threeStarWin = "FruitStop";
