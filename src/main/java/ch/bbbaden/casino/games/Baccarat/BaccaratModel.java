@@ -2,7 +2,9 @@ package ch.bbbaden.casino.games.Baccarat;
 
 import ch.bbbaden.casino.NormalUser;
 import ch.bbbaden.casino.games.Game;
+import javafx.scene.image.Image;
 
+import javax.swing.text.html.ImageView;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -10,11 +12,12 @@ import java.util.Random;
 public class BaccaratModel extends Game {
 
     private NormalUser normalUser;
-    private int selectedBet, cardsValue;
     private Deck deck = new Deck();
     private Card card;
     private ArrayList<Card> cards = new ArrayList();
     private Random random = new Random();
+    private int selectedBet, pointsPlayer, pointsThirdPlayer, pointsCroupier;
+    private boolean forPlayer = true;
 
     public BaccaratModel(NormalUser normalUser) {
         super("/fxml/Baccarat.fxml", "Baccarat by Felix", "/images/Baccarat_Logo.png", normalUser);
@@ -32,16 +35,144 @@ public class BaccaratModel extends Game {
 
     public void updateCoins(int selectedBet, boolean purchased) throws SQLException {
         this.selectedBet = selectedBet;
-        normalUser.addCoins(this.selectedBet, purchased);
+        normalUser.addCoins(-this.selectedBet, purchased);
     }
 
     public void createDeck() {
         cards = deck.createDeck();
     }
 
-    public String getRandomCard() {
+    public String getRandomCard(boolean thirdPlayerCard) {
         card = cards.get(random.nextInt(cards.size()));
         cards.remove(card);
+
+        if (thirdPlayerCard) {
+            pointsThirdPlayer = card.getPoints();
+        }
+
+        if (forPlayer) {
+            pointsPlayer += card.getPoints();
+            if (pointsPlayer >= 10) {
+                pointsPlayer -= 10;
+            }
+            forPlayer = false;
+        } else {
+            pointsCroupier += card.getPoints();
+            if (pointsCroupier >= 10) {
+                pointsCroupier -= 10;
+            }
+            forPlayer = true;
+        }
+
+        System.out.println("points you: " + pointsPlayer + " " + "points croupier: " + pointsCroupier);
+        System.out.println();
+
         return card.getImagePath();
+    }
+
+    public boolean checkPlayerThird() {
+        if (pointsPlayer <= 5) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean checkCroupierThird() {
+        switch (pointsCroupier) {
+            case 0:
+                return true;
+            case 1:
+                return true;
+            case 2:
+                return true;
+            case 3:
+                if (pointsThirdPlayer != 8) {
+                    return true;
+                } else {
+                    return false;
+                }
+            case 4:
+                if (pointsThirdPlayer > 1 && pointsThirdPlayer < 8) {
+                    return true;
+                } else {
+                    return false;
+                }
+            case 5:
+                if (pointsThirdPlayer > 3 && pointsThirdPlayer < 8) {
+                    return true;
+                } else {
+                    return false;
+                }
+            case 6:
+                if (pointsThirdPlayer == 6 | pointsThirdPlayer == 7) {
+                    return true;
+                } else {
+                    return false;
+                }
+            case 7:
+                return false;
+        }
+        return false;
+    }
+
+    public boolean check5() {
+        if (pointsPlayer == 5) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean check89() {
+        if (pointsPlayer == 8 | pointsCroupier == 8) {
+            return true;
+        } else if (pointsPlayer == 9 | pointsCroupier == 9) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean checkWon() {
+        if (pointsPlayer - 9 > pointsCroupier - 9) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean checkDraw() {
+        if (pointsPlayer - 9 == pointsCroupier - 9) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void getResult(boolean blackJack, boolean win, boolean draw) {
+        pointsPlayer = 0;
+        pointsCroupier = 0;
+        pointsThirdPlayer = 0;
+        try {
+            if (blackJack) {
+                double coinsWon = selectedBet * 1.5;
+                normalUser.addCoins((int) coinsWon, false);
+            } else if (win) {
+                normalUser.addCoins(selectedBet * 2, false);
+            } else if (draw) {
+                normalUser.addCoins(selectedBet, false);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int getRemainingCards() {
+        return cards.size();
+    }
+
+    public void setForPlayer(boolean forPlayer) {
+        this.forPlayer = forPlayer;
     }
 }

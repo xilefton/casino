@@ -16,36 +16,36 @@
     <children>
         <ImageView fx:id="firstYou" fitHeight="150.0" fitWidth="100.0" layoutX="293.0" layoutY="381.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../images/baccarat/emptyCard.png" />
+                <Image url="@../images/baccarat/backCard.png" />
             </image>
         </ImageView>
         <ImageView fx:id="secondYou" fitHeight="150.0" fitWidth="100.0" layoutX="451.0" layoutY="396.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../images/baccarat/emptyCard.png" />
+                <Image url="@../images/baccarat/backCard.png" />
             </image>
         </ImageView>
         <ImageView fx:id="thirdYou" fitHeight="150.0" fitWidth="100.0" layoutX="576.0" layoutY="381.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../images/baccarat/emptyCard.png" />
+                <Image url="@../images/baccarat/backCard.png" />
             </image>
         </ImageView>
         <ImageView fx:id="firstCroupier" fitHeight="150.0" fitWidth="100.0" layoutX="321.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../images/baccarat/emptyCard.png" />
+                <Image url="@../images/baccarat/backCard.png" />
             </image>
         </ImageView>
         <ImageView fx:id="secondCroupier" fitHeight="150.0" fitWidth="100.0" layoutX="451.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../images/baccarat/emptyCard.png" />
+                <Image url="@../images/baccarat/backCard.png" />
             </image>
         </ImageView>
         <ImageView fx:id="thirdCroupier" fitHeight="150.0" fitWidth="100.0" layoutX="567.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../images/baccarat/emptyCard.png" />
+                <Image url="@../images/baccarat/backCard.png" />
             </image>
         </ImageView>
         <Button fx:id="draw" disable="true" layoutX="298.0" layoutY="264.0" mnemonicParsing="false" onAction="#draw" text="Ziehen" />
-        <Button fx:id="end" disable="true" layoutX="430.0" layoutY="264.0" mnemonicParsing="false" onAction="#endTurn" text="Zug beenden" />
+        <Button fx:id="newTurn" disable="true" layoutX="430.0" layoutY="264.0" mnemonicParsing="false" onAction="#newTurn" text="Neu " />
         <ImageView fitHeight="57.0" fitWidth="53.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../images/coin.png" />
@@ -56,6 +56,8 @@
         <ComboBox fx:id="comboBox" layoutX="31.0" layoutY="206.0" prefWidth="150.0" />
         <Button fx:id="bet" layoutX="63.0" layoutY="264.0" mnemonicParsing="false" onAction="#bet" text="Setzen" />
       <Button fx:id="newDeck" disable="true" layoutX="608.0" layoutY="264.0" mnemonicParsing="false" onAction="#newDeck" text="Neues Deck" />
-      <Label fx:id="result" layoutX="465.0" layoutY="325.0" text="Label" visible="false" />
+      <Label fx:id="result" alignment="CENTER" contentDisplay="CENTER" layoutX="347.0" layoutY="322.0" prefHeight="30.0" prefWidth="307.0" textAlignment="CENTER" visible="false" />
+      <Label layoutX="779.0" layoutY="43.0" text="Karten übrig im Deck" />
+      <Label fx:id="remainingCards" layoutX="849.0" layoutY="81.0" text="cards" />
     </children>
 </AnchorPane>
