@@ -1,0 +1,7 @@
+#AnchorPaneBaccarat {
+    -fx-background-image: url("../images/baccarat/background_baccarat.jpg");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 1000 560;
+    -fx-background-position: center center;
+    -fx-border-width: 0;
+}
