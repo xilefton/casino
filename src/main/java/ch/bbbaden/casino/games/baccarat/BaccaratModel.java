@@ -1,7 +1,10 @@
-package ch.bbbaden.casino.games.Baccarat;
+package ch.bbbaden.casino.games.baccarat;
 
+import ch.bbbaden.casino.CoinChangeReason;
 import ch.bbbaden.casino.NormalUser;
 import ch.bbbaden.casino.games.Game;
+import ch.bbbaden.casino.scenes.ErrorType;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -18,22 +21,26 @@ public class BaccaratModel extends Game {
     private boolean forPlayer = true;
 
     public BaccaratModel(NormalUser normalUser) {
-        super("/fxml/Baccarat.fxml", "Baccarat by Felix", "/images/Baccarat_Logo.png", normalUser);
+        super("/fxml/Baccarat.fxml", "baccarat by Felix", "/images/Baccarat_Logo.png", normalUser, "Baccarat");
         this.normalUser = normalUser;
     }
 
     public String getCoins() {
         try {
-            return Integer.toString(normalUser.getCoins());
+            return Long.toString(normalUser.getCoins());
         } catch (SQLException e) {
             System.err.println(e);
         }
         return null;
     }
 
-    public void updateCoins(int selectedBet, boolean purchased) throws SQLException {
+    public void updateCoins(int selectedBet, CoinChangeReason coinChangeReason) {
         this.selectedBet = selectedBet;
-        normalUser.addCoins(-this.selectedBet, purchased);
+        try {
+            normalUser.changeCoins(selectedBet, coinChangeReason);
+        } catch (SQLException e) {
+            showErrorMessage("Fehler beim Zugriff auf die Datenbank, bitte überprüfen Sie ihre Internetverbindung und versuchen Sie es später erneut: " + e.getLocalizedMessage(), "Verbindungsfehler", ErrorType.CONNECTION);
+        }
     }
 
     public void createDeck() {
@@ -149,16 +156,16 @@ public class BaccaratModel extends Game {
         try {
             if (check89() && blackjack) {
                 coinsWon = selectedBet * 2.5;
-                normalUser.addCoins((int) coinsWon, false);
+                normalUser.changeCoins((int) coinsWon, CoinChangeReason.PLAYER_WIN_OR_LOSS);
             } else if (checkWon()) {
                 coinsWon = selectedBet * 2;
-                normalUser.addCoins((int) coinsWon, false);
+                normalUser.changeCoins((int) coinsWon, CoinChangeReason.PLAYER_WIN_OR_LOSS);
             } else if (checkDraw()) {
                 coinsWon = selectedBet;
-                normalUser.addCoins((int) coinsWon, false);
+                normalUser.changeCoins((int) coinsWon, CoinChangeReason.PLAYER_WIN_OR_LOSS);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            showErrorMessage("Fehler beim Zugriff auf die Datenbank, bitte überprüfen Sie ihre Internetverbindung und versuchen Sie es später erneut: " + e.getLocalizedMessage(), "Verbindungsfehler", ErrorType.CONNECTION);
         }
     }
 

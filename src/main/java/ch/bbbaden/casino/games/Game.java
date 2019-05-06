@@ -9,7 +9,7 @@ public class Game extends Model {
     private Image image;
     private String name;
 
-    Game(String fxmlDocument, String windowTitle, String imagePath, NormalUser normalUser, String name) {
+    public Game(String fxmlDocument, String windowTitle, String imagePath, NormalUser normalUser, String name) {
         super(fxmlDocument, windowTitle, false);
         this.image = new Image(imagePath);
         this.normalUser = normalUser;

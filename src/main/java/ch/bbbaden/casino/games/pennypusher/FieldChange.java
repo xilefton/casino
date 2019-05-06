@@ -1,4 +1,4 @@
-package ch.bbbaden.casino.games;
+package ch.bbbaden.casino.games.pennypusher;
 
 public class FieldChange {
     private int startX;

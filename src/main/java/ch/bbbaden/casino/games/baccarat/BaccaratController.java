@@ -1,5 +1,6 @@
-package ch.bbbaden.casino.games.Baccarat;
+package ch.bbbaden.casino.games.baccarat;
 
+import ch.bbbaden.casino.CoinChangeReason;
 import ch.bbbaden.casino.Controller;
 import ch.bbbaden.casino.Model;
 import javafx.event.ActionEvent;
@@ -8,8 +9,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
-import java.sql.SQLException;
 
 public class BaccaratController implements Controller {
 
@@ -64,11 +63,7 @@ public class BaccaratController implements Controller {
             bet.setDisable(true);
             newDeck.setDisable(true);
             draw.setDisable(false);
-            try {
-                baccaratModel.updateCoins(Integer.parseInt(selectedBet), false);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            baccaratModel.updateCoins(Integer.parseInt(selectedBet), CoinChangeReason.PLAYER_BET);
         } else {
             //TO-DO
             //pop-up error

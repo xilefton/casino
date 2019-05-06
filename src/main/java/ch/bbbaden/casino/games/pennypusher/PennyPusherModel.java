@@ -1,26 +1,27 @@
-package ch.bbbaden.casino.games;
+package ch.bbbaden.casino.games.pennypusher;
 
-import ch.bbbaden.casino.Model;
+import ch.bbbaden.casino.CoinChangeReason;
+import ch.bbbaden.casino.NormalUser;
+import ch.bbbaden.casino.games.Game;
+import ch.bbbaden.casino.scenes.ErrorType;
 
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Random;
 
-public class PennyPusherModel extends Model {
+public class PennyPusherModel extends Game {
 
     private int[][] field = new int[6][13];
-    private int[][] animationField = new int[6][13];
     private boolean btn_push_disabled = true;
     private boolean btn_slot1_disabled = false;
     private boolean btn_slot2_disabled = false;
     private boolean btn_slot3_disabled = false;
     private Random rnd = new Random();
     private HashSet<FieldChange> fieldChanges = new HashSet<>(20);
-    private int roundProfit;
+    private long roundProfit;
 
-    public PennyPusherModel() {
-        //super("/fxml/PennyPusher.fxml", "Penny Pusher", "/images/pennypusher_logo.png", normalUser);
-        super("/fxml/PennyPusher.fxml", "Penny Pusher", true);
+    public PennyPusherModel(NormalUser normalUser) {
+        super("/fxml/PennyPusher.fxml", "Penny Pusher", "/images/pennypusher_logo.png", normalUser, "pennypusher");
         generateField();
     }
 
@@ -32,7 +33,7 @@ public class PennyPusherModel extends Model {
         }
     }
 
-    int getRoundProfit() {
+    long getRoundProfit() {
         return roundProfit;
     }
 
@@ -53,21 +54,20 @@ public class PennyPusherModel extends Model {
     }
 
     public String getCoins() {
-        /*try {
-            return Integer.toString(getNormalUser().getCoins());
+        try {
+            return Long.toString(getNormalUser().getCoins());
         } catch (SQLException e) {
-            System.err.println(e);
+            showErrorMessage("Fehler beim Zugriff auf die Datenbank, bitte überprüfen Sie ihre Internetverbindung und versuchen Sie es später erneut: " + e.getLocalizedMessage(), "Verbindungsfehler", ErrorType.CONNECTION);
         }
-         */
         return null;
     }
 
     void slot1() {
-        /*try {
-            getNormalUser().addCoins(-1, false);
+        try {
+            getNormalUser().changeCoins(1, CoinChangeReason.PLAYER_BET);
         } catch (SQLException e) {
-            e.printStackTrace();
-        }*/
+            showErrorMessage("Fehler beim Zugriff auf die Datenbank, bitte überprüfen Sie ihre Internetverbindung und versuchen Sie es später erneut: " + e.getLocalizedMessage(), "Verbindungsfehler", ErrorType.CONNECTION);
+        }
         field[rnd.nextInt(1)][rnd.nextInt(4)]++;
         btn_push_disabled = false;
         btn_slot1_disabled = true;
@@ -76,12 +76,11 @@ public class PennyPusherModel extends Model {
 
     void slot2() {
 
-        /*try {
-            getNormalUser().addCoins(-1, false);
+        try {
+            getNormalUser().changeCoins(1, CoinChangeReason.PLAYER_BET);
         } catch (SQLException e) {
-            e.printStackTrace();
+            showErrorMessage("Fehler beim Zugriff auf die Datenbank, bitte überprüfen Sie ihre Internetverbindung und versuchen Sie es später erneut: " + e.getLocalizedMessage(), "Verbindungsfehler", ErrorType.CONNECTION);
         }
-         */
 
 
         field[rnd.nextInt(1)][4 + rnd.nextInt(4)]++;
@@ -92,13 +91,11 @@ public class PennyPusherModel extends Model {
 
     void slot3() {
 
-       /* try {
-            getNormalUser().addCoins(-1, false);
+        try {
+            getNormalUser().changeCoins(1, CoinChangeReason.PLAYER_BET);
         } catch (SQLException e) {
-            e.printStackTrace();
+            showErrorMessage("Fehler beim Zugriff auf die Datenbank, bitte überprüfen Sie ihre Internetverbindung und versuchen Sie es später erneut: " + e.getLocalizedMessage(), "Verbindungsfehler", ErrorType.CONNECTION);
         }
-
-        */
 
         field[0][8 + rnd.nextInt(4)]++;
         btn_push_disabled = false;
@@ -113,15 +110,14 @@ public class PennyPusherModel extends Model {
         btn_slot3_disabled = true;
         notifyController();
 
-        int beforeRound = 0;
-        /*try {
+        fieldChanges.clear();
+        long beforeRound = 0;
+
+        try {
             beforeRound = getNormalUser().getCoins();
         } catch (SQLException e) {
-            e.printStackTrace();
+            showErrorMessage("Fehler beim Zugriff auf die Datenbank, bitte überprüfen Sie ihre Internetverbindung und versuchen Sie es später erneut: " + e.getLocalizedMessage(), "Verbindungsfehler", ErrorType.CONNECTION);
         }
-         */
-
-        animationField = field;
 
         for (int i = 0; i < field[0].length; i++) {
             if (field[0][i] > 0) {
@@ -134,7 +130,6 @@ public class PennyPusherModel extends Model {
             }
             field[1][i] += field[0][i];
             field[0][i] = 0;
-            animationField[0][i] = 0;
         }
 
         for (int i = 1; i < field.length; i++) {
@@ -152,8 +147,6 @@ public class PennyPusherModel extends Model {
                     FieldChange fieldChange = new FieldChange();
                     fieldChange.setStartX(j);
                     fieldChange.setStartY(i);
-                    if (animationField[i][j] > 0)
-                        animationField[i][j]--;
                     if (field[i][j] > 0)
                         field[i][j]--;
 
@@ -178,25 +171,20 @@ public class PennyPusherModel extends Model {
                                 fieldChange.setEndY(i);
                                 fieldChanges.add(fieldChange);
                             } else {
-                                                        /*
-                            try {
-                                getNormalUser().addCoins(1, false);
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            }
-                             */
+                                try {
+                                    getNormalUser().changeCoins(1, CoinChangeReason.PLAYER_WIN_OR_LOSS);
+                                } catch (SQLException e) {
+                                    showErrorMessage("Fehler beim Zugriff auf die Datenbank, bitte überprüfen Sie ihre Internetverbindung und versuchen Sie es später erneut: " + e.getLocalizedMessage(), "Verbindungsfehler", ErrorType.CONNECTION);
+                                }
                             }
                         }
                     } else {
                         if (i + 1 >= 6) {
-                            /*
                             try {
-                                getNormalUser().addCoins(1, false);
+                                getNormalUser().changeCoins(1, CoinChangeReason.PLAYER_WIN_OR_LOSS);
                             } catch (SQLException e) {
-                                e.printStackTrace();
+                                showErrorMessage("Fehler beim Zugriff auf die Datenbank, bitte überprüfen Sie ihre Internetverbindung und versuchen Sie es später erneut: " + e.getLocalizedMessage(), "Verbindungsfehler", ErrorType.CONNECTION);
                             }
-                             */
-
                         } else {
                             field[i + 1][j]++;
                             fieldChange.setEndX(j);
@@ -208,17 +196,13 @@ public class PennyPusherModel extends Model {
             }
         }
 
+        cleanup();
+
         try {
-            cleanup();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        /*try {
             roundProfit = beforeRound - getNormalUser().getCoins();
         } catch (SQLException e) {
-            e.printStackTrace();
+            showErrorMessage("Fehler beim Zugriff auf die Datenbank, bitte überprüfen Sie ihre Internetverbindung und versuchen Sie es später erneut: " + e.getLocalizedMessage(), "Verbindungsfehler", ErrorType.CONNECTION);
         }
-         */
 
         btn_slot1_disabled = false;
         btn_slot2_disabled = false;
@@ -227,10 +211,10 @@ public class PennyPusherModel extends Model {
         fieldChanges.clear();
     }
 
-    private void cleanup() throws SQLException {
+    private void cleanup() {
         //in case there are too many coins on one field they get cleaned up
         for (int i = 0; i < field.length; i++) {
-            HashSet<FieldChange> fieldChanges = new HashSet<>();
+            fieldChanges.clear();
             for (int j = 0; j < field[i].length; j++) {
                 if (field[i][j] > 6) {
                     FieldChange fieldChange = new FieldChange();
@@ -242,7 +226,13 @@ public class PennyPusherModel extends Model {
                         fieldChange.setEndX(j);
                         fieldChange.setEndY(i + 1);
                         fieldChanges.add(fieldChange);
-                    } //else getNormalUser().addCoins(1, false);
+                    } else {
+                        try {
+                            getNormalUser().changeCoins(1, CoinChangeReason.PLAYER_WIN_OR_LOSS);
+                        } catch (SQLException e) {
+                            showErrorMessage("Fehler beim Zugriff auf die Datenbank, bitte überprüfen Sie ihre Internetverbindung und versuchen Sie es später erneut: " + e.getLocalizedMessage(), "Verbindungsfehler", ErrorType.CONNECTION);
+                        }
+                    }
                 }
             }
         }
@@ -252,7 +242,7 @@ public class PennyPusherModel extends Model {
         return field;
     }
 
-    public HashSet<FieldChange> getFieldChanges() {
+    HashSet<FieldChange> getFieldChanges() {
         return fieldChanges;
     }
 }

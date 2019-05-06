@@ -1,4 +1,4 @@
-package ch.bbbaden.casino.games;
+package ch.bbbaden.casino.games.pennypusher;
 
 import ch.bbbaden.casino.Controller;
 import ch.bbbaden.casino.Model;
@@ -52,14 +52,14 @@ public class PennyPusherController implements Controller {
 
     private ImageView getFieldImageView(final int row, final int column) {
         ImageView result = null;
-        ObservableList<ImageView> childrens = FXCollections.observableArrayList();
+        ObservableList<ImageView> children = FXCollections.observableArrayList();
         for (Node node : field.getChildren()) {
             if (node instanceof ImageView) {
-                childrens.add((ImageView) node);
+                children.add((ImageView) node);
             }
         }
 
-        for (javafx.scene.image.ImageView label : childrens) {
+        for (javafx.scene.image.ImageView label : children) {
             if (GridPane.getRowIndex(label) == row && GridPane.getColumnIndex(label) == column) {
                 result = label;
                 break;
@@ -70,9 +70,9 @@ public class PennyPusherController implements Controller {
     }
 
     public void update() {
-        // coins.setText(pennyPusherModel.getCoins());
+        coins.setText(pennyPusherModel.getCoins());
         animateChanges();
-        label_profit.setText(Integer.toString(pennyPusherModel.getRoundProfit()));
+        label_profit.setText(Long.toString(pennyPusherModel.getRoundProfit()));
         btn_push.setDisable(pennyPusherModel.isBtn_push_disabled());
         btn_slot1.setDisable(pennyPusherModel.isBtn_slot1_disabled());
         btn_slot2.setDisable(pennyPusherModel.isBtn_slot2_disabled());
@@ -80,17 +80,6 @@ public class PennyPusherController implements Controller {
     }
 
     private void animateChanges() {
-
-        ImageView imageView1 = getFieldImageView(0, 0);
-        Bounds bounds1 = imageView1.getBoundsInLocal();
-        Bounds screenBounds1 = imageView1.localToScreen(bounds1);
-
-        ImageView imageView2 = getFieldImageView(1, 1);
-        Bounds bounds2 = imageView2.getBoundsInLocal();
-        Bounds screenBounds2 = imageView2.localToScreen(bounds2);
-
-        //final double rowOffset = bounds2.getMinY() - bounds1.getMinY();
-        //final double columnOffset = bounds2.getMinX() - bounds1.getMinX();
 
         final double rowOffset = 42;
         final double columnOffset = 70;
@@ -110,9 +99,6 @@ public class PennyPusherController implements Controller {
             ImageView startImageView = getFieldImageView(fieldChange.getStartY(), fieldChange.getStartX());
             Bounds startBounds = startImageView.getBoundsInLocal();
             Bounds startScreenBounds = startImageView.localToScreen(startBounds);
-
-            Bounds startBounds1 = field.getBoundsInLocal();
-            Bounds startScreenBounds1 = field.localToScreen(startBounds1);
 
             TranslateTransition coinMove = new TranslateTransition();
             coinMove.setFromX(startScreenBounds.getMinX() - 520);

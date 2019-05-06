@@ -1,4 +1,4 @@
-package ch.bbbaden.casino.games.Baccarat;
+package ch.bbbaden.casino.games.baccarat;
 
 import java.util.ArrayList;
 
