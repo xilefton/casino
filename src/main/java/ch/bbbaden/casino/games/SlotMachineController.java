@@ -40,7 +40,7 @@ public class SlotMachineController implements Controller {
     public Button plusCoins;
     public Button minusCoins;
     public Label riskLabel;
-    public Label winLabel;
+    public Label gameCoinsLabel;
     public Label addCoinsLabel;
     public static Label firstRowLabel;
     public static Label secondRowLabel;
@@ -48,45 +48,44 @@ public class SlotMachineController implements Controller {
     public ImageView firstFruitRowImage;
     public ImageView secondFruitRowImage;
     public ImageView thirdFruitRowImage;
+    public Label betFactorLabel;
+    public Label betCoinsLabel;
     private SlotMachineModel slotMachineModel;
     private int inputCoins = 0;
-    private  int gameCoins;
+    private  int gameCoins = 0;
 
 
     public void update() {
         coins.setText(slotMachineModel.getCoins());
         addCoinsLabel.setText(Integer.toString(inputCoins));
-        winLabel.setText(Integer.toString(gameCoins));
+        gameCoinsLabel.setText(Integer.toString(gameCoins));
+        betFactorLabel.setText(SlotMachineModel.getBetFactor());
+        betCoinsLabel.setText((Integer.toString(SlotMachineModel.getBetCoins())));
+        riskLabel.setText(Integer.toString(SlotMachineModel.getWinFactor()));
     }
 
     public void initialize(Model model) {
+        slotMachineModel = (SlotMachineModel) model;
+        update();
         stopButton.setDisable(true);
-        addCoins.setDisable(true);
+        mysteryButton.setDisable(true);
         betButton.setDisable(true);
         gambleButton.setDisable(true);
-        mysteryButton.setDisable(true);
+        stopButton.setImage(SlotMachineModel.setButtonImage("src/main/resources/images/supercherry/buttons/stop/BUTTON_STOP_INACTIVE.png"));
+        mysteryButton.setImage(SlotMachineModel.setButtonImage("src/main/resources/images/supercherry/buttons/mystery/BUTTON_MYSTERY_INACTIVE.png"));
+        betButton.setImage(SlotMachineModel.setButtonImage("src/main/resources/images/supercherry/buttons/bet/BUTTON_BET_INACTIVE.png"));
+        gambleButton.setImage(SlotMachineModel.setButtonImage("src/main/resources/images/supercherry/buttons/gamble/BUTTON_GAMBLE_INACTIVE.png"));
+        addCoins.setDisable(true);
         minusCoins.setDisable(true);
         plusCoins.setDisable(false);
-        slotMachineModel = (SlotMachineModel) model;
-
-        String urlOfImage = SlotMachineRow.getRandomFruit();
-        File file = new File(urlOfImage);
-        Image image = new Image(file.toURI().toString());
-        thirdFruitRowImage.setImage(image);
-        System.out.println(urlOfImage);
-        update();
-
-        /*File file = new File("src/main/resources/images/supercherry/fruits/BELL.png");
-        Image image = new Image(file.toURI().toString());
-        firstFruitRowImage.setImage(image);*/
-
+        firstFruitRowImage.setImage(SlotMachineModel.setButtonImage("src/main/resources/images/supercherry/fruits/MELON.png"));
+        secondFruitRowImage.setImage(SlotMachineModel.setButtonImage("src/main/resources/images/supercherry/fruits/STAR.png"));
+        thirdFruitRowImage.setImage(SlotMachineModel.setButtonImage("src/main/resources/images/supercherry/fruits/PEACH.png"));
     }
-
-
-    public void plusCoins(MouseEvent mouseEvent) throws SQLException {
+    public void plusCoins(MouseEvent mouseEvent) {
         minusCoins.setDisable(false);
         addCoins.setDisable(false);
-        if (Integer.parseInt(slotMachineModel.getCoins()) >= 0) {
+        if (Integer.parseInt(slotMachineModel.getCoins()) >= 1) {
             inputCoins += 1;
             slotMachineModel.updateCoins(-1, false);
             update();
@@ -99,6 +98,7 @@ public class SlotMachineController implements Controller {
         if (inputCoins >= 1) {
             inputCoins -= 1;
             slotMachineModel.updateCoins(+1, false);
+            plusCoins.setDisable(false);
             update();
         } else {
             minusCoins.setDisable(true);
@@ -108,27 +108,32 @@ public class SlotMachineController implements Controller {
         addCoins.setDisable(true);
         gambleButton.setDisable(true);
         mysteryButton.setDisable(true);
-        stopButton.setDisable(false);
         betButton.setDisable(false);
+        betButton.setImage(SlotMachineModel.setButtonImage("src/main/resources/images/supercherry/buttons/bet/BUTTON_BET_ACTIVE.png"));
         plusCoins.setDisable(false);
         minusCoins.setDisable(true);
-        gameCoins = inputCoins;
+        gameCoins += inputCoins;
+        if(gameCoins > 0) {
+            stopButton.setDisable(false);
+            stopButton.setImage(SlotMachineModel.setButtonImage("src/main/resources/images/supercherry/buttons/stop/BUTTON_STOP_ACTIVE.png"));
+        }
         inputCoins = 0;
         update();
     }
     public void stopButton(MouseEvent mouseEvent) {
         addCoins.setDisable(true);
-        gambleButton.setDisable(true);
+        gambleButton.setDisable(false);
+        gambleButton.setImage(SlotMachineModel.setButtonImage("src/main/resources/images/supercherry/buttons/gamble/BUTTON_GAMBLE_ACTIVE.png"));
         mysteryButton.setDisable(false);
-        stopButton.setDisable(true);
-        betButton.setDisable(true);
+        mysteryButton.setImage(SlotMachineModel.setButtonImage("src/main/resources/images/supercherry/buttons/mystery/BUTTON_MYSTERY_ACTIVE.png"));
+        stopButton.setDisable(false);
+        betButton.setDisable(false);
         plusCoins.setDisable(true);
         minusCoins.setDisable(true);
         SlotMachineModel.spinFruits();
-        System.out.println(SlotMachineModel.calculateWin());
     }
-    public void mysteryButton(MouseEvent mouseEvent) { SlotMachineModel.stopSpinning();}
-    public void gambleButton(MouseEvent mouseEvent) { }
+    public void mysteryButton(MouseEvent mouseEvent) { SlotMachineModel.mystery();}
+    public void gambleButton(MouseEvent mouseEvent) { SlotMachineModel.gamble();}
     public void betButton(MouseEvent mouseEvent) { SlotMachineModel.bet();}
 }
 

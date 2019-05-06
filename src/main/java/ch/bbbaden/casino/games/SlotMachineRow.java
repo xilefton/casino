@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 public class SlotMachineRow implements Runnable {
 
-    private static int randomNumber;
     private static String urlOfImage;
     private ImageView imageView;
 
@@ -21,23 +20,18 @@ public class SlotMachineRow implements Runnable {
     public void run() {
         while (true) {
             Platform.runLater(() -> {
-                getRandomFruit();
-                //Image image = new Image(getRandomFruit().toURI().toString());
-                //ImageView imageView = new ImageView(image);
-                //File file = new File(urlOfImage);
-                //imageView.setImage(new Image(getRandomFruit().toURI().toString()));
-                //imageView = new ImageView(image);
-                //label.setGraphic(imageView);
-                /*File file = new File(urlOfImage);
-                Image image = new Image(file.toURI().toString());*/
-                System.out.println(urlOfImage);
+                System.out.println(getRandomFruit());
             });
+            try { Thread.sleep(70);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-}
+    }
     public static String getRandomFruit() {
         ArrayList<Fruits> fruitsArray;
         fruitsArray = SlotMachineRow.spin();
-        randomNumber = (int) (Math.random() * 9);
+        int randomNumber = (int) (Math.random() * 9);
         urlOfImage = (fruitsArray.get(randomNumber).getImage());
         return urlOfImage;
     }
@@ -56,6 +50,5 @@ public class SlotMachineRow implements Runnable {
         fruitsArray.add(new Fruits("STRAWBERRY", 1));
         return fruitsArray;
     }
-    public int getRandomNumber() { return randomNumber; }
     public String getUrlOfImage() { return urlOfImage; }
 }

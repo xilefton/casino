@@ -5,6 +5,8 @@ import ch.bbbaden.casino.NormalUser;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.io.File;
+import java.net.MalformedURLException;
 import java.sql.SQLException;
 
 
@@ -15,12 +17,12 @@ public class SlotMachineModel extends Game {
     private static String urlOfFirstImage, urlOfSecondImage, urlOfThirdImage;
     private static Thread firstThread, secondThread, thirdThread;
     private static int winFactor;
-    private String threeStarWin;
-    private int mysteryFactor;
+    private static String threeStarWin;
     private static boolean win = false;
     private static String betFactor;
     private static int bet = 1;
     private static int betCoins;
+    private static Image buttonImage;
 
     public SlotMachineModel(NormalUser normalUser) {
         super("/fxml/SlotMachine.fxml", "Super Cherry", "/images/SuperCherry_Logo.png", normalUser);
@@ -66,11 +68,26 @@ public class SlotMachineModel extends Game {
         urlOfThirdImage=thirdRow.getUrlOfImage();
         calculateWin();
     }
-    public static int calculateWin() {
+    private static void calculateWin() {
         if(urlOfFirstImage.equals(urlOfSecondImage) && urlOfFirstImage.equals((urlOfThirdImage))) {
             switch (urlOfFirstImage) {
                 case "/src/main/resources/images/supercherry/fruits/STAR.png":
-                    winFactor = 100;
+                    String selectWin = threeStarWin();
+                    switch (selectWin) {
+                        case "FruitStop":
+                            winFactor = 100;
+                            break;
+                        case "2xShuffle":
+                            winFactor = 101;
+                        case "4xShuffle":
+                            winFactor = 102;
+                            break;
+                        case "10x":
+                            winFactor = 103;
+                        case "CherryCollect":
+                            winFactor = 104;
+                            break;
+                    }
                     break;
                 case "/src/main/resources/images/supercherry/fruits/BELL.png":
                     winFactor = 50;
@@ -101,9 +118,8 @@ public class SlotMachineModel extends Game {
                 winFactor = 1;
             }
         } else winFactor = 0;
-        return winFactor;
     }
-    public void gamble() {
+    public static void gamble() {
         int randomNumber = (int) (Math.random() * 2);
         if(randomNumber == 1) {
             winFactor = 4;
@@ -143,23 +159,27 @@ public class SlotMachineModel extends Game {
             }
         }
     }
-    public int mystery() {
+    public static String getBetFactor() {return betFactor;}
+    public static int getBetCoins() {return betCoins;}
+    public static int getWinFactor() {return winFactor;}
+
+    public static void mystery() {
         int rN = (int) (Math.random() * 2);
         int randomNumber = (int) (Math.random() * 30);
         if(rN == 1) {
             if (randomNumber <= 15) {
-            mysteryFactor = 2;
+            winFactor = 2;
             } else if (randomNumber <= 25) {
-                mysteryFactor = 3;
+                winFactor = 3;
             } else if (randomNumber <= 30) {
-                mysteryFactor = 5;
+                winFactor = 5;
             }
         } else {
-            mysteryFactor = 0;
-        } return mysteryFactor;
+            winFactor = 0;
+        }
     }
 
-    public String threeStarWin() {
+    public static String threeStarWin() {
         int randomNumber = (int) (Math.random() * 5);
         switch (randomNumber) {
             case 1:
@@ -178,5 +198,14 @@ public class SlotMachineModel extends Game {
                 threeStarWin = "CherryCollect";
                 break;
         } return threeStarWin;
+    }
+    public static Image setButtonImage(String path) {
+        File file = new File(path);
+        try {
+            buttonImage = new Image(file.toURL().toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return buttonImage;
     }
 }
