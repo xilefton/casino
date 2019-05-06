@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="754.0" prefWidth="1412.0" style="-fx-background-color: red;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.bbbaden.casino.games.PennyPusherController">
+<AnchorPane id="#AnchorPane" fx:id="anchorPane" prefHeight="454.0" prefWidth="1012.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.bbbaden.casino.games.PennyPusherController">
     <stylesheets>
         <URL value="@../styles/BasicStyle.css" />
         <URL value="@../styles/PennyPusherStyle.css" />
@@ -19,7 +19,7 @@
     <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="89.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
         <Image url="@../images/pennypusher_logo.png" />
     </ImageView>
-    <GridPane fx:id="field" gridLinesVisible="true" layoutX="299.0" layoutY="70.0" prefHeight="378.0" prefWidth="708.0" style="-fx-background-color: green;">
+    <GridPane fx:id="field" layoutX="299.0" layoutY="70.0" prefHeight="378.0" prefWidth="708.0" style="-fx-background-color: green;">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -56,5 +56,5 @@
          <Font size="53.0" />
       </font></Button>
    <Label layoutX="17.0" layoutY="156.0" text="Profit letzte Runde:" />
-   <Label fx:id="label_profit" layoutX="189.0" layoutY="156.0" prefHeight="30.0" prefWidth="100.0" text="Profit" />
+   <Label fx:id="label_profit" layoutX="210.0" layoutY="152.0" prefHeight="30.0" prefWidth="100.0" text="Profit" />
 </AnchorPane>

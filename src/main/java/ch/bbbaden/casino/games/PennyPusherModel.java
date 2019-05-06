@@ -3,28 +3,25 @@ package ch.bbbaden.casino.games;
 import ch.bbbaden.casino.Model;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
 
 public class PennyPusherModel extends Model {
 
     private int[][] field = new int[6][13];
+    private int[][] animationField = new int[6][13];
     private boolean btn_push_disabled = true;
     private boolean btn_slot1_disabled = false;
     private boolean btn_slot2_disabled = false;
     private boolean btn_slot3_disabled = false;
     private Random rnd = new Random();
-    private HashSet<HashSet<FieldChange>> fieldChanges = new HashSet<>();
+    private HashSet<FieldChange> fieldChanges = new HashSet<>(20);
     private int roundProfit;
 
     public PennyPusherModel() {
         //super("/fxml/PennyPusher.fxml", "Penny Pusher", "/images/pennypusher_logo.png", normalUser);
         super("/fxml/PennyPusher.fxml", "Penny Pusher", true);
         generateField();
-        for (HashSet<FieldChange> array : fieldChanges) {
-            array = new HashSet<>();
-        }
     }
 
     private void generateField() {
@@ -124,9 +121,20 @@ public class PennyPusherModel extends Model {
         }
          */
 
+        animationField = field;
+
         for (int i = 0; i < field[0].length; i++) {
+            if (field[0][i] > 0) {
+                FieldChange fieldChange = new FieldChange();
+                fieldChange.setStartX(i);
+                fieldChange.setEndX(i);
+                fieldChange.setStartY(0);
+                fieldChange.setEndY(1);
+                fieldChanges.add(fieldChange);
+            }
             field[1][i] += field[0][i];
             field[0][i] = 0;
+            animationField[0][i] = 0;
         }
 
         for (int i = 1; i < field.length; i++) {
@@ -144,23 +152,40 @@ public class PennyPusherModel extends Model {
                     FieldChange fieldChange = new FieldChange();
                     fieldChange.setStartX(j);
                     fieldChange.setStartY(i);
-                    field[i][j]--;
+                    if (animationField[i][j] > 0)
+                        animationField[i][j]--;
+                    if (field[i][j] > 0)
+                        field[i][j]--;
+
                     int direction = rnd.nextInt(6);
                     if (direction == 0) {
                         fieldChange.setEndX(j);
                         fieldChange.setEndY(i - 1);
                         field[i - 1][j]++;
+                        fieldChanges.add(fieldChange);
                     } else if (direction <= 2) {
                         if (rnd.nextBoolean()) {
-                            if (j - 1 >= 0)
+                            if (j - 1 >= 0) {
                                 field[i][j - 1]++;
-                            fieldChange.setEndX(j);
-                            fieldChange.setEndY(i - 1);
+                                fieldChange.setEndX(j);
+                                fieldChange.setEndY(i - 1);
+                                fieldChanges.add(fieldChange);
+                            }
                         } else {
-                            if (j + 1 < 13)
+                            if (j + 1 < 13) {
                                 field[i][j + 1]++;
-                            fieldChange.setEndX(j + 1);
-                            fieldChange.setEndY(i);
+                                fieldChange.setEndX(j + 1);
+                                fieldChange.setEndY(i);
+                                fieldChanges.add(fieldChange);
+                            } else {
+                                                        /*
+                            try {
+                                getNormalUser().addCoins(1, false);
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
+                             */
+                            }
                         }
                     } else {
                         if (i + 1 >= 6) {
@@ -172,10 +197,12 @@ public class PennyPusherModel extends Model {
                             }
                              */
 
-                        } else
+                        } else {
                             field[i + 1][j]++;
-                        fieldChange.setEndX(j);
-                        fieldChange.setEndY(i + 1);
+                            fieldChange.setEndX(j);
+                            fieldChange.setEndY(i + 1);
+                            fieldChanges.add(fieldChange);
+                        }
                     }
                 }
             }
@@ -197,14 +224,16 @@ public class PennyPusherModel extends Model {
         btn_slot2_disabled = false;
         btn_slot3_disabled = false;
         notifyController();
+        fieldChanges.clear();
     }
 
     private void cleanup() throws SQLException {
         //in case there are too many coins on one field they get cleaned up
         for (int i = 0; i < field.length; i++) {
+            HashSet<FieldChange> fieldChanges = new HashSet<>();
             for (int j = 0; j < field[i].length; j++) {
                 if (field[i][j] > 6) {
-                    HashSet<FieldChange> fieldChange = new FieldChange();
+                    FieldChange fieldChange = new FieldChange();
                     field[i][j] = 6;
                     fieldChange.setStartX(j);
                     fieldChange.setStartY(i);
@@ -212,18 +241,18 @@ public class PennyPusherModel extends Model {
                         field[i + 1][j] += field[i][j] - 6;
                         fieldChange.setEndX(j);
                         fieldChange.setEndY(i + 1);
+                        fieldChanges.add(fieldChange);
                     } //else getNormalUser().addCoins(1, false);
-                    fieldChanges.add(fieldChange);
                 }
             }
         }
     }
 
-    ArrayList<HashSet<FieldChange>> getFieldChanges() {
-        return fieldChanges;
-    }
-
     int[][] getField() {
         return field;
+    }
+
+    public HashSet<FieldChange> getFieldChanges() {
+        return fieldChanges;
     }
 }
