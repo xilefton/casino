@@ -14,7 +14,7 @@ public class MainApp extends Application {
     }
 
     @Override
-    public void start(Stage stage) throws SQLException {
+    public void start(Stage stage) {
         Font.loadFont(getClass().getResourceAsStream("/fonts/casino.ttf"), 20);
         new ModelManager(stage).setModel(new StartModel());
     }

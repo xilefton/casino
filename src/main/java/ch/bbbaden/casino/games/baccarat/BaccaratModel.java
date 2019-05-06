@@ -194,4 +194,8 @@ public class BaccaratModel extends Game {
         pointsCroupier = 0;
         pointsThirdPlayer = 0;
     }
+
+    public void showMessage(String message, String title) {
+        showErrorMessage(message, title, ErrorType.NOTIFICATION);
+    }
 }
