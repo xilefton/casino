@@ -22,7 +22,7 @@
             <Image url="@../images/roulette/roulette-Feld-V2.png" />
          </image>
       </ImageView>
-      <GridPane fx:id="gridPane" layoutX="379.0" layoutY="247.0" prefHeight="228.0" prefWidth="435.0">
+      <GridPane fx:id="gridPane" layoutX="379.0" layoutY="247.0" prefHeight="176.0" prefWidth="406.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="32.00001831054688" minWidth="27.0" prefWidth="28.266680908203124" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="6.666644287109374" minWidth="2.3999816894531207" prefWidth="6.133319091796874" />
@@ -47,7 +47,6 @@
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="25.0" minWidth="25.0" prefWidth="25.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="3.0" minWidth="7.0" prefWidth="3.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="30.400048828125023" minWidth="20.800012207031273" prefWidth="21.333398437500023" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="31.199987792968727" minWidth="21.599951171874977" prefWidth="30.666601562499977" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="50.0" minHeight="52.0" prefHeight="50.0" vgrow="SOMETIMES" />
@@ -56,9 +55,20 @@
             <RowConstraints maxHeight="3.0" minHeight="9.0" prefHeight="3.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="48.0" minHeight="48.0" prefHeight="48.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="18.133325195312494" minHeight="8.866674804687506" prefHeight="8.866674804687506" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="24.5333251953125" minHeight="15.4666748046875" prefHeight="24.5333251953125" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="106.40000915527344" minHeight="10.0" prefHeight="28.400006103515636" vgrow="SOMETIMES" />
         </rowConstraints>
+         <children>
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="0.0" prefHeight="11.0" prefWidth="9.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="0.0" prefHeight="11.0" prefWidth="9.0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="0.0" prefHeight="11.0" prefWidth="9.0" GridPane.columnIndex="5" GridPane.rowIndex="5" />
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="0.0" prefHeight="11.0" prefWidth="9.0" GridPane.columnIndex="7" GridPane.rowIndex="5" />
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="0.0" prefHeight="11.0" prefWidth="9.0" GridPane.columnIndex="9" GridPane.rowIndex="5" />
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="0.0" prefHeight="11.0" prefWidth="9.0" GridPane.columnIndex="11" GridPane.rowIndex="5" />
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="0.0" prefHeight="11.0" prefWidth="9.0" GridPane.columnIndex="13" GridPane.rowIndex="5" />
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="0.0" prefHeight="11.0" prefWidth="9.0" GridPane.columnIndex="15" GridPane.rowIndex="5" />
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="0.0" prefHeight="11.0" prefWidth="9.0" GridPane.columnIndex="17" GridPane.rowIndex="5" />
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="0.0" prefHeight="11.0" prefWidth="9.0" GridPane.columnIndex="19" GridPane.rowIndex="5" />
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="0.0" prefHeight="11.0" prefWidth="9.0" GridPane.columnIndex="21" GridPane.rowIndex="5" />
+         </children>
       </GridPane>
       <Label fx:id="anzeige_geldbetrag" layoutX="302.0" layoutY="98.0" prefHeight="32.0" prefWidth="250.0" text=" Ihr Geldbetrag:" textFill="WHITE">
          <font>
@@ -90,12 +100,12 @@
             <Image url="@../images/roulette/drehen-button.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="entfernenimageview" fitHeight="66.0" fitWidth="186.0" layoutX="479.0" layoutY="16.0" onMouseClicked="#handleEntfernen" onMouseEntered="#entfenter" onMouseExited="#entfexit" onMousePressed="#handleentpressing" onMouseReleased="#handleentrelease" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="entfernenimageview" fitHeight="66.0" fitWidth="186.0" layoutX="479.0" layoutY="16.0" onMouseEntered="#entfenter" onMouseExited="#entfexit" onMousePressed="#handleentpressing" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/roulette/entfernen-button.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="abbrechenimageview" fitHeight="144.0" fitWidth="232.0" layoutX="663.0" layoutY="15.0" onMouseClicked="#abbrechen_onClick" onMouseEntered="#abbenter" onMouseExited="#abbexit" onMousePressed="#handlepressing" onMouseReleased="#handlerelease" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="abbrechenimageview" fitHeight="144.0" fitWidth="232.0" layoutX="663.0" layoutY="15.0" onMouseClicked="#abbrechen_onClick" onMouseEntered="#abbenter" onMouseExited="#abbexit" onMousePressed="#handlepressing" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/roulette/abbrechen-button.png" />
          </image>
@@ -105,7 +115,7 @@
             <Image url="@../images/roulette/jetons-100.png" />
          </image>
       </ImageView>
-      <Button fx:id="btn_block" layoutX="717.0" layoutY="80.0" mnemonicParsing="false" prefHeight="161.0" prefWidth="170.0" style="-fx-background-color: none;" />
+      <Button fx:id="btn_block" layoutX="717.0" layoutY="81.0" mnemonicParsing="false" prefHeight="161.0" prefWidth="170.0" style="-fx-background-color: none;" />
       <Button layoutX="655.0" layoutY="81.0" mnemonicParsing="false" prefHeight="92.0" prefWidth="133.0" style="-fx-background-color: none;" />
       <ImageView fx:id="rotaterad" fitHeight="242.0" fitWidth="250.0" layoutX="38.0" layoutY="234.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -129,5 +139,17 @@
       </Label>
       <Button fx:id="buttonzero" layoutX="349.0" layoutY="332.0" mnemonicParsing="false" onAction="#buttonzero" prefHeight="83.0" prefWidth="31.0" style="-fx-background-color: none;" />
       <Button fx:id="buttonzerozero" layoutX="348.0" layoutY="251.0" mnemonicParsing="false" onAction="#buttonzerozero" prefHeight="82.0" prefWidth="34.0" style="-fx-background-color: none;" />
+      <Button layoutX="384.0" layoutY="421.0" mnemonicParsing="false" onAction="#onActionFirst" opacity="0.0" prefHeight="8.0" prefWidth="130.0" text="Button" />
+      <Button layoutX="517.0" layoutY="421.0" mnemonicParsing="false" onAction="#onActionSecond" opacity="0.0" prefHeight="8.0" prefWidth="130.0" text="Button" />
+      <Button layoutX="651.0" layoutY="421.0" mnemonicParsing="false" onAction="#onActionThird" opacity="0.0" prefHeight="8.0" prefWidth="130.0" text="Button" />
+      <Button layoutX="518.0" layoutY="448.0" mnemonicParsing="false" onAction="#onActionBlack" opacity="0.0" prefHeight="26.0" prefWidth="62.0" text="Button" />
+      <Button layoutX="384.0" layoutY="449.0" mnemonicParsing="false" onAction="#onAction1to18" opacity="0.0" prefHeight="26.0" prefWidth="62.0" text="Button" />
+      <Button layoutX="450.0" layoutY="449.0" mnemonicParsing="false" onAction="#onActionEven" opacity="0.0" prefHeight="26.0" prefWidth="62.0" text="Button" />
+      <Button layoutX="584.0" layoutY="449.0" mnemonicParsing="false" onAction="#onActionRed" opacity="0.0" prefHeight="26.0" prefWidth="62.0" text="Button" />
+      <Button layoutX="652.0" layoutY="449.0" mnemonicParsing="false" onAction="#onActionOdd" opacity="0.0" prefHeight="26.0" prefWidth="62.0" text="Button" />
+      <Button layoutX="719.0" layoutY="449.0" mnemonicParsing="false" onAction="#onAction19to36" opacity="0.0" prefHeight="26.0" prefWidth="62.0" text="Button" />
+      <Button layoutX="786.0" layoutY="248.0" mnemonicParsing="false" onAction="#onActionUp" opacity="0.0" prefHeight="53.0" prefWidth="28.0" text="Button" />
+      <Button layoutX="786.0" layoutY="305.0" mnemonicParsing="false" onAction="#onActionMid" opacity="0.0" prefHeight="53.0" prefWidth="28.0" text="Button" />
+      <Button layoutX="786.0" layoutY="362.0" mnemonicParsing="false" onAction="#onActionDown" opacity="0.0" prefHeight="53.0" prefWidth="28.0" text="Button" />
    </children>
 </AnchorPane>

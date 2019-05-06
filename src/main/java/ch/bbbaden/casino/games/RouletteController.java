@@ -2,6 +2,7 @@ package ch.bbbaden.casino.games;
 
 import ch.bbbaden.casino.Controller;
 import ch.bbbaden.casino.Model;
+import ch.bbbaden.casino.NormalUser;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.event.ActionEvent;
@@ -51,12 +52,14 @@ public class RouletteController implements Controller {
     ArrayList<Integer> buttonwert = new ArrayList<>();
     private boolean spinning = false;
     private int jeton = 0;
+    ArrayList<ImageView> jetonentf = new ArrayList<>();
 
     // Jeton Bilder auf Gridpane setzen
     private void handleButtonAction(Button button, ActionEvent actionEvent){
         if(jetonausg) {
             ImageView iv = new ImageView(image);
             anchorPane.getChildren().add(iv);
+            jetonentf.add(iv);
             double nodeMinX = button.getLayoutBounds().getMinX();
             double nodeMinY = button.getLayoutBounds().getMinY();
             Point2D nodeInScene = button.localToScene(nodeMinX, nodeMinY);
@@ -246,6 +249,7 @@ public class RouletteController implements Controller {
         if(spinning){
 
         }else {
+            gewinnlabel.setText("");
             drehenimageview.setImage(new Image("/images/roulette/drehen-transp.png"));
             RotateTransition rt = new RotateTransition(Duration.millis(3000), rotaterad);
             rt.setByAngle(750);
@@ -256,7 +260,13 @@ public class RouletteController implements Controller {
             rt.setOnFinished(event -> {
                 test();
                 spinning = false;
+
+                for (int i = 0; i < jetonentf.size(); i++){
+                    anchorPane.getChildren().remove(jetonentf.get(i));
+                }
+
             });
+
         }
     }
 
@@ -285,15 +295,8 @@ public class RouletteController implements Controller {
         entfernenimageview.setImage(new Image("/images/roulette/entfernen-button.png"));
     }
 
-    public void handlerelease(MouseEvent mouseEvent) {
-    }
-
     public void handlepressing(MouseEvent mouseEvent) {
         abbrechenimageview.setImage(new Image("/images/roulette/abbrechen-ausg.png"));
-    }
-
-    public void handleEntfernen(MouseEvent mouseEvent) {
-
     }
 
     // Nummer aus dem Rad generieren
@@ -303,6 +306,22 @@ public class RouletteController implements Controller {
         String rndnumber = numbers[d];
         labelrndnumber.setText("Gedrehte Nummer: " + rndnumber);
         drehenimageview.setImage(new Image("/images/roulette/drehen-button.png"));
+
+        if(betrag.containsKey(d)){
+            gewinn(d);
+        }
+        betrag.clear();
+    }
+
+    private void gewinn(int d){
+        gewinnlabel.setText("Du hast " + betrag.get(d) + " gewonnen!");
+        try {
+           // rouletteModel.getNormalUser().addCoins(betrag.get(d), false);
+            rouletteModel.addCoins(betrag.get(d));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        update();
     }
 
     // Werte den Buttons zuordnen
@@ -317,33 +336,34 @@ public class RouletteController implements Controller {
 
         switch (row){
             case 0:
-                scColumn(column, 0);
+                scColumn(column, 0, 1);
                 break;
             case 1:
-                scColumn(column, 0);
-                scColumn(column, 1);
+                scColumn(column, 0, 2);
+                scColumn(column, 1, 2);
                 break;
             case 2:
-                scColumn(column, 1);
+                scColumn(column, 1, 1);
                 break;
             case 3:
-                scColumn(column, 1);
-                scColumn(column, 2);
+                scColumn(column, 1, 2);
+                scColumn(column, 2, 2);
                 break;
             case 4:
-
-                scColumn(column, 2);
+                scColumn(column, 2, 1);
                 break;
             case 5:
-                scColumn(column, 0);
-                scColumn(column, 1);
-                scColumn(column, 2);
+                    scColumn(column, 0, 3);
+                    scColumn(column, 1, 3);
+                    scColumn(column, 2, 3);
                 break;
             case 6:
                 break;
             case 7:
                 break;
         }
+
+
         System.out.println(buttonwert);
     }
     HashMap<Integer, Integer> betrag = new HashMap();
@@ -364,123 +384,128 @@ public class RouletteController implements Controller {
         betrag.put(i, d);
     }
 
-    private void scColumn(int column, int row){
-
+    private void scColumn(int column, int row, int divide){
+        int multiplicatorr = 36;
+        if(column % 2 == 1){
+            multiplicatorr = 18;
+        }
+        multiplicatorr /= divide;
         switch (column){
             case 0:
+
                 buttonwert.add(3 - row);
-                addBetrag(3 - row, 36);
+                addBetrag(3 - row, multiplicatorr);
                 break;
             case 2:
                 buttonwert.add(6 - row);
-                addBetrag(6 - row, 36);
+                addBetrag(6 - row, multiplicatorr);
                 break;
             case 4:
                 buttonwert.add(9 - row);
-                addBetrag(9 - row, 36);
+                addBetrag(9 - row, multiplicatorr);
                 break;
             case 6:
                 buttonwert.add(12 - row);
-                addBetrag(12 - row, 36);
+                addBetrag(12 - row, multiplicatorr);
                 break;
             case 8:
                 buttonwert.add(15 - row);
-                addBetrag(15 - row, 36);
+                addBetrag(15 - row, multiplicatorr);
                 break;
             case 10:
                 buttonwert.add(18 - row);
-                addBetrag(18 - row, 36);
+                addBetrag(18 - row, multiplicatorr);
                 break;
             case 12:
                 buttonwert.add(21 - row);
-                addBetrag(21 - row, 36);
+                addBetrag(21 - row, multiplicatorr);
                 break;
             case 14:
                 buttonwert.add(24 - row);
-                addBetrag(24 - row, 36);
+                addBetrag(24 - row, multiplicatorr);
                 break;
             case 16:
                 buttonwert.add(27 - row);
-                addBetrag(27 - row, 36);
+                addBetrag(27 - row, multiplicatorr);
                 break;
             case 18:
                 buttonwert.add(30 - row);
-                addBetrag(30 - row, 36);
+                addBetrag(30 - row, multiplicatorr);
                 break;
             case 20:
                 buttonwert.add(33 - row);
-                addBetrag(33 - row, 36);
+                addBetrag(33 - row, multiplicatorr);
                 break;
             case 22:
                 buttonwert.add(36 - row);
-                addBetrag(36 - row, 36);
+                addBetrag(36 - row, multiplicatorr);
                 break;
             case 1:
-                if()
+
                 buttonwert.add(3 - row);
-                addBetrag(3 - row, 18);
+                addBetrag(3 - row, multiplicatorr);
                 buttonwert.add(6 - row);
-                addBetrag(6 - row);
+                addBetrag(6 - row, multiplicatorr);
                 break;
             case 3:
                 buttonwert.add(6 - row);
-                addBetrag(6 - row);
+                addBetrag(6 - row, multiplicatorr);
                 buttonwert.add(9 - row);
-                addBetrag(9 - row);
+                addBetrag(9 - row, multiplicatorr);
                 break;
             case 5:
                 buttonwert.add(9 - row);
-                addBetrag(9 - row);
+                addBetrag(9 - row, multiplicatorr);
                 buttonwert.add(12 - row);
-                addBetrag(12 - row);
+                addBetrag(12 - row, multiplicatorr);
                 break;
             case 7:
                 buttonwert.add(12 - row);
-                addBetrag(12 - row);
+                addBetrag(12 - row, multiplicatorr);
                 buttonwert.add(15 - row);
-                addBetrag(15 - row);
+                addBetrag(15 - row, multiplicatorr);
                 break;
             case 9:
                 buttonwert.add(15 - row);
-                addBetrag(15 - row);
+                addBetrag(15 - row, multiplicatorr);
                 buttonwert.add(18 - row);
-                addBetrag(18 - row);
+                addBetrag(18 - row, multiplicatorr);
                 break;
             case 11:
                 buttonwert.add(18 - row);
-                addBetrag(18 - row);
+                addBetrag(18 - row, multiplicatorr);
                 buttonwert.add(21 - row);
-                addBetrag(21 - row);
+                addBetrag(21 - row, multiplicatorr);
                 break;
             case 13:
                 buttonwert.add(21 - row);
-                addBetrag(21 - row);
+                addBetrag(21 - row, multiplicatorr);
                 buttonwert.add(24 - row);
-                addBetrag(24 - row);
+                addBetrag(24 - row, multiplicatorr);
                 break;
             case 15:
                 buttonwert.add(24 - row);
-                addBetrag(24 - row);
+                addBetrag(24 - row, multiplicatorr);
                 buttonwert.add(27 - row);
-                addBetrag(27 - row);
+                addBetrag(27 - row, multiplicatorr);
                 break;
             case 17:
                 buttonwert.add(27 - row);
-                addBetrag(27 - row);
+                addBetrag(27 - row, multiplicatorr);
                 buttonwert.add(30 - row);
-                addBetrag(30 - row);
+                addBetrag(30 - row, multiplicatorr);
                 break;
             case 19:
                 buttonwert.add(30 - row);
-                addBetrag(30 - row);
+                addBetrag(30 - row, multiplicatorr);
                 buttonwert.add(33 - row);
-                addBetrag(33 - row);
+                addBetrag(33 - row, multiplicatorr);
                 break;
             case 21:
                 buttonwert.add(33 - row);
-                addBetrag(33 - row);
+                addBetrag(33 - row, multiplicatorr);
                 buttonwert.add(36 - row);
-                addBetrag(36 - row);
+                addBetrag(36 - row, multiplicatorr);
                 break;
     }
 }
@@ -512,5 +537,41 @@ public class RouletteController implements Controller {
 
     public void abbrechen_onClick(MouseEvent mouseEvent) {
         rouletteModel.close();
+    }
+
+    public void onActionFirst(ActionEvent actionEvent) {
+    }
+
+    public void onActionSecond(ActionEvent actionEvent) {
+    }
+
+    public void onActionThird(ActionEvent actionEvent) {
+    }
+
+    public void onActionBlack(ActionEvent actionEvent) {
+    }
+
+    public void onAction1to18(ActionEvent actionEvent) {
+    }
+
+    public void onActionEven(ActionEvent actionEvent) {
+    }
+
+    public void onActionRed(ActionEvent actionEvent) {
+    }
+
+    public void onActionOdd(ActionEvent actionEvent) {
+    }
+
+    public void onAction19to36(ActionEvent actionEvent) {
+    }
+
+    public void onActionUp(ActionEvent actionEvent) {
+    }
+
+    public void onActionMid(ActionEvent actionEvent) {
+    }
+
+    public void onActionDown(ActionEvent actionEvent) {
     }
 }
