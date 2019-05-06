@@ -35,7 +35,7 @@ public class Model {
             root.setOpacity(0);
             FadeTransition fd = new FadeTransition();
             fd.setToValue(1);
-            fd.setDuration(Duration.millis(800));
+            fd.setDuration(Duration.millis(400));
             fd.setNode(root);
             fd.play();
             controller = loader.getController();
@@ -78,7 +78,7 @@ public class Model {
         if (model.isPrimary()) {
             FadeTransition fd = new FadeTransition();
             fd.setToValue(0);
-            fd.setDuration(Duration.millis(800));
+            fd.setDuration(Duration.millis(200));
             fd.setOnFinished((av) -> sceneManager.setModel(model));
             fd.setNode(root);
             fd.play();

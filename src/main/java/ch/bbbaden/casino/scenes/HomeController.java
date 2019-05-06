@@ -81,4 +81,8 @@ public class HomeController implements Controller {
     public void shop_onAction() {
         homeModel.showShop();
     }
+
+    public void btn_logout_onAction(ActionEvent actionEvent) {
+        homeModel.logout();
+    }
 }

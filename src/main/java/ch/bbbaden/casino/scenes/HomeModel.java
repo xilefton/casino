@@ -65,4 +65,8 @@ public class HomeModel extends Model {
         changeScene(new ShopModel(normalUser));
         show();
     }
+
+    public void logout() {
+        changeScene(new StartModel());
+    }
 }
