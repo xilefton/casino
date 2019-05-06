@@ -148,9 +148,9 @@ public class BaccaratModel extends Game {
         }
     }
 
-    public void manageResult() {
+    public void manageResult(boolean blackjack) {
         try {
-            if (check89()) {
+            if (check89() && blackjack) {
                 coinsWon = selectedBet * 1.5;
                 normalUser.addCoins((int) coinsWon, false);
             } else if (checkWon()) {

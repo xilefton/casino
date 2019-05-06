@@ -44,7 +44,7 @@ public class BaccaratController implements Controller {
     @Override
     public void initialize(Model model) {
         comboBox.getItems().addAll("5", "10", "25", "50", "100");
-        comboBox.setValue("5");
+        comboBox.setValue("100");
 
         baccaratModel = (BaccaratModel) model;
         baccaratModel.createDeck();
@@ -54,6 +54,7 @@ public class BaccaratController implements Controller {
     public void bet(ActionEvent actionEvent) {
         String selectedBet = comboBox.getValue().toString();
         activatedBet.setText(selectedBet);
+        activatedBet.setVisible(true);
         if (Integer.parseInt(selectedBet) <= Integer.parseInt(baccaratModel.getCoins())) {
             comboBox.setDisable(true);
             bet.setDisable(true);
@@ -65,7 +66,7 @@ public class BaccaratController implements Controller {
                 e.printStackTrace();
             }
         } else {
-            //to-do
+            //TO-DO
             //pop-up error
         }
         update();
@@ -81,7 +82,7 @@ public class BaccaratController implements Controller {
                 showCard(secondCroupier, false);
                 secondCroupierShield.setVisible(true);
                 if (baccaratModel.check89() | !baccaratModel.checkPlayerThird()) {
-                    manageEnd();
+                    manageEnd(true);
                     return;
                 }
                 if (baccaratModel.check5()) {
@@ -93,11 +94,11 @@ public class BaccaratController implements Controller {
             case 2:
                 showCard(thirdYou, true);
                 if (!baccaratModel.checkCroupierThird()) {
-                    manageEnd();
+                    manageEnd(false);
                 } else {
                     showCard(thirdCroupier, false);
                     thirdCroupierShield.setVisible(true);
-                    manageEnd();
+                    manageEnd(false);
                 }
                 is5 = false;
                 break;
@@ -109,7 +110,7 @@ public class BaccaratController implements Controller {
         imageView.setImage(new Image(baccaratModel.getRandomCard(thirdPlayerCard)));
     }
 
-    public void manageEnd() {
+    public void manageEnd(boolean blackjack) {
         i = 1;
         draw.setDisable(true);
         newTurn.setDisable(false);
@@ -118,13 +119,13 @@ public class BaccaratController implements Controller {
         secondCroupierShield.setVisible(false);
         thirdCroupierShield.setVisible(false);
         if (baccaratModel.checkWon()) {
-            baccaratModel.manageResult();
+            baccaratModel.manageResult(blackjack);
             result.setText("Sie haben " + baccaratModel.getResult() + " Coins gewonnen.");
         } else if (baccaratModel.checkDraw()) {
-            baccaratModel.manageResult();
+            baccaratModel.manageResult(blackjack);
             result.setText("Unentschieden.");
         } else {
-            baccaratModel.manageResult();
+            baccaratModel.manageResult(blackjack);
             result.setText("Sie haben verloren.");
         }
         update();
@@ -136,6 +137,7 @@ public class BaccaratController implements Controller {
             newTurn.setDisable(true);
             comboBox.setDisable(false);
             result.setVisible(false);
+            activatedBet.setVisible(false);
             if (baccaratModel.getRemainingCards() >= 6) {
                 bet.setDisable(false);
             }
@@ -147,7 +149,7 @@ public class BaccaratController implements Controller {
             thirdCroupier.setImage(new Image("/images/baccarat/borderCard.png"));
         } else {
             is5 = false;
-            manageEnd();
+            manageEnd(false);
         }
         baccaratModel.setForPlayer(true);
         update();
