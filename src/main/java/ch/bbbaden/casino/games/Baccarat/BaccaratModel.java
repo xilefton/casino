@@ -17,6 +17,7 @@ public class BaccaratModel extends Game {
     private ArrayList<Card> cards = new ArrayList();
     private Random random = new Random();
     private int selectedBet, pointsPlayer, pointsThirdPlayer, pointsCroupier, i = 1;
+    private double coinsWon;
     private boolean forPlayer = true;
 
     public BaccaratModel(NormalUser normalUser) {
@@ -63,9 +64,6 @@ public class BaccaratModel extends Game {
             }
             forPlayer = true;
         }
-
-        System.out.println("points you: " + pointsPlayer + " " + "points croupier: " + pointsCroupier);
-        System.out.println();
 
         return card.getImagePath();
     }
@@ -150,22 +148,24 @@ public class BaccaratModel extends Game {
         }
     }
 
-    public void getResult(boolean blackJack, boolean win, boolean draw) {
-        pointsPlayer = 0;
-        pointsCroupier = 0;
-        pointsThirdPlayer = 0;
+    public void manageResult() {
         try {
-            if (blackJack) {
-                double coinsWon = selectedBet * 1.5;
+            if (check89()) {
+                coinsWon = selectedBet * 1.5;
                 normalUser.addCoins((int) coinsWon, false);
-            } else if (win) {
-                normalUser.addCoins(selectedBet * 2, false);
-            } else if (draw) {
-                normalUser.addCoins(selectedBet, false);
+            } else if (checkWon()) {
+                coinsWon = selectedBet * 2;
+                normalUser.addCoins((int) coinsWon, false);
+            } else if (checkDraw()) {
+                coinsWon = selectedBet;
+                normalUser.addCoins((int) coinsWon, false);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        pointsPlayer = 0;
+        pointsCroupier = 0;
+        pointsThirdPlayer = 0;
     }
 
     public int getRemainingCards() {
@@ -174,5 +174,9 @@ public class BaccaratModel extends Game {
 
     public void setForPlayer(boolean forPlayer) {
         this.forPlayer = forPlayer;
+    }
+
+    public int getResult() {
+        return (int) coinsWon;
     }
 }
