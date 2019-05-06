@@ -20,10 +20,11 @@ public class SlotMachineModel extends Game {
     private static int winFactor;
     private static String threeStarWin;
     private static boolean win = false;
-    private static String betFactor;
-    private static int bet = 1;
+    private static int betFactor = 1;
+    private static int bet = 2;
     private static int betCoins;
     private static Image buttonImage;
+    private static int winCoins = 0;
 
     public SlotMachineModel(NormalUser normalUser) {
         super("/fxml/SlotMachine.fxml", "Super Cherry", "/images/SuperCherry_Logo.png", normalUser);
@@ -32,14 +33,11 @@ public class SlotMachineModel extends Game {
     }
 
     public String getCoins() {
-        /*
         try {
             return Integer.toString(normalUser.getCoins());
         } catch (SQLException e) {
             System.err.println(e);
         } return null;
-        */
-         return "100";
     }
     public void updateCoins(int coins, boolean purchased)  {
         try {
@@ -52,7 +50,6 @@ public class SlotMachineModel extends Game {
         firstRow = new SlotMachineRow(first);
         firstThread = new Thread(firstRow);
         firstThread.start();
-
         secondRow = new SlotMachineRow(second);
         secondThread = new Thread(secondRow);
         secondThread.start();
@@ -67,9 +64,9 @@ public class SlotMachineModel extends Game {
         urlOfFirstImage=firstRow.getUrlOfImage();
         urlOfSecondImage=secondRow.getUrlOfImage();
         urlOfThirdImage=thirdRow.getUrlOfImage();
-        calculateWin();
+        calculateWinFactor();
     }
-    private static void calculateWin() {
+    private static void calculateWinFactor() {
         if(urlOfFirstImage.equals(urlOfSecondImage) && urlOfFirstImage.equals((urlOfThirdImage))) {
             switch (urlOfFirstImage) {
                 case "/src/main/resources/images/supercherry/fruits/STAR.png":
@@ -120,6 +117,10 @@ public class SlotMachineModel extends Game {
             }
         } else winFactor = 0;
     }
+    public static int calculateWin() {
+        winCoins = getBetFactor() * getWinFactor();
+        return winCoins;
+    }
     public static void gamble() {
         int randomNumber = (int) (Math.random() * 2);
         if(randomNumber == 1) {
@@ -135,32 +136,32 @@ public class SlotMachineModel extends Game {
             switch (bet) {
                 case 1:
                     bet++;
-                    betFactor = "1x";
+                    betFactor = 1;
                     break;
                 case 2:
                     bet++;
-                    betFactor = "2x";
+                    betFactor = 2;
                     break;
                 case 3:
                     bet++;
-                    betFactor = "5x";
+                    betFactor = 5;
                     break;
                 case 4:
                     bet++;
-                    betFactor = "10x";
+                    betFactor = 10;
                     break;
                 case 5:
                     bet++;
-                    betFactor = "20x";
+                    betFactor = 20;
                     break;
                 case 6:
-                    bet = 0;
-                    betFactor = "50x";
+                    bet = 1;
+                    betFactor = 50;
                     break;
             }
         }
     }
-    public static String getBetFactor() {return betFactor;}
+    public static int getBetFactor() {return betFactor;}
     public static int getBetCoins() {return betCoins;}
     public static int getWinFactor() {return winFactor;}
 

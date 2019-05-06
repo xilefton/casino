@@ -45,9 +45,6 @@ public class SlotMachineController implements Controller {
     public static Label firstRowLabel;
     public static Label secondRowLabel;
     public static Label thirdRowLabel;
-    public ImageView firstFruitRowImage;
-    public ImageView secondFruitRowImage;
-    public ImageView thirdFruitRowImage;
     public Label betFactorLabel;
     public Label betCoinsLabel;
     private SlotMachineModel slotMachineModel;
@@ -59,9 +56,9 @@ public class SlotMachineController implements Controller {
         coins.setText(slotMachineModel.getCoins());
         addCoinsLabel.setText(Integer.toString(inputCoins));
         gameCoinsLabel.setText(Integer.toString(gameCoins));
-        betFactorLabel.setText(SlotMachineModel.getBetFactor());
+        betFactorLabel.setText(SlotMachineModel.getBetFactor() + "x");
         betCoinsLabel.setText((Integer.toString(SlotMachineModel.getBetCoins())));
-        riskLabel.setText(Integer.toString(SlotMachineModel.getWinFactor()));
+        riskLabel.setText(Integer.toString(SlotMachineModel.calculateWin()));
     }
 
     public void initialize(Model model) {
@@ -87,7 +84,7 @@ public class SlotMachineController implements Controller {
         addCoins.setDisable(false);
         if (Integer.parseInt(slotMachineModel.getCoins()) >= 1) {
             inputCoins += 1;
-            slotMachineModel.updateCoins(1000, false);
+            slotMachineModel.updateCoins(-1, false);
             update();
         } else {
            plusCoins.setDisable(true);
@@ -132,9 +129,9 @@ public class SlotMachineController implements Controller {
         minusCoins.setDisable(true);
         SlotMachineModel.spinFruits(firstFruitRow,secondFruitRow,thirdFruitRow);
     }
-    public void mysteryButton(MouseEvent mouseEvent) { SlotMachineModel.mystery();}
-    public void gambleButton(MouseEvent mouseEvent) { SlotMachineModel.gamble();}
-    public void betButton(MouseEvent mouseEvent) { SlotMachineModel.bet();}
+    public void mysteryButton(MouseEvent mouseEvent) { SlotMachineModel.mystery(); update();}
+    public void gambleButton(MouseEvent mouseEvent) { SlotMachineModel.gamble(); update();}
+    public void betButton(MouseEvent mouseEvent) { SlotMachineModel.bet(); update();}
 }
 
 

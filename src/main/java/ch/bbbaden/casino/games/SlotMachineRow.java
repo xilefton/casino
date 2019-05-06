@@ -22,7 +22,7 @@ public class SlotMachineRow implements Runnable {
             Platform.runLater(() -> {
                 imageView.setImage(new Image(getRandomFruit()));
             });
-            try { Thread.sleep(70);
+            try { Thread.sleep(120);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
