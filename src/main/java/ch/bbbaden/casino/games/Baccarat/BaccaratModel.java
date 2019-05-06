@@ -2,9 +2,6 @@ package ch.bbbaden.casino.games.Baccarat;
 
 import ch.bbbaden.casino.NormalUser;
 import ch.bbbaden.casino.games.Game;
-import javafx.scene.image.Image;
-
-import javax.swing.text.html.ImageView;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
