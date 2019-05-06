@@ -81,11 +81,12 @@ public class StartController implements Controller {
     }
 
     @FXML
-    private void registrieren(ActionEvent event) {
+    private void register(ActionEvent event) {
         model.openRegister();
     }
 
     @FXML
     private void adminLogin(ActionEvent event) {
+        model.openAdminLogin();
     }
 }

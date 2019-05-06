@@ -20,7 +20,7 @@
     <Pane fx:id="pane_buttons" layoutX="284.0" layoutY="207.0" opacity="0.0" prefHeight="200.0" prefWidth="200.0">
         <Button layoutX="25.0" layoutY="8.0" mnemonicParsing="false" onAction="#login" prefHeight="31.0"
                 prefWidth="157.0" text="Login"/>
-        <Button id="register" layoutX="25.0" layoutY="62.0" mnemonicParsing="false" onAction="#registrieren"
+        <Button id="register" layoutX="25.0" layoutY="62.0" mnemonicParsing="false" onAction="#register"
                 prefHeight="31.0" prefWidth="157.0" text="Registrieren"/>
         <Button layoutX="25.0" layoutY="131.0" mnemonicParsing="false" onAction="#adminLogin" prefHeight="31.0"
                 prefWidth="157.0" text="Admin Login"/>
