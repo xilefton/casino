@@ -15,7 +15,7 @@ public class Fruits {
     }
 
     public void setImage(String imgPath) {
-        this.imgPath = "/src/main/resources/images/supercherry/fruits/"+imgPath+".png";
+        this.imgPath = "/images/supercherry/fruits/"+imgPath+".png";
     }
     public String getImage() {
         return this.imgPath;

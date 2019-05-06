@@ -10,6 +10,7 @@ import java.net.MalformedURLException;
 import java.sql.SQLException;
 
 
+
 public class SlotMachineModel extends Game {
 
     private NormalUser normalUser;
@@ -31,11 +32,14 @@ public class SlotMachineModel extends Game {
     }
 
     public String getCoins() {
+        /*
         try {
             return Integer.toString(normalUser.getCoins());
         } catch (SQLException e) {
             System.err.println(e);
         } return null;
+        */
+         return "100";
     }
     public void updateCoins(int coins, boolean purchased)  {
         try {
@@ -44,20 +48,17 @@ public class SlotMachineModel extends Game {
             e.printStackTrace();
         }
     }
-    public static void spinFruits() {
-
-        firstRow = new SlotMachineRow(SlotMachineController.firstFruitRow);
+    public static void spinFruits(ImageView first,ImageView second,ImageView third) {
+        firstRow = new SlotMachineRow(first);
         firstThread = new Thread(firstRow);
         firstThread.start();
 
-        secondRow = new SlotMachineRow(SlotMachineController.secondFruitRow);
+        secondRow = new SlotMachineRow(second);
         secondThread = new Thread(secondRow);
         secondThread.start();
-
-        thirdRow = new SlotMachineRow(SlotMachineController.thirdFruitRow);
+        thirdRow = new SlotMachineRow(third);
         thirdThread = new Thread(thirdRow);
         thirdThread.start();
-
     }
     public static void stopSpinning() {
         firstThread.stop();

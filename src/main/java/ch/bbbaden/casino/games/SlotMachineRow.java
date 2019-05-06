@@ -20,7 +20,7 @@ public class SlotMachineRow implements Runnable {
     public void run() {
         while (true) {
             Platform.runLater(() -> {
-                System.out.println(getRandomFruit());
+                imageView.setImage(new Image(getRandomFruit()));
             });
             try { Thread.sleep(70);
             } catch (InterruptedException e) {

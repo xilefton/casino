@@ -32,9 +32,9 @@ public class SlotMachineController implements Controller {
     public ImageView TwoFactorLight;
     public ImageView ThreeFactorLight;
     public ImageView FiveFactorLight;
-    public static ImageView firstFruitRow;
-    public static ImageView secondFruitRow;
-    public static ImageView thirdFruitRow;
+    public ImageView firstFruitRow;
+    public ImageView secondFruitRow;
+    public ImageView thirdFruitRow;
     public Label coins;
     public Button addCoins;
     public Button plusCoins;
@@ -78,16 +78,16 @@ public class SlotMachineController implements Controller {
         addCoins.setDisable(true);
         minusCoins.setDisable(true);
         plusCoins.setDisable(false);
-        firstFruitRowImage.setImage(SlotMachineModel.setButtonImage("src/main/resources/images/supercherry/fruits/MELON.png"));
-        secondFruitRowImage.setImage(SlotMachineModel.setButtonImage("src/main/resources/images/supercherry/fruits/STAR.png"));
-        thirdFruitRowImage.setImage(SlotMachineModel.setButtonImage("src/main/resources/images/supercherry/fruits/PEACH.png"));
+        firstFruitRow.setVisible(true);
+        firstFruitRow.toFront();
+
     }
     public void plusCoins(MouseEvent mouseEvent) {
         minusCoins.setDisable(false);
         addCoins.setDisable(false);
         if (Integer.parseInt(slotMachineModel.getCoins()) >= 1) {
             inputCoins += 1;
-            slotMachineModel.updateCoins(-1, false);
+            slotMachineModel.updateCoins(1000, false);
             update();
         } else {
            plusCoins.setDisable(true);
@@ -113,7 +113,7 @@ public class SlotMachineController implements Controller {
         plusCoins.setDisable(false);
         minusCoins.setDisable(true);
         gameCoins += inputCoins;
-        if(gameCoins > 0) {
+        if(gameCoins > 1) {
             stopButton.setDisable(false);
             stopButton.setImage(SlotMachineModel.setButtonImage("src/main/resources/images/supercherry/buttons/stop/BUTTON_STOP_ACTIVE.png"));
         }
@@ -130,7 +130,7 @@ public class SlotMachineController implements Controller {
         betButton.setDisable(false);
         plusCoins.setDisable(true);
         minusCoins.setDisable(true);
-        SlotMachineModel.spinFruits();
+        SlotMachineModel.spinFruits(firstFruitRow,secondFruitRow,thirdFruitRow);
     }
     public void mysteryButton(MouseEvent mouseEvent) { SlotMachineModel.mystery();}
     public void gambleButton(MouseEvent mouseEvent) { SlotMachineModel.gamble();}
