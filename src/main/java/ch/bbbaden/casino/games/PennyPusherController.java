@@ -2,6 +2,7 @@ package ch.bbbaden.casino.games;
 
 import ch.bbbaden.casino.Controller;
 import ch.bbbaden.casino.Model;
+import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
@@ -16,6 +17,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
+
+import java.util.HashSet;
 
 
 public class PennyPusherController implements Controller {
@@ -71,7 +74,6 @@ public class PennyPusherController implements Controller {
     public void update() {
         // coins.setText(pennyPusherModel.getCoins());
         animateFieldChanges();
-        updateField(pennyPusherModel.getField());
         label_profit.setText(Integer.toString(pennyPusherModel.getRoundProfit()));
         btn_push.setDisable(pennyPusherModel.isBtn_push_disabled());
         btn_slot1.setDisable(pennyPusherModel.isBtn_slot1_disabled());
@@ -82,20 +84,28 @@ public class PennyPusherController implements Controller {
     private void animateFieldChanges() {
         ParallelTransition mainTransition = new ParallelTransition();
 
-        ImageView imageView1 = getFieldImageView(0, 1);
+        ImageView imageView1 = getFieldImageView(0, 0);
         Bounds bounds1 = imageView1.getBoundsInLocal();
         Bounds screenBounds1 = imageView1.localToScreen(bounds1);
 
-        ImageView imageView2 = getFieldImageView(0, 1);
+        ImageView imageView2 = getFieldImageView(1, 1);
         Bounds bounds2 = imageView2.getBoundsInLocal();
         Bounds screenBounds2 = imageView2.localToScreen(bounds2);
 
-        final double rowOffset = screenBounds1.getMinY() - screenBounds2.getMinY();
-        final double columnOffset = screenBounds1.getMinX() - screenBounds2.getMinX();
+        System.out.println(screenBounds2.getMinY());
+        System.out.println(screenBounds1.getMinY());
 
-        for (FieldChange fieldChange : pennyPusherModel.getFieldChanges()) {
+        //final double rowOffset = bounds2.getMinY() - bounds1.getMinY();
+        //final double columnOffset = bounds2.getMinX() - bounds1.getMinX();
+
+        final double rowOffset = 60;
+        final double columnOffset = 60;
+
+        for (HashSet<FieldChange> fieldChange : pennyPusherModel.getFieldChanges()) {
             ImageView coin = new ImageView(coinImages[1]);
             anchorPane.getChildren().add(coin);
+            coin.setScaleX(0.2);
+            coin.setScaleY(0.2);
 
             FadeTransition coinFade = new FadeTransition();
             coinFade.setToValue(1);
@@ -107,24 +117,32 @@ public class PennyPusherController implements Controller {
             Bounds startBounds = startImageView.getBoundsInLocal();
             Bounds startScreenBounds = startImageView.localToScreen(startBounds);
 
-            TranslateTransition coinMove = new TranslateTransition();
-            coinMove.setFromX(startScreenBounds.getMinX());
-            coinMove.setFromY(startScreenBounds.getMinY());
-            if (fieldChange.getStartX() < fieldChange.getEndX())
-                coinMove.setToX(startScreenBounds.getMinX() + columnOffset);
-            else coinMove.setToX(startScreenBounds.getMinX() - columnOffset);
-            if (fieldChange.getStartY() < fieldChange.getEndY())
-                coinMove.setToY(startScreenBounds.getMinY() + rowOffset);
-            else coinMove.setToY(startScreenBounds.getMinY() - rowOffset);
+            Bounds startBounds1 = field.getBoundsInLocal();
+            Bounds startScreenBounds1 = field.localToScreen(startBounds1);
 
-            coinMove.setDuration(Duration.millis(2400));
+            FadeTransition[] coinMove = new TranslateTransition();
+            coinMove.setFromX(startScreenBounds.getMinX() - 310);
+            coinMove.setFromY(startScreenBounds.getMinY() - 200);
+            if (fieldChange.getStartX() < fieldChange.getEndX())
+                coinMove.setToX(startScreenBounds.getMinX() - 310 + columnOffset);
+            else coinMove.setToX(startScreenBounds.getMinX() - 310 - columnOffset);
+            if (fieldChange.getStartY() < fieldChange.getEndY())
+                coinMove.setToY(startScreenBounds.getMinY() - 200 + rowOffset);
+            else coinMove.setToY(startScreenBounds.getMinY() - 200 - rowOffset);
+            coinMove.setDuration(Duration.millis(1600));
 
             ParallelTransition coinAnimation = new ParallelTransition();
             coinAnimation.getChildren().addAll(coinFade, coinMove);
             coinAnimation.setNode(coin);
             mainTransition.getChildren().add(coinAnimation);
         }
-        mainTransition.setOnFinished((ae) -> pennyPusherModel.getFieldChanges().clear());
+        mainTransition.setOnFinished((ae) -> {
+            pennyPusherModel.getFieldChanges().clear();
+            for (Animation animation : mainTransition.getChildren()) {
+                anchorPane.getChildren().remove(((ParallelTransition) animation).getNode());
+            }
+            updateField(pennyPusherModel.getField());
+        });
         mainTransition.play();
     }
 
