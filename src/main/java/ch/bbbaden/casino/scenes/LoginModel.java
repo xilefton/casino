@@ -23,19 +23,6 @@ class LoginModel extends Model {
         super("/fxml/Login.fxml", "Login", true);
     }
 
-    private void showErrorMessage(String message) {
-        LoginFailedModel errView = new LoginFailedModel(message);
-        changeScene(errView);
-        if (errView.doRetry()) {
-            username = "";
-            password = "";
-            show();
-        } else {
-            changeScene(new StartModel());
-        }
-        errView.close();
-    }
-
     void login(String username, String password) {
         boolean loginSuccessful = false;
         normalUser = new NormalUser();
@@ -43,7 +30,9 @@ class LoginModel extends Model {
             normalUser.login(username, password);
             loginSuccessful = true;
         } catch (SQLException ex) {
-            showErrorMessage(ex.getLocalizedMessage());
+            showErrorMessage(ex.getMessage(), "Error loging in", ErrorType.NOTIFICATION);
+            this.username = "";
+            this.password = "";
         }
 
         if (loginSuccessful) {

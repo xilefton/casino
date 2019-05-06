@@ -3,75 +3,92 @@ package ch.bbbaden.casino;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class NormalUser extends User {
 
-    private int coins;
-    private int purchasedCoins;
+    private long coins;
     private boolean changed = true;
-    private String update;
-    private ResultSet rs;
-    private Statement st;
+    private long playerPurchase, playerBet;
 
     public NormalUser() {
         super(false);
-    }
-
-    public void addCoins(int coins, boolean purchased) throws SQLException {
-        updateValues();
-        this.coins += coins;
-        st = connie.createStatement();
-        update = "UPDATE `normalusers` SET `coins` = '" + this.coins + "' WHERE `username` = '" + super.getUsername() + "'";
-        st.executeUpdate(update);
-        if (purchased) {
-            purchasedCoins += coins;
-            update = "UPDATE `normalusers` SET `purchased` = '" + purchasedCoins + "' WHERE `username` = '" + super.getUsername() + "'";
-            st.executeUpdate(update);
-        }
-        changed = true;
-    }
-
-    private void updateValues() throws SQLException {
-        if (changed) {
-            st = connie.createStatement();
-            rs = st.executeQuery("SELECT `coins` FROM `normalusers` WHERE `username` = \"" + super.getUsername() + "\"");
-            rs.next();
-            coins = Integer.parseInt(rs.getString(1));
-            rs = st.executeQuery("SELECT `purchased` FROM `normalusers` WHERE `username` = \"" + super.getUsername() + "\"");
-            rs.next();
-            purchasedCoins = Integer.parseInt(rs.getString(1));
-            changed = false;
-        }
-    }
-
-    public int getCoins() throws SQLException {
-        updateValues();
-        return coins;
-    }
-
-    public int getPurchasedCoins() throws SQLException {
-        updateValues();
-        return purchasedCoins;
     }
 
     public void register(String username, String password, int coins) throws SQLException {
         openConnection();
         if (!userExists(username)) {
             try {
-                try {
-                    update = "INSERT INTO `normalusers`(`username`, `password`, `coins`, `purchased`) VALUES ('" + username + "','" + calculateHashWithSalt(password) + "','" + coins + "','" + coins + "')";
-                } catch (NoSuchAlgorithmException e) {
-                    throw new SQLException("damn critical error");
-                }
-                st = connie.createStatement();
-                st.executeUpdate(update);
-            } catch (SQLException ex) {
-                throw new SQLException("Fehler bei der Kommunikation mit der Datenbank");
+                getConnection().createStatement().executeUpdate("INSERT INTO `normalusers`(`username`, `password`, `coins`, `purchased`) VALUES ('" + username + "','" + calculateHashWithSalt(password) + "','" + coins + "','" + coins + "')");
+            } catch (NoSuchAlgorithmException e) {
+                throw new SQLException("Fehler beim verarbeiten der eingabe");
+            } catch (SQLException e) {
+                throw new SQLException("Fehler beim verbinden mit dem Server überprüfen Sie ihre Internet-Verbindung");
             }
         } else {
             throw new SQLException("User existiert bereits");
         }
     }
 
+    public void changeCoins(long change, CoinChangeReason changeReason) throws SQLException {
+        updateValues();
+
+        if (this.coins + change < 0) throw new SQLException("Coins value after change is smaller than null");
+        this.coins += change;
+
+        getConnection().createStatement().executeUpdate("UPDATE `normalusers` SET `coins` = '" + this.coins + "' WHERE `username` = '" + super.getUsername() + "'");
+
+        switch (changeReason) {
+            case PLAYER_BET:
+                playerBet += coins;
+                getConnection().createStatement().executeUpdate("UPDATE `normalusers` SET `bet` = '" + playerBet + "' WHERE `username` = '" + super.getUsername() + "'");
+                break;
+            case PLAYER_PURCHASE:
+                playerPurchase += coins;
+                getConnection().createStatement().executeUpdate("UPDATE `normalusers` SET `purchased` = '" + playerPurchase + "' WHERE `username` = '" + super.getUsername() + "'");
+                break;
+            default:
+                break;
+        }
+
+        changed = true;
+    }
+
+    public State getState() {
+        return new State(coins, playerPurchase, playerBet);
+    }
+
+    public void recordChanges(String game, State oldState) throws SQLException {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        getConnection().createStatement().executeUpdate("INSERT INTO `games`(`game`, `bet`, `achievement`, `date`) VALUES ( \"" + game + "\", \"" +
+                (this.playerBet - oldState.getPlayerBet()) + "\", \"" + (oldState.getCoins() - coins) + "\", \"" + new SimpleDateFormat("yyyy/MM/dd").format(new Date()) + "\")");
+    }
+
+    private void updateValues() throws SQLException {
+        if (changed) {
+            ResultSet rs = getConnection().createStatement().executeQuery("SELECT `coins`, `purchased`, `bet` FROM `normalusers` WHERE username = \"" + super.getUsername() + "\"");
+            rs.next();
+            coins = rs.getLong(1);
+            playerBet = rs.getLong(2);
+            playerPurchase = rs.getLong(3);
+            changed = false;
+        }
+    }
+
+    public long getCoins() throws SQLException {
+        updateValues();
+        return coins;
+    }
+
+    public long getBet() throws SQLException {
+        updateValues();
+        return playerBet;
+    }
+
+    public long getPlayerPurchase() throws SQLException {
+        updateValues();
+        return playerPurchase;
+    }
 }

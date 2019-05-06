@@ -1,0 +1,8 @@
+* {
+    -fx-font-size: 16px;
+}
+
+#AnchorPane {
+    -fx-background-color: #c300d1;
+    -fx-background-image: none;
+}

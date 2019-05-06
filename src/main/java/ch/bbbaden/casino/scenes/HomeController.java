@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
@@ -40,8 +41,7 @@ public class HomeController implements Controller {
 
     public void update() {
         coins.setText(homeModel.getCoins());
-        homeModel.getPurchasedCoins();
-        game_image.setImage(new Image(homeModel.getImagePath()));
+        game_image.setImage(homeModel.getImage());
     }
 
     public void btn_play_onAction(ActionEvent actionEvent) {
@@ -76,5 +76,13 @@ public class HomeController implements Controller {
                 translateTransition
         );
         parallelTransition.play();
+    }
+
+    public void shop_onAction() {
+        homeModel.showShop();
+    }
+
+    public void btn_logout_onAction(ActionEvent actionEvent) {
+        homeModel.logout();
     }
 }
