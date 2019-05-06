@@ -14,6 +14,7 @@ public class LoginController implements Controller {
     @FXML
     private LoginModel loginModel;
 
+    @Override
     public void initialize(Model model) {
         loginModel = (LoginModel) model;
         username.textProperty().addListener((ov, oldValue, newValue) -> username.setText(newValue.toUpperCase()));

@@ -17,12 +17,6 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws SQLException {
         Font.loadFont(getClass().getResourceAsStream("/fonts/casino.ttf"), 20);
-        NormalUser normalUser = new NormalUser();
-        normalUser.login("OTTO", "otto");
-        //new ModelManager(stage).setModel(new HomeModel(normalUser));
         new ModelManager(stage).setModel(new StartModel());
-        //NormalUser normalUser = new NormalUser();
-        //normalUser.login("FELIX", "xilefton");
-        //new ModelManager(stage).setModel(new BaccaratModel(normalUser));
     }
 }
