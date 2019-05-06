@@ -151,7 +151,7 @@ public class BaccaratModel extends Game {
     public void manageResult(boolean blackjack) {
         try {
             if (check89() && blackjack) {
-                coinsWon = selectedBet * 1.5;
+                coinsWon = selectedBet * 2.5;
                 normalUser.addCoins((int) coinsWon, false);
             } else if (checkWon()) {
                 coinsWon = selectedBet * 2;
@@ -163,9 +163,6 @@ public class BaccaratModel extends Game {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        pointsPlayer = 0;
-        pointsCroupier = 0;
-        pointsThirdPlayer = 0;
     }
 
     public int getRemainingCards() {
@@ -178,5 +175,19 @@ public class BaccaratModel extends Game {
 
     public int getResult() {
         return (int) coinsWon;
+    }
+
+    public int getPointsPlayer() {
+        return pointsPlayer;
+    }
+
+    public int getPointsCroupier() {
+        return pointsCroupier;
+    }
+
+    public void resetPoints() {
+        pointsPlayer = 0;
+        pointsCroupier = 0;
+        pointsThirdPlayer = 0;
     }
 }

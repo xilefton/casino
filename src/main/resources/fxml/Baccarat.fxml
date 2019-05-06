@@ -76,5 +76,7 @@
         </ImageView>
       <Label alignment="CENTER" layoutX="785.0" layoutY="272.0" prefHeight="30.0" prefWidth="174.0" text="Aktuell gesetzt:" />
       <Label fx:id="activatedBet" alignment="CENTER" contentDisplay="CENTER" layoutX="821.0" layoutY="304.0" prefHeight="30.0" prefWidth="100.0" textAlignment="CENTER" />
+      <Label fx:id="pointsCroupier" layoutX="690.0" layoutY="93.0" prefHeight="37.0" prefWidth="241.0" visible="false" />
+      <Label fx:id="pointsYou" layoutX="690.0" layoutY="437.0" prefHeight="37.0" prefWidth="241.0" visible="false" />
     </children>
 </AnchorPane>

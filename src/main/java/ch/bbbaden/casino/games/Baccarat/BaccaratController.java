@@ -31,6 +31,8 @@ public class BaccaratController implements Controller {
     public Label result;
     public Label remainingCards;
     public Label activatedBet;
+    public Label pointsCroupier;
+    public Label pointsYou;
 
     private BaccaratModel baccaratModel;
     private int i = 1;
@@ -39,6 +41,8 @@ public class BaccaratController implements Controller {
     public void update() {
         coins.setText(baccaratModel.getCoins());
         remainingCards.setText(Integer.toString(baccaratModel.getRemainingCards()));
+        pointsYou.setText("= " + baccaratModel.getPointsPlayer() + " Punkte");
+        pointsCroupier.setText("= " + baccaratModel.getPointsCroupier() + " Punkte");
     }
 
     @Override
@@ -75,12 +79,14 @@ public class BaccaratController implements Controller {
     public void draw(ActionEvent actionEvent) throws InterruptedException {
         switch (i) {
             case 1:
+                baccaratModel.resetPoints();
                 showCard(firstYou, false);
                 showCard(firstCroupier, false);
                 firstCroupierShield.setVisible(true);
                 showCard(secondYou, false);
                 showCard(secondCroupier, false);
                 secondCroupierShield.setVisible(true);
+                pointsYou.setVisible(true);
                 if (baccaratModel.check89() | !baccaratModel.checkPlayerThird()) {
                     manageEnd(true);
                     return;
@@ -118,6 +124,7 @@ public class BaccaratController implements Controller {
         firstCroupierShield.setVisible(false);
         secondCroupierShield.setVisible(false);
         thirdCroupierShield.setVisible(false);
+        pointsCroupier.setVisible(true);
         if (baccaratModel.checkWon()) {
             baccaratModel.manageResult(blackjack);
             result.setText("Sie haben " + baccaratModel.getResult() + " Coins gewonnen.");
@@ -138,6 +145,8 @@ public class BaccaratController implements Controller {
             comboBox.setDisable(false);
             result.setVisible(false);
             activatedBet.setVisible(false);
+            pointsYou.setVisible(false);
+            pointsCroupier.setVisible(false);
             if (baccaratModel.getRemainingCards() >= 6) {
                 bet.setDisable(false);
             }
