@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="432.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.bbbaden.casino.scenes.AdminLoggedInController">
+<AnchorPane id="AnchorPane" prefHeight="432.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.bbbaden.casino.scenes.AdminLoggedInController">
     <stylesheets>
-        <URL value="@../styles/BasicStyle.css" />
+        <URL value="@../styles/AdminStyle.css"/>
     </stylesheets>
-   <children>
-      <TabPane prefHeight="432.0" prefWidth="768.0" tabClosingPolicy="UNAVAILABLE">
-        <tabs>
-          <Tab text="Spieler">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <ListView prefHeight="387.0" prefWidth="185.0" style="-fx-background-color: none;" />
-                     </children></AnchorPane>
-            </content>
-          </Tab>
-          <Tab text="Spiele">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <ListView prefHeight="387.0" prefWidth="185.0" style="-fx-background-color: none;" />
-                     </children></AnchorPane>
-            </content>
-          </Tab>
-        </tabs>
-      </TabPane>
-   </children>
+    <TabPane id="TabPane" prefHeight="432.0" prefWidth="768.0" tabClosingPolicy="UNAVAILABLE">
+        <Tab text="Spieler">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <ListView fx:id="listViewPlayer" prefHeight="387.0" prefWidth="200.0"
+                          style="-fx-background-color: none;"/>
+                <Label layoutX="322.0" layoutY="121.0" text="Münzen die der Spieler hat:"/>
+                <Label layoutX="250.0" layoutY="176.0" text="Münzen die der Spieler gekauft hat:"/>
+                <Label layoutX="208.0" layoutY="235.0" text="Münzen die der Spieler ausgegeben hat:"/>
+                <Label fx:id="coins" layoutX="592.0" layoutY="121.0" text="coins"/>
+                <Label fx:id="bought" layoutX="592.0" layoutY="176.0" stylesheets="@../styles/AdminStyle.css"
+                       text="bought"/>
+                <Label fx:id="spent" layoutX="591.0" layoutY="235.0" text="spent"/>
+            </AnchorPane>
+        </Tab>
+        <Tab text="Spiele">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <ListView prefHeight="387.0" prefWidth="200.0" style="-fx-background-color: none;"/>
+            </AnchorPane>
+        </Tab>
+    </TabPane>
 </AnchorPane>

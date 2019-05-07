@@ -1,0 +1,17 @@
+* {
+    -fx-font-size: 20px;
+    -fx-font-family: casino;
+}
+
+.label {
+    -fx-text-fill: black;
+}
+
+.button {
+    -fx-text-fill: #e8cd35;
+    -fx-background-color: #ee00ff;
+}
+
+#AnchorPane {
+    -fx-background-color: #bababa;
+}
