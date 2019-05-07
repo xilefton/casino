@@ -63,7 +63,7 @@ public class BaccaratController implements Controller {
             bet.setDisable(true);
             newDeck.setDisable(true);
             draw.setDisable(false);
-            baccaratModel.updateCoins(Integer.parseInt(selectedBet), CoinChangeReason.PLAYER_BET);
+            baccaratModel.updateCoins(Integer.parseInt(selectedBet));
         } else {
             baccaratModel.showMessage("Sie haben zu wenig Geld!", "Nicht möglich");
         }

@@ -34,10 +34,10 @@ public class BaccaratModel extends Game {
         return null;
     }
 
-    public void updateCoins(int selectedBet, CoinChangeReason coinChangeReason) {
+    public void updateCoins(int selectedBet) {
         this.selectedBet = selectedBet;
         try {
-            normalUser.changeCoins(selectedBet, coinChangeReason);
+            normalUser.changeCoins(-selectedBet, CoinChangeReason.PLAYER_BET);
         } catch (SQLException e) {
             showErrorMessage("Fehler beim Zugriff auf die Datenbank, bitte überprüfen Sie ihre Internetverbindung und versuchen Sie es später erneut: " + e.getLocalizedMessage(), "Verbindungsfehler", ErrorType.CONNECTION);
         }

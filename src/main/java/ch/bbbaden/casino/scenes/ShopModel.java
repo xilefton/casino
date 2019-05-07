@@ -31,4 +31,8 @@ public class ShopModel extends Model {
         }
         notifyController();
     }
+
+    public void showHome() {
+        close();
+    }
 }

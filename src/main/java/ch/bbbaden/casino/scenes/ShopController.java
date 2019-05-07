@@ -2,13 +2,14 @@ package ch.bbbaden.casino.scenes;
 
 import ch.bbbaden.casino.Controller;
 import ch.bbbaden.casino.Model;
-import javafx.scene.control.Label;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 
 public class ShopController implements Controller {
-    public Spinner<Integer> spinner_value;
     public Label coins;
+    public TextField amountCoins;
+    public Button buttonBuy;
     private ShopModel shopModel;
 
     @Override
@@ -19,7 +20,25 @@ public class ShopController implements Controller {
     @Override
     public void initialize(Model model) {
         shopModel = (ShopModel) model;
-        spinner_value.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 10000));
+
+        amountCoins.textProperty().addListener((ov, oldValue, newValue) -> {
+            if (!newValue.equals("")) {
+                if (!newValue.matches("[0-9]*") || Integer.parseInt(newValue) > 10000) {
+                    amountCoins.setText(oldValue);
+                } else {
+                    amountCoins.requestFocus();
+                }
+            }
+        });
+
+        amountCoins.setOnKeyPressed(ke -> {
+            if (!amountCoins.getText().equals("")) {
+                if (ke.getCode().equals(KeyCode.ENTER)) {
+                    buttonBuy.requestFocus();
+                }
+            }
+        });
+
         update();
     }
 
@@ -28,10 +47,7 @@ public class ShopController implements Controller {
     }
 
     public void btn_buy_onAction() {
-        if (spinner_value.getValue().equals(0)) {
-            spinner_value.requestFocus();
-        } else {
-            shopModel.buy(spinner_value.getValue());
-        }
+        shopModel.buy(Integer.parseInt(amountCoins.getText()));
+        shopModel.showHome();
     }
 }
