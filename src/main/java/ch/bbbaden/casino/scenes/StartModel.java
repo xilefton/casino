@@ -23,4 +23,8 @@ public class StartModel extends Model {
     void openRegister() {
         changeScene(new RegisterModel());
     }
+
+    void openAdminLogin() {
+        changeScene(new AdminLoginModel());
+    }
 }
