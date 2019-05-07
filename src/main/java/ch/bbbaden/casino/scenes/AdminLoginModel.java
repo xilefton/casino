@@ -16,7 +16,7 @@ class AdminLoginModel extends Model {
         super("/fxml/AdminLogin.fxml", "AdminLogin", true);
     }
 
-    private void showErrorMessage(String message) {
+    /*private void showErrorMessage(String message) {
         LoginFailedModel errView = new LoginFailedModel(message);
         changeScene(errView);
         if (errView.doRetry()) {
@@ -27,7 +27,8 @@ class AdminLoginModel extends Model {
             changeScene(new StartModel());
         }
         errView.close();
-    }
+    }*/
+
     void login(String username, String password) {
         boolean loginSuccessful = false;
         adminUser = new AdminUser();
@@ -35,7 +36,7 @@ class AdminLoginModel extends Model {
             adminUser.login(username, password);
             loginSuccessful = true;
         } catch (SQLException ex) {
-            showErrorMessage(ex.getLocalizedMessage());
+            showErrorMessage(ex.getLocalizedMessage(), "Error", ErrorType.NOTIFICATION);
         }
 
         if (loginSuccessful) {
