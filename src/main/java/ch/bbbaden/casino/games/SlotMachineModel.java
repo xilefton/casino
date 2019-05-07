@@ -8,7 +8,7 @@ import javafx.scene.image.ImageView;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.sql.SQLException;
-
+import java.util.ArrayList;
 
 
 public class SlotMachineModel extends Game {
@@ -17,14 +17,30 @@ public class SlotMachineModel extends Game {
     private static  SlotMachineRow firstRow, secondRow, thirdRow;
     private static String urlOfFirstImage, urlOfSecondImage, urlOfThirdImage;
     private static Thread firstThread, secondThread, thirdThread;
-    private static int winFactor;
-    private static String threeStarWin;
+    private static int winFactor = 0;
     private static boolean win = false;
     private static int betFactor = 1;
     private static int bet = 2;
     private static int betCoins;
     private static Image buttonImage;
-    private static int winCoins = 0;
+    private static ArrayList<ThreeStarWin> threeStarWinArrayList  = new ArrayList<>();
+    private static String urlOfThreeStarWinImage = "/images/supercherry/threestarwin/3-STAR-SELECTION.png";
+
+    private static ArrayList<ThreeStarWin> addThreeStarWins() {
+        threeStarWinArrayList.add(new ThreeStarWin("CHERRYCOLLECT", 5));
+        threeStarWinArrayList.add(new ThreeStarWin("10X", 4));
+        threeStarWinArrayList.add(new ThreeStarWin("4XSHUFFLE", 3));
+        threeStarWinArrayList.add(new ThreeStarWin("2XSHUFFLE", 2));
+        threeStarWinArrayList.add(new ThreeStarWin("FRUITSTOP", 1));
+        return threeStarWinArrayList;
+    }
+    public static String getRandomThreeStarWin() {
+        ArrayList<ThreeStarWin> threeStarWinArrayList;
+        threeStarWinArrayList = addThreeStarWins();
+        int randomNumber = (int) (Math.random() * 5);
+        urlOfThreeStarWinImage = (threeStarWinArrayList.get(randomNumber).getImage());
+        return urlOfThreeStarWinImage;
+    }
 
     public SlotMachineModel(NormalUser normalUser) {
         super("/fxml/SlotMachine.fxml", "Super Cherry", "/images/SuperCherry_Logo.png", normalUser);
@@ -70,19 +86,21 @@ public class SlotMachineModel extends Game {
         if(urlOfFirstImage.equals(urlOfSecondImage) && urlOfFirstImage.equals((urlOfThirdImage))) {
             switch (urlOfFirstImage) {
                 case "/src/main/resources/images/supercherry/fruits/STAR.png":
-                    String selectWin = threeStarWin();
+                    String selectWin = getRandomThreeStarWin();
                     switch (selectWin) {
-                        case "FruitStop":
+                        case "/images/supercherry/fruits/FRUITSTOP.png":
                             winFactor = 100;
                             break;
-                        case "2xShuffle":
+                        case "/images/supercherry/fruits/2XSHUFFLE.png":
                             winFactor = 101;
-                        case "4xShuffle":
+                            break;
+                        case "/images/supercherry/fruits/4XSHUFFLE.png":
                             winFactor = 102;
                             break;
-                        case "10x":
+                        case "/images/supercherry/fruits/10X.png":
                             winFactor = 103;
-                        case "CherryCollect":
+                            break;
+                        case "/images/supercherry/fruits/CHERRYCOLLECT.png":
                             winFactor = 104;
                             break;
                     }
@@ -117,10 +135,6 @@ public class SlotMachineModel extends Game {
             }
         } else winFactor = 0;
     }
-    public static int calculateWin() {
-        winCoins = getBetFactor() * getWinFactor();
-        return winCoins;
-    }
     public static void gamble() {
         int randomNumber = (int) (Math.random() * 2);
         if(randomNumber == 1) {
@@ -129,41 +143,94 @@ public class SlotMachineModel extends Game {
             winFactor = 0;
         }
     }
-    public static void bet() {
+    public static void bet(Integer maxBet) {
         if(win) {
             betCoins++;
         } else {
-            switch (bet) {
-                case 1:
-                    bet++;
+            if(maxBet == 1) {
+                betFactor = 1;
+            }
+            else if(maxBet <=4) {
+                if(bet == 1) {
                     betFactor = 1;
-                    break;
-                case 2:
                     bet++;
+                } else {
                     betFactor = 2;
-                    break;
-                case 3:
+                    bet--;
+                }
+            }
+            else if(maxBet <=9) {
+                if(bet == 1) {
+                    betFactor = 1;
                     bet++;
+                } else if(bet == 2) {
+                    betFactor = 2;
+                    bet++;
+                } else {
                     betFactor = 5;
-                    break;
-                case 4:
-                    bet++;
-                    betFactor = 10;
-                    break;
-                case 5:
-                    bet++;
-                    betFactor = 20;
-                    break;
-                case 6:
                     bet = 1;
+                }
+            }
+            else if(maxBet <=19) {
+                if(bet == 1) {
+                    betFactor = 1;
+                    bet++;
+                } else if(bet == 2) {
+                    betFactor = 2;
+                    bet++;
+                } else if(bet == 3) {
+                    betFactor = 5;
+                    bet++;
+                } else {
+                    betFactor = 10;
+                    bet = 1;
+                }
+            }
+            else if(maxBet < 49) {
+                if(bet == 1) {
+                    betFactor = 1;
+                    bet++;
+                } else if(bet == 2) {
+                    betFactor = 2;
+                    bet++;
+                } else if(bet == 3) {
+                    betFactor = 5;
+                    bet++;
+                } else if(bet == 4){
+                    betFactor = 10;
+                    bet++;
+                } else {
+                    betFactor = 20;
+                    bet = 1;
+                }
+            }
+            else if(maxBet >= 50) {
+                if(bet == 1) {
+                    betFactor = 1;
+                    bet++;
+                } else if(bet == 2) {
+                    betFactor = 2;
+                    bet++;
+                } else if(bet == 3) {
+                    betFactor = 5;
+                    bet++;
+                } else if(bet == 4){
+                    betFactor = 10;
+                    bet++;
+                } else if(bet == 5){
+                    betFactor = 20;
+                    bet++;
+                } else {
                     betFactor = 50;
-                    break;
+                    bet = 1;
+                }
             }
         }
     }
     public static int getBetFactor() {return betFactor;}
     public static int getBetCoins() {return betCoins;}
     public static int getWinFactor() {return winFactor;}
+    public static String getUrlOfThreeStarWinImage() {return urlOfThreeStarWinImage;}
 
     public static void mystery() {
         int rN = (int) (Math.random() * 2);
@@ -179,27 +246,6 @@ public class SlotMachineModel extends Game {
         } else {
             winFactor = 0;
         }
-    }
-
-    public static String threeStarWin() {
-        int randomNumber = (int) (Math.random() * 5);
-        switch (randomNumber) {
-            case 1:
-                threeStarWin = "FruitStop";
-                break;
-            case 2:
-                threeStarWin = "2xShuffle";
-                break;
-            case 3:
-                threeStarWin = "4xShuffle";
-                break;
-            case 4:
-                threeStarWin = "10x";
-                break;
-            case 5:
-                threeStarWin = "CherryCollect";
-                break;
-        } return threeStarWin;
     }
     public static Image setButtonImage(String path) {
         File file = new File(path);

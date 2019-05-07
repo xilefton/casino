@@ -2,6 +2,7 @@ package ch.bbbaden.casino.games;
 
 import ch.bbbaden.casino.Controller;
 import ch.bbbaden.casino.Model;
+import javafx.animation.PauseTransition;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -9,6 +10,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.util.Duration;
+
 import java.io.InputStream;
 
 import java.io.File;
@@ -42,14 +45,13 @@ public class SlotMachineController implements Controller {
     public Label riskLabel;
     public Label gameCoinsLabel;
     public Label addCoinsLabel;
-    public static Label firstRowLabel;
-    public static Label secondRowLabel;
-    public static Label thirdRowLabel;
     public Label betFactorLabel;
     public Label betCoinsLabel;
+    public Button receiveWin;
     private SlotMachineModel slotMachineModel;
     private int inputCoins = 0;
     private  int gameCoins = 0;
+    private int usedGameCoins = 0;
 
 
     public void update() {
@@ -58,7 +60,8 @@ public class SlotMachineController implements Controller {
         gameCoinsLabel.setText(Integer.toString(gameCoins));
         betFactorLabel.setText(SlotMachineModel.getBetFactor() + "x");
         betCoinsLabel.setText((Integer.toString(SlotMachineModel.getBetCoins())));
-        riskLabel.setText(Integer.toString(SlotMachineModel.calculateWin()));
+        riskLabel.setText(Integer.toString(SlotMachineModel.getWinFactor() * usedGameCoins));
+        threeStarSelection.setImage(SlotMachineModel.setButtonImage(SlotMachineModel.getUrlOfThreeStarWinImage()));
     }
 
     public void initialize(Model model) {
@@ -119,19 +122,38 @@ public class SlotMachineController implements Controller {
     }
     public void stopButton(MouseEvent mouseEvent) {
         addCoins.setDisable(true);
-        gambleButton.setDisable(false);
-        gambleButton.setImage(SlotMachineModel.setButtonImage("src/main/resources/images/supercherry/buttons/gamble/BUTTON_GAMBLE_ACTIVE.png"));
-        mysteryButton.setDisable(false);
-        mysteryButton.setImage(SlotMachineModel.setButtonImage("src/main/resources/images/supercherry/buttons/mystery/BUTTON_MYSTERY_ACTIVE.png"));
-        stopButton.setDisable(false);
-        betButton.setDisable(false);
         plusCoins.setDisable(true);
         minusCoins.setDisable(true);
-        SlotMachineModel.spinFruits(firstFruitRow,secondFruitRow,thirdFruitRow);
+        betButton.setDisable(true);
+        betButton.setImage(SlotMachineModel.setButtonImage("src/main/resources/images/supercherry/buttons/bet/BUTTON_BET_INACTIVE.png"));
+        stopButton.setDisable(true);
+        stopButton.setImage(SlotMachineModel.setButtonImage("src/main/resources/images/supercherry/buttons/stop/BUTTON_STOP_INACTIVE.png"));
+        if(gameCoins >= 2) {
+            usedGameCoins = gameCoins - SlotMachineModel.getBetFactor();
+            gameCoins = gameCoins - usedGameCoins;
+            SlotMachineModel.spinFruits(firstFruitRow, secondFruitRow, thirdFruitRow);
+            update();
+            PauseTransition transition = new PauseTransition(Duration.seconds(5));
+            transition.setOnFinished(event -> {
+                System.out.println("test");
+                SlotMachineModel.stopSpinning();
+                gambleButton.setDisable(false);
+                gambleButton.setImage(SlotMachineModel.setButtonImage("src/main/resources/images/supercherry/buttons/gamble/BUTTON_GAMBLE_ACTIVE.png"));
+                mysteryButton.setDisable(false);
+                mysteryButton.setImage(SlotMachineModel.setButtonImage("src/main/resources/images/supercherry/buttons/mystery/BUTTON_MYSTERY_ACTIVE.png"));
+                stopButton.setDisable(false);
+                stopButton.setImage(SlotMachineModel.setButtonImage("src/main/resources/images/supercherry/buttons/stop/BUTTON_STOP_ACTIVE.png"));
+                betButton.setDisable(false);
+                betButton.setImage(SlotMachineModel.setButtonImage("src/main/resources/images/supercherry/buttons/bet/BUTTON_BET_ACTIVE.png"));
+                plusCoins.setDisable(false);
+                update();
+            });
+            transition.play();
+        }
     }
     public void mysteryButton(MouseEvent mouseEvent) { SlotMachineModel.mystery(); update();}
     public void gambleButton(MouseEvent mouseEvent) { SlotMachineModel.gamble(); update();}
-    public void betButton(MouseEvent mouseEvent) { SlotMachineModel.bet(); update();}
+    public void betButton(MouseEvent mouseEvent) { SlotMachineModel.bet(gameCoins); update();}
 }
 
 

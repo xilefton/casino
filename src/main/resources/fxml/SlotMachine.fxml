@@ -19,7 +19,6 @@
         <ImageView fitHeight="139.0" fitWidth="461.0" layoutX="307.0" layoutY="468.0" pickOnBounds="true" preserveRatio="true">
             <Image url="@../images/supercherry/WIN_LINE_BACKGROUND.png" />
         </ImageView>
-      <Label fx:id="firstRowLabel" layoutX="345.0" layoutY="493.0" />
         <ImageView fx:id="firstFruitRow" fitHeight="116.0" fitWidth="71.0" layoutX="320.0" layoutY="480.0" pickOnBounds="true" />
         <ImageView fx:id="secondFruitRow" fitHeight="116.0" fitWidth="71.0" layoutX="420.0" layoutY="480.0" pickOnBounds="true" preserveRatio="true">
         </ImageView>
@@ -32,7 +31,7 @@
             <Image url="@../images/supercherry/CHERRY-COLLECT-ACTION.png" />
         </ImageView>
         <ImageView fx:id="threeStarSelection" fitHeight="150.0" fitWidth="158.0" layoutX="521.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
-            <Image url="@../images/supercherry/3-STAR-SELECTION.png" />
+            <Image url="@../images/supercherry/threestarwin/3-STAR-SELECTION.png" />
         </ImageView>
         <ImageView fx:id="betButton" fitHeight="100.0" fitWidth="138.0" layoutX="457.0" layoutY="773.0" onMouseClicked="#betButton" pickOnBounds="true" preserveRatio="true">
             <Image url="@../images/supercherry/buttons/bet/BUTTON_BET_ACTIVE.png" />
@@ -73,20 +72,19 @@
       <Button fx:id="minusCoins" layoutX="454.0" layoutY="680.0" mnemonicParsing="false" onMouseClicked="#minusCoins" opacity="0.0" prefHeight="25.0" prefWidth="13.0" />
       <Button fx:id="plusCoins" layoutX="537.0" layoutY="680.0" mnemonicParsing="false" onMouseClicked="#plusCoins" opacity="0.0" prefHeight="25.0" prefWidth="24.0" />
       <Button fx:id="addCoins" layoutX="452.0" layoutY="642.0" mnemonicParsing="false" onMouseClicked="#addCoins" opacity="0.0" prefHeight="32.0" prefWidth="112.0" />
-      <Label fx:id="riskLabel" alignment="CENTER" layoutX="500.0" layoutY="346.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="5.0" prefWidth="169.0" text="Test" textFill="#e9e9e9">
+      <Label fx:id="riskLabel" alignment="CENTER" layoutX="500.0" layoutY="346.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="5.0" prefWidth="169.0" textFill="WHITE">
          <font>
             <Font size="10.0" />
          </font></Label>
       <Label fx:id="coins" layoutX="101.0" layoutY="64.0" prefHeight="42.0" prefWidth="95.0" textFill="WHITE" />
-      <Label fx:id="gameCoinsLabel" alignment="CENTER" layoutX="500.0" layoutY="321.0" prefHeight="15.0" prefWidth="169.0" text="Test" textFill="WHITE">
+      <Label fx:id="gameCoinsLabel" alignment="CENTER" layoutX="500.0" layoutY="321.0" prefHeight="15.0" prefWidth="169.0" textFill="WHITE">
          <font>
             <Font size="10.0" />
          </font>
       </Label>
       <Label fx:id="addCoinsLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="487.0" layoutY="684.0" prefHeight="17.0" prefWidth="39.0" textFill="WHITE" />
-      <Label fx:id="secondRowLabel" layoutX="443.0" layoutY="493.0" />
-      <Label fx:id="thirdRowLabel" layoutX="547.0" layoutY="493.0" />
-      <Label fx:id="betFactorLabel" text="BetFactor" />
-      <Label fx:id="betCoinsLabel" text="BetCoins" />
+    <Label fx:id="betFactorLabel" layoutX="642.0" layoutY="323.0" prefHeight="14.0" textFill="WHITE" />
+    <Label fx:id="betCoinsLabel" textFill="WHITE" />
+        <Button fx:id="receiveWin" layoutX="494" layoutY="318" opacity="0.0" prefHeight="1.0" prefWidth="101" />
     </children>
 </AnchorPane>
