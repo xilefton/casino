@@ -64,7 +64,7 @@ public class PennyPusherModel extends Game {
 
     void slot1() {
         try {
-            getNormalUser().changeCoins(1, CoinChangeReason.PLAYER_BET);
+            getNormalUser().changeCoins(-1, CoinChangeReason.PLAYER_BET);
         } catch (SQLException e) {
             showErrorMessage("Fehler beim Zugriff auf die Datenbank, bitte überprüfen Sie ihre Internetverbindung und versuchen Sie es später erneut: " + e.getLocalizedMessage(), "Verbindungsfehler", ErrorType.CONNECTION);
         }
@@ -77,7 +77,7 @@ public class PennyPusherModel extends Game {
     void slot2() {
 
         try {
-            getNormalUser().changeCoins(1, CoinChangeReason.PLAYER_BET);
+            getNormalUser().changeCoins(-1, CoinChangeReason.PLAYER_BET);
         } catch (SQLException e) {
             showErrorMessage("Fehler beim Zugriff auf die Datenbank, bitte überprüfen Sie ihre Internetverbindung und versuchen Sie es später erneut: " + e.getLocalizedMessage(), "Verbindungsfehler", ErrorType.CONNECTION);
         }
@@ -92,7 +92,8 @@ public class PennyPusherModel extends Game {
     void slot3() {
 
         try {
-            getNormalUser().changeCoins(1, CoinChangeReason.PLAYER_BET);
+            System.out.println("-1");
+            getNormalUser().changeCoins(-1, CoinChangeReason.PLAYER_BET);
         } catch (SQLException e) {
             showErrorMessage("Fehler beim Zugriff auf die Datenbank, bitte überprüfen Sie ihre Internetverbindung und versuchen Sie es später erneut: " + e.getLocalizedMessage(), "Verbindungsfehler", ErrorType.CONNECTION);
         }
@@ -160,9 +161,15 @@ public class PennyPusherModel extends Game {
                         if (rnd.nextBoolean()) {
                             if (j - 1 >= 0) {
                                 field[i][j - 1]++;
-                                fieldChange.setEndX(j);
-                                fieldChange.setEndY(i - 1);
+                                fieldChange.setEndX(j - 1);
+                                fieldChange.setEndY(i);
                                 fieldChanges.add(fieldChange);
+                            } else if (i == 6) {
+                                try {
+                                    getNormalUser().changeCoins(1, CoinChangeReason.PLAYER_WIN_OR_LOSS);
+                                } catch (SQLException e) {
+                                    showErrorMessage("Fehler beim Zugriff auf die Datenbank, bitte überprüfen Sie ihre Internetverbindung und versuchen Sie es später erneut: " + e.getLocalizedMessage(), "Verbindungsfehler", ErrorType.CONNECTION);
+                                }
                             }
                         } else {
                             if (j + 1 < 13) {
@@ -170,7 +177,7 @@ public class PennyPusherModel extends Game {
                                 fieldChange.setEndX(j + 1);
                                 fieldChange.setEndY(i);
                                 fieldChanges.add(fieldChange);
-                            } else {
+                            } else if (i == 6) {
                                 try {
                                     getNormalUser().changeCoins(1, CoinChangeReason.PLAYER_WIN_OR_LOSS);
                                 } catch (SQLException e) {
@@ -196,12 +203,17 @@ public class PennyPusherModel extends Game {
             }
         }
 
+        notifyController();
         cleanup();
 
         try {
-            roundProfit = beforeRound - getNormalUser().getCoins();
+            roundProfit = getNormalUser().getCoins() - beforeRound;
         } catch (SQLException e) {
             showErrorMessage("Fehler beim Zugriff auf die Datenbank, bitte überprüfen Sie ihre Internetverbindung und versuchen Sie es später erneut: " + e.getLocalizedMessage(), "Verbindungsfehler", ErrorType.CONNECTION);
+        }
+
+        if (firstRowPopulated()) {
+            btn_push_disabled = false;
         }
 
         btn_slot1_disabled = false;
@@ -209,6 +221,14 @@ public class PennyPusherModel extends Game {
         btn_slot3_disabled = false;
         notifyController();
         fieldChanges.clear();
+    }
+
+    private boolean firstRowPopulated() {
+        for (int i = 0; i < field[0].length; i++) {
+            if (field[0][i] != 0)
+                return true;
+        }
+        return false;
     }
 
     private void cleanup() {

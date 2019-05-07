@@ -71,7 +71,8 @@ public class PennyPusherController implements Controller {
 
     public void update() {
         coins.setText(pennyPusherModel.getCoins());
-        animateChanges();
+        if (!pennyPusherModel.getFieldChanges().isEmpty()) animateChanges();
+        else updateField(pennyPusherModel.getField());
         label_profit.setText(Long.toString(pennyPusherModel.getRoundProfit()));
         btn_push.setDisable(pennyPusherModel.isBtn_push_disabled());
         btn_slot1.setDisable(pennyPusherModel.isBtn_slot1_disabled());
@@ -82,7 +83,7 @@ public class PennyPusherController implements Controller {
     private void animateChanges() {
 
         final double rowOffset = 42;
-        final double columnOffset = 70;
+        final double columnOffset = 42;
         ParallelTransition mainTransition = new ParallelTransition();
 
         for (FieldChange fieldChange : pennyPusherModel.getFieldChanges()) {
@@ -96,13 +97,19 @@ public class PennyPusherController implements Controller {
             coinFadeIn.setFromValue(0);
             coinFadeIn.setDuration(Duration.millis(400));
 
+            FadeTransition coinFadeOut = new FadeTransition();
+            coinFadeOut.setToValue(0);
+            coinFadeOut.setFromValue(1);
+            coinFadeOut.setDelay(Duration.millis(400));
+            coinFadeOut.setDuration(Duration.millis(400));
+
             ImageView startImageView = getFieldImageView(fieldChange.getStartY(), fieldChange.getStartX());
             Bounds startBounds = startImageView.getBoundsInLocal();
             Bounds startScreenBounds = startImageView.localToScreen(startBounds);
 
             TranslateTransition coinMove = new TranslateTransition();
             coinMove.setFromX(startScreenBounds.getMinX() - 520);
-            coinMove.setFromY(startScreenBounds.getMinY() - 270);
+            coinMove.setFromY(startScreenBounds.getMinY() - 275);
 
             if (fieldChange.getStartX() < fieldChange.getEndX())
                 coinMove.setToX(startScreenBounds.getMinX() - 520 + columnOffset);
@@ -111,15 +118,15 @@ public class PennyPusherController implements Controller {
             else coinMove.setToX(startScreenBounds.getMinX() - 520);
 
             if (fieldChange.getStartY() < fieldChange.getEndY())
-                coinMove.setToY(startScreenBounds.getMinY() - 270 + rowOffset);
+                coinMove.setToY(startScreenBounds.getMinY() - 275 + rowOffset);
             else if (fieldChange.getStartY() > fieldChange.getEndY())
-                coinMove.setToY(startScreenBounds.getMinY() - 270 - rowOffset);
-            else coinMove.setToY(startScreenBounds.getMinY() - 270);
+                coinMove.setToY(startScreenBounds.getMinY() - 275 - rowOffset);
+            else coinMove.setToY(startScreenBounds.getMinY() - 275);
 
             coinMove.setDuration(Duration.millis(800));
 
             ParallelTransition coinAnimation = new ParallelTransition();
-            coinAnimation.getChildren().addAll(coinFadeIn, coinMove);
+            coinAnimation.getChildren().addAll(coinFadeIn, coinFadeOut, coinMove);
             coinAnimation.setNode(coin);
             mainTransition.getChildren().add(coinAnimation);
         }
