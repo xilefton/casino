@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class SlotMachineRow implements Runnable {
 
-    private static String urlOfImage;
+    private  String urlOfImage;
     private ImageView imageView;
 
     public SlotMachineRow(ImageView imageView) {
@@ -28,16 +28,16 @@ public class SlotMachineRow implements Runnable {
             }
         }
     }
-    public static String getRandomFruit() {
+    public String getRandomFruit() {
         ArrayList<Fruits> fruitsArray;
-        fruitsArray = SlotMachineRow.spin();
+        fruitsArray = spin();
         int randomNumber = (int) (Math.random() * 9);
         urlOfImage = (fruitsArray.get(randomNumber).getImage());
         return urlOfImage;
     }
-    private static ArrayList<Fruits> fruitsArray = new ArrayList<>();
+    private ArrayList<Fruits> fruitsArray = new ArrayList<>();
 
-    private static ArrayList<Fruits> spin() {
+    private ArrayList<Fruits> spin() {
 
         fruitsArray.add(new Fruits("STAR", 9));
         fruitsArray.add(new Fruits("BELL", 8));
