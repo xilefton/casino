@@ -1,6 +1,5 @@
 package ch.bbbaden.casino.games.baccarat;
 
-import ch.bbbaden.casino.CoinChangeReason;
 import ch.bbbaden.casino.Controller;
 import ch.bbbaden.casino.Model;
 import javafx.event.ActionEvent;
@@ -12,36 +11,36 @@ import javafx.scene.image.ImageView;
 
 public class BaccaratController implements Controller {
 
-    public ImageView firstYou;
-    public ImageView secondYou;
-    public ImageView thirdYou;
-    public ImageView firstCroupier;
-    public ImageView secondCroupier;
-    public ImageView thirdCroupier;
-    public ImageView firstCroupierShield;
-    public ImageView secondCroupierShield;
-    public ImageView thirdCroupierShield;
+    public ImageView imgV_firstCardYou;
+    public ImageView imgV_secondCardYou;
+    public ImageView imgV_thirdCardYou;
+    public ImageView imgV_firstCardCroupier;
+    public ImageView imgV_secondCardCroupier;
+    public ImageView imgV_thirdCardCroupier;
+    public ImageView imgV_firstCroupierCardShield;
+    public ImageView imgV_secondCroupierCardShield;
+    public ImageView imgV_thirdCroupierCardShield;
     public ComboBox comboBox;
-    public Button bet;
-    public Button draw;
-    public Button newTurn;
-    public Button newDeck;
-    public Label coins;
-    public Label result;
-    public Label remainingCards;
-    public Label activatedBet;
-    public Label pointsCroupier;
-    public Label pointsYou;
+    public Button btn_bet;
+    public Button btn_draw;
+    public Button btn_newTurn;
+    public Button btn_newDeck;
+    public Label label_coins;
+    public Label label_result;
+    public Label label_remainingCards;
+    public Label label_activeBet;
+    public Label label_pointsYou;
+    public Label label_pointsCroupier;
 
     private BaccaratModel baccaratModel;
-    private int i = 1;
+    private int checkTurn = 1;
     private boolean is5 = false;
 
     public void update() {
-        coins.setText(baccaratModel.getCoins());
-        remainingCards.setText(Integer.toString(baccaratModel.getRemainingCards()));
-        pointsYou.setText("= " + baccaratModel.getPointsPlayer() + " Punkte");
-        pointsCroupier.setText("= " + baccaratModel.getPointsCroupier() + " Punkte");
+        label_coins.setText(baccaratModel.getCoins());
+        label_remainingCards.setText(Integer.toString(baccaratModel.getRemainingCards()));
+        label_pointsYou.setText("= " + baccaratModel.getPointsPlayer() + " Punkte");
+        label_pointsCroupier.setText("= " + baccaratModel.getPointsCroupier() + " Punkte");
     }
 
     @Override
@@ -56,13 +55,13 @@ public class BaccaratController implements Controller {
 
     public void bet(ActionEvent actionEvent) {
         String selectedBet = comboBox.getValue().toString();
-        activatedBet.setText(selectedBet);
-        activatedBet.setVisible(true);
+        label_activeBet.setText(selectedBet);
+        label_activeBet.setVisible(true);
         if (Integer.parseInt(selectedBet) <= Integer.parseInt(baccaratModel.getCoins())) {
             comboBox.setDisable(true);
-            bet.setDisable(true);
-            newDeck.setDisable(true);
-            draw.setDisable(false);
+            btn_bet.setDisable(true);
+            btn_newDeck.setDisable(true);
+            btn_draw.setDisable(false);
             baccaratModel.updateCoins(Integer.parseInt(selectedBet));
         } else {
             baccaratModel.showMessage("Sie haben zu wenig Geld!", "Nicht möglich");
@@ -71,33 +70,33 @@ public class BaccaratController implements Controller {
     }
 
     public void draw(ActionEvent actionEvent) throws InterruptedException {
-        switch (i) {
+        switch (checkTurn) {
             case 1:
                 baccaratModel.resetPoints();
-                showCard(firstYou, false);
-                showCard(firstCroupier, false);
-                firstCroupierShield.setVisible(true);
-                showCard(secondYou, false);
-                showCard(secondCroupier, false);
-                secondCroupierShield.setVisible(true);
-                pointsYou.setVisible(true);
+                showCard(imgV_firstCardYou, false);
+                showCard(imgV_firstCardCroupier, false);
+                imgV_firstCroupierCardShield.setVisible(true);
+                showCard(imgV_secondCardYou, false);
+                showCard(imgV_secondCardCroupier, false);
+                imgV_secondCroupierCardShield.setVisible(true);
+                label_pointsYou.setVisible(true);
                 if (baccaratModel.check89() | !baccaratModel.checkPlayerThird()) {
                     manageEnd(true);
                     return;
                 }
                 if (baccaratModel.check5()) {
-                    newTurn.setDisable(false);
+                    btn_newTurn.setDisable(false);
                     is5 = true;
                 }
-                i++;
+                checkTurn++;
                 break;
             case 2:
-                showCard(thirdYou, true);
+                showCard(imgV_thirdCardYou, true);
                 if (!baccaratModel.checkCroupierThird()) {
                     manageEnd(false);
                 } else {
-                    showCard(thirdCroupier, false);
-                    thirdCroupierShield.setVisible(true);
+                    showCard(imgV_thirdCardCroupier, false);
+                    imgV_thirdCroupierCardShield.setVisible(true);
                     manageEnd(false);
                 }
                 is5 = false;
@@ -111,56 +110,56 @@ public class BaccaratController implements Controller {
     }
 
     public void manageEnd(boolean blackjack) {
-        i = 1;
-        draw.setDisable(true);
-        newTurn.setDisable(false);
-        result.setVisible(true);
-        firstCroupierShield.setVisible(false);
-        secondCroupierShield.setVisible(false);
-        thirdCroupierShield.setVisible(false);
-        pointsCroupier.setVisible(true);
+        checkTurn = 1;
+        btn_draw.setDisable(true);
+        btn_newTurn.setDisable(false);
+        label_result.setVisible(true);
+        imgV_firstCroupierCardShield.setVisible(false);
+        imgV_secondCroupierCardShield.setVisible(false);
+        imgV_thirdCroupierCardShield.setVisible(false);
+        label_pointsCroupier.setVisible(true);
         if (baccaratModel.checkWon()) {
             baccaratModel.manageResult(blackjack);
-            result.setText("Sie haben " + baccaratModel.getResult() + " Coins gewonnen.");
+            label_result.setText("Sie haben " + baccaratModel.getResult() + " Coins gewonnen.");
         } else if (baccaratModel.checkDraw()) {
             baccaratModel.manageResult(blackjack);
-            result.setText("Unentschieden.");
+            label_result.setText("Unentschieden.");
         } else {
             baccaratModel.manageResult(blackjack);
-            result.setText("Sie haben verloren.");
+            label_result.setText("Sie haben verloren.");
         }
         update();
     }
 
     public void newTurn(ActionEvent actionEvent) {
         if (!is5) {
-            newDeck.setDisable(false);
-            newTurn.setDisable(true);
+            btn_newDeck.setDisable(false);
+            btn_newTurn.setDisable(true);
             comboBox.setDisable(false);
-            result.setVisible(false);
-            activatedBet.setVisible(false);
-            pointsYou.setVisible(false);
-            pointsCroupier.setVisible(false);
+            label_result.setVisible(false);
+            label_activeBet.setVisible(false);
+            label_pointsYou.setVisible(false);
+            label_pointsCroupier.setVisible(false);
             if (baccaratModel.getRemainingCards() >= 6) {
-                bet.setDisable(false);
+                btn_bet.setDisable(false);
             }
-            firstYou.setImage(new Image("/images/baccarat/borderCard.png"));
-            firstCroupier.setImage(new Image("/images/baccarat/borderCard.png"));
-            secondYou.setImage(new Image("/images/baccarat/borderCard.png"));
-            secondCroupier.setImage(new Image("/images/baccarat/borderCard.png"));
-            thirdYou.setImage(new Image("/images/baccarat/borderCard.png"));
-            thirdCroupier.setImage(new Image("/images/baccarat/borderCard.png"));
+            imgV_firstCardYou.setImage(new Image("/images/baccarat/borderCard.png"));
+            imgV_firstCardCroupier.setImage(new Image("/images/baccarat/borderCard.png"));
+            imgV_secondCardYou.setImage(new Image("/images/baccarat/borderCard.png"));
+            imgV_secondCardCroupier.setImage(new Image("/images/baccarat/borderCard.png"));
+            imgV_thirdCardYou.setImage(new Image("/images/baccarat/borderCard.png"));
+            imgV_thirdCardCroupier.setImage(new Image("/images/baccarat/borderCard.png"));
         } else {
             is5 = false;
             manageEnd(false);
         }
-        baccaratModel.setForPlayer(true);
+        baccaratModel.setCardForPlayer(true);
         update();
     }
 
     public void newDeck(ActionEvent actionEvent) {
-        bet.setDisable(false);
-        newDeck.setDisable(true);
+        btn_bet.setDisable(false);
+        btn_newDeck.setDisable(true);
         baccaratModel.createDeck();
         update();
     }

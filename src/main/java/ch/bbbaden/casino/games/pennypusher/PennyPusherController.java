@@ -21,7 +21,7 @@ import javafx.util.Duration;
 
 public class PennyPusherController implements Controller {
     public GridPane field;
-    public Label coins;
+    public Label label_coins;
     public Button btn_slot1;
     public Button btn_slot2;
     public Button btn_slot3;
@@ -70,7 +70,7 @@ public class PennyPusherController implements Controller {
     }
 
     public void update() {
-        coins.setText(pennyPusherModel.getCoins());
+        label_coins.setText(pennyPusherModel.getCoins());
         if (!pennyPusherModel.getFieldChanges().isEmpty()) animateChanges();
         else updateField(pennyPusherModel.getField());
         label_profit.setText(Long.toString(pennyPusherModel.getRoundProfit()));

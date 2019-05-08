@@ -16,9 +16,9 @@ public class BaccaratModel extends Game {
     private Card card;
     private ArrayList<Card> cards = new ArrayList();
     private Random random = new Random();
-    private int selectedBet, pointsPlayer, pointsThirdPlayer, pointsCroupier, i = 1;
+    private int selectedBet, pointsPlayer, pointsThirdCard, pointsCroupier;
     private double coinsWon;
-    private boolean forPlayer = true;
+    private boolean cardForPlayer = true;
 
     public BaccaratModel(NormalUser normalUser) {
         super("/fxml/Baccarat.fxml", "baccarat by Felix", "/images/Baccarat_Logo.png", normalUser, "Baccarat");
@@ -52,21 +52,21 @@ public class BaccaratModel extends Game {
         cards.remove(card);
 
         if (thirdPlayerCard) {
-            pointsThirdPlayer = card.getPoints();
+            pointsThirdCard = card.getPoints();
         }
 
-        if (forPlayer) {
+        if (cardForPlayer) {
             pointsPlayer += card.getPoints();
             if (pointsPlayer >= 10) {
                 pointsPlayer -= 10;
             }
-            forPlayer = false;
+            cardForPlayer = false;
         } else {
             pointsCroupier += card.getPoints();
             if (pointsCroupier >= 10) {
                 pointsCroupier -= 10;
             }
-            forPlayer = true;
+            cardForPlayer = true;
         }
 
         return card.getImagePath();
@@ -89,25 +89,25 @@ public class BaccaratModel extends Game {
             case 2:
                 return true;
             case 3:
-                if (pointsThirdPlayer != 8) {
+                if (pointsThirdCard != 8) {
                     return true;
                 } else {
                     return false;
                 }
             case 4:
-                if (pointsThirdPlayer > 1 && pointsThirdPlayer < 8) {
+                if (pointsThirdCard > 1 && pointsThirdCard < 8) {
                     return true;
                 } else {
                     return false;
                 }
             case 5:
-                if (pointsThirdPlayer > 3 && pointsThirdPlayer < 8) {
+                if (pointsThirdCard > 3 && pointsThirdCard < 8) {
                     return true;
                 } else {
                     return false;
                 }
             case 6:
-                if (pointsThirdPlayer == 6 | pointsThirdPlayer == 7) {
+                if (pointsThirdCard == 6 | pointsThirdCard == 7) {
                     return true;
                 } else {
                     return false;
@@ -173,8 +173,8 @@ public class BaccaratModel extends Game {
         return cards.size();
     }
 
-    public void setForPlayer(boolean forPlayer) {
-        this.forPlayer = forPlayer;
+    public void setCardForPlayer(boolean cardForPlayer) {
+        this.cardForPlayer = cardForPlayer;
     }
 
     public int getResult() {
@@ -192,7 +192,7 @@ public class BaccaratModel extends Game {
     public void resetPoints() {
         pointsPlayer = 0;
         pointsCroupier = 0;
-        pointsThirdPlayer = 0;
+        pointsThirdCard = 0;
     }
 
     public void showMessage(String message, String title) {

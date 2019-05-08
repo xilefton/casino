@@ -232,7 +232,7 @@ public class PennyPusherModel extends Game {
     }
 
     private void cleanup() {
-        //in case there are too many coins on one field they get cleaned up
+        //in case there are too many label_coins on one field they get cleaned up
         for (int i = 0; i < field.length; i++) {
             fieldChanges.clear();
             for (int j = 0; j < field[i].length; j++) {

@@ -47,7 +47,7 @@
     <ImageView fitHeight="47.0" fitWidth="47.0" layoutX="8.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true">
         <Image url="@../images/coin.png" />
     </ImageView>
-    <Label fx:id="coins" layoutX="66.0" layoutY="191.0" text="coins" />
+    <Label fx:id="label_coins" layoutX="66.0" layoutY="191.0" text="coins" />
     <Button fx:id="btn_slot1" layoutX="418.0" layoutY="14.0" mnemonicParsing="false" onAction="#btn_slot1_onAction" text="slot 1" />
     <Button fx:id="btn_slot2" layoutX="615.0" layoutY="14.0" mnemonicParsing="false" onAction="#btn_slot2_onAction" text="slot 2" />
     <Button fx:id="btn_slot3" layoutX="850.0" layoutY="14.0" mnemonicParsing="false" onAction="#btn_slot3_onAction" text="slot 3" />
