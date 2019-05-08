@@ -1,5 +1,6 @@
 package ch.bbbaden.casino;
 
+
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
