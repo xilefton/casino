@@ -1,5 +1,6 @@
 package ch.bbbaden.casino;
 
+
 import ch.bbbaden.casino.scenes.ErrorMessageModel;
 import ch.bbbaden.casino.scenes.ErrorType;
 import javafx.animation.FadeTransition;

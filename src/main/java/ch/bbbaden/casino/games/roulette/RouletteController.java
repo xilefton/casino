@@ -151,7 +151,7 @@ public class RouletteController implements Controller {
         imgV_jeton50.setImage(new Image("/images/roulette/jetons-50.png"));
         imgV_jeton100.setImage(new Image("/images/roulette/jetons-100.png"));
         jetonausg = true;
-        selectedValue = -5;
+        selectedValue = 5;
         jeton = 5;
     }
 
@@ -163,7 +163,7 @@ public class RouletteController implements Controller {
         imgV_jeton50.setImage(new Image("/images/roulette/jetons-50.png"));
         imgV_jeton100.setImage(new Image("/images/roulette/jetons-100.png"));
         jetonausg = true;
-        selectedValue = -10;
+        selectedValue = 10;
         jeton = 10;
     }
 
@@ -175,7 +175,7 @@ public class RouletteController implements Controller {
         imgV_jeton50.setImage(new Image("/images/roulette/jetons-50.png"));
         imgV_jeton100.setImage(new Image("/images/roulette/jetons-100.png"));
         jetonausg = true;
-        selectedValue = -25;
+        selectedValue = 25;
         jeton = 25;
     }
 
@@ -187,7 +187,7 @@ public class RouletteController implements Controller {
         imgV_jeton25.setImage(new Image("/images/roulette/jetons-25.png"));
         imgV_jeton100.setImage(new Image("/images/roulette/jetons-100.png"));
         jetonausg = true;
-        selectedValue = -50;
+        selectedValue = 50;
         jeton = 50;
     }
 
@@ -199,7 +199,7 @@ public class RouletteController implements Controller {
         imgV_jeton25.setImage(new Image("/images/roulette/jetons-25.png"));
         imgV_jeton50.setImage(new Image("/images/roulette/jetons-50.png"));
         jetonausg = true;
-        selectedValue = -100;
+        selectedValue = 100;
         jeton = 100;
     }
 
