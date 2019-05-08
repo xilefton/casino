@@ -26,7 +26,6 @@ public class SlotMachineRow implements Iterable<Fruit> {
         //Random für 0 - 8
         indexOffset = random.nextInt(9);
         index = indexOffset;
-        System.out.println(indexOffset);
     }
 
     public void setIterations(int iterations) {

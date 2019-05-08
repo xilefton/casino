@@ -33,7 +33,6 @@ public class SlotMachineController implements Controller {
     public ImageView stepLight;
     public ImageView winLight;
     public ImageView bonusLightMystery;
-    public ImageView bonusLight;
     public ImageView TwoFactorLight;
     public ImageView ThreeFactorLight;
     public ImageView FiveFactorLight;
@@ -52,7 +51,6 @@ public class SlotMachineController implements Controller {
     private SlotMachineModel slotMachineModel;
     private int inputCoins = 0;
     private int gameCoins = 0;
-    private int betFactor = 2;
 
 
     public void update() {
@@ -62,13 +60,12 @@ public class SlotMachineController implements Controller {
             coins.setText(Integer.toString(slotMachineModel.getCoins()));
             addCoinsLabel.setText(Integer.toString(inputCoins));
             gameCoinsLabel.setText(Integer.toString(gameCoins));
-            betFactorLabel.setText(betFactor + "x");
+            betFactorLabel.setText(slotMachineModel.getBetFactor() + "x");
+            riskLabel.setText(Integer.toString(slotMachineModel.getWin()));
     }
 
     private void spin(SlotMachineRow slotMachineRow, int rowNumber) {
-       //System.out.println(slotMachineRow.iterator().hasNext());
         if(slotMachineRow.iterator().hasNext()) {
-
             ImageView row;
             switch (rowNumber) {
                 case 2:
@@ -88,7 +85,8 @@ public class SlotMachineController implements Controller {
                 row.setImage(slotMachineRow.iterator().next().getImage());
                 if (slotMachineRow.iterator().hasNext()) {
                     spin(slotMachineRow, rowNumber);
-                } else {
+                }
+                else {
                     slotMachineModel.handleSpinResults(slotMachineRow, rowNumber);
                 }
             });
@@ -130,7 +128,16 @@ public class SlotMachineController implements Controller {
     }
 
     public void imgV_stop_onMouseClicked() {
-        slotMachineModel.startGame();
+        if(gameCoins >= 2 && gameCoins >= slotMachineModel.getBetFactor()) {
+            slotMachineModel.startGame();
+            int usedGameCoins = slotMachineModel.getBetFactor();
+            slotMachineModel.setUsedGameCoins(usedGameCoins);
+            gameCoins = gameCoins - usedGameCoins;
+        }
+        if(slotMachineModel.getWin() > 0) {
+            gameCoins = gameCoins + slotMachineModel.getWin();
+            slotMachineModel.resetWin();
+        }
     }
 
     public void imgV_mystery_onMouseClicked() {
@@ -143,7 +150,6 @@ public class SlotMachineController implements Controller {
 
     public void imgV_changeBetFactor_onMouseClicked() {
         slotMachineModel.changeBetFactor();
-        update();
     }
 
     public void imgV_payout_onMouseClicked() {

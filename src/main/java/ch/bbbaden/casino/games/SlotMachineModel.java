@@ -19,14 +19,13 @@ public class SlotMachineModel extends Game {
     private Fruit fruit1;
     private Fruit fruit2;
     private Fruit fruit3;
-    private int betCoins = 0;
     private int winCoins = 0;
     private int winFactor = 0;
+    private int usedGameCoins = 0;
 
     public SlotMachineModel(NormalUser normalUser) {
         super("/fxml/SlotMachine.fxml", "Super Cherry", "/images/SuperCherry_Logo.png", normalUser);
     }
-
     public int getCoins() {
         try {
             return getNormalUser().getCoins();
@@ -35,7 +34,6 @@ public class SlotMachineModel extends Game {
         }
         return 0;
     }
-
     public void startGame() {
         Random random = new Random();
         int rN1 = (random.nextInt(25) + 25);
@@ -47,41 +45,27 @@ public class SlotMachineModel extends Game {
         notifyController();
     }
     public void startHoldGame(SlotMachineRow slotMachineRow) {
+        Random random = new Random();
+        int rN = (random.nextInt(25) + 10);
+        slotMachineRow.setIterations(rN);
+        notifyController();
     }
     private void startBonusGame() {
     }
 
     private void startThreeStarWinGame() {
     }
-    public void gamble() {
-    }
+
     public int getBetFactor() {
         return betFactor[betFactorIndex];
     }
 
-    /*public int getBetCoins() {
-        return betCoins;
-    }*/
-
-    public int getWinFactor() {
-        return winFactor;
-    }
-    /*public boolean getWin() {
-        return win;
-    }*/
-
-    /*public boolean getBonus() {
-        return bonus;
-    }*/
-
     public SlotMachineRow getRow1() {
         return row1;
     }
-
     public SlotMachineRow getRow2() {
         return row2;
     }
-
     public SlotMachineRow getRow3() {
         return row3;
     }
@@ -105,32 +89,45 @@ public class SlotMachineModel extends Game {
     }
 
     public void mystery() {
-        int rN = (int) (Math.random() * 2);
-        int randomNumber = (int) (Math.random() * 30);
-        if (rN == 1) {
-            if (randomNumber <= 15) {
-                winFactor = 2;
-            } else if (randomNumber <= 25) {
-                winFactor = 3;
-            } else if (randomNumber <= 30) {
-                winFactor = 5;
+        Random random = new Random();
+        int rN1 = random.nextInt(2);
+        int rN2 = random.nextInt(31);
+        System.out.println("mystery: " + rN1 +" "+rN2);
+        if (rN1 == 1) {
+            if (rN2 <= 15) {
+                winCoins = winCoins * 2;
+            } else if (rN2 <= 25) {
+                winCoins = winCoins * 3;
+            } else if (rN2 <= 30) {
+                winCoins = winCoins * 5;
             }
         } else {
-            winFactor = 0;
-        }
+            winCoins = 0;
+            startBonusGame();
+        } notifyController();
+    }
+    public void gamble() {
+        Random random = new Random();
+        int rN = random.nextInt(2);
+        System.out.println("gamble: " +rN);
+        if(rN == 0) {
+            winCoins = winCoins * 2;
+        } else {
+            winCoins = 0;
+        } notifyController();
     }
 
     public void changeBetFactor() {
-        if (betFactorIndex < betFactor.length) {
+        System.out.println(betFactorIndex);
+        if (betFactorIndex < 3) {
             betFactorIndex++;
-        } else {
+        } else if(betFactorIndex == 3){
             betFactorIndex = 0;
         }
         notifyController();
     }
 
     public void bet(int coins) {
-        betCoins = coins;
         changeCoins(-coins);
     }
 
@@ -143,7 +140,6 @@ public class SlotMachineModel extends Game {
     }
 
     public void handleSpinResults(SlotMachineRow slotMachineRow, int rowNumber) {
-        System.out.println("handleSpinResults");
         switch (rowNumber) {
             case 1:
                 fruit1 = slotMachineRow.getFruit();
@@ -158,6 +154,9 @@ public class SlotMachineModel extends Game {
                 break;
         }
         if (fruit1 != null && fruit2 != null && fruit3 != null) {
+            System.out.println(fruit1.getFruitType());
+            System.out.println(fruit2.getFruitType());
+            System.out.println(fruit3.getFruitType());
             if (fruit1.equals(fruit2) && fruit1.equals(fruit3)) {
                 switch (fruit1.getFruitType()) {
                     case BELL:
@@ -204,6 +203,22 @@ public class SlotMachineModel extends Game {
             else {
                 startBonusGame();
             }
+            System.out.println("WinFactor:"+winFactor);
+            setWin();
         }
+    }
+    private void setWin() {
+        winCoins = usedGameCoins * winFactor;
+        notifyController();
+    }
+    public int getWin() {
+        return winCoins;
+    }
+    public void resetWin() {
+        winCoins = 0;
+        notifyController();
+    }
+    public void setUsedGameCoins(int usedGameCoins) {
+        this.usedGameCoins = usedGameCoins;
     }
 }
