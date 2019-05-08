@@ -1,4 +1,4 @@
-package ch.bbbaden.casino.games;
+package ch.bbbaden.casino.games.roulette;
 
 import ch.bbbaden.casino.Controller;
 import ch.bbbaden.casino.Model;

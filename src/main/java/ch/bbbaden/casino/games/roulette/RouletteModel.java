@@ -1,7 +1,8 @@
-package ch.bbbaden.casino.games;
+package ch.bbbaden.casino.games.roulette;
 
 import ch.bbbaden.casino.Model;
 import ch.bbbaden.casino.NormalUser;
+import ch.bbbaden.casino.games.Game;
 
 import java.sql.SQLException;
 
