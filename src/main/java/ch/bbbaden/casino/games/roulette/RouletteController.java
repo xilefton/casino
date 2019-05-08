@@ -1,6 +1,5 @@
 package ch.bbbaden.casino.games.roulette;
 
-import ch.bbbaden.casino.CoinChangeReason;
 import ch.bbbaden.casino.Controller;
 import ch.bbbaden.casino.Model;
 import javafx.animation.Interpolator;
@@ -18,7 +17,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
-import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -69,7 +68,7 @@ public class RouletteController implements Controller {
 
     // Jeton Bilder auf dem Feld per Klick
     private void jetonMaker(Button button, int offset) {
-        if(jetonausg) {
+        if (jetonausg) {
             ImageView iv = new ImageView(image);
             anchorPane.getChildren().add(iv);
             jetonentf.add(iv);
@@ -82,31 +81,25 @@ public class RouletteController implements Controller {
                     + iv.getLayoutBounds().getMinY() - offset);
             iv.setScaleX(0.4);
             iv.setScaleY(0.4);
-
-            try {
-                rouletteModel.addCoins(selectedValue, CoinChangeReason.PLAYER_BET);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
+            rouletteModel.changeCoinsBet(selectedValue);
             update();
         }
     }
 
     // Jeton Bilder auf Gridpane setzen
-    private void handleButtonAction(Button button, ActionEvent actionEvent){
+    private void handleButtonAction(Button button, ActionEvent actionEvent) {
         jetonMaker(button, 35);
         setWert(button);
     }
 
     // Jeton Bild auf 0
-    public void buttonzero(ActionEvent actionEvent) {
+    public void btn_zero_onAction(ActionEvent actionEvent) {
         jetonMaker(btn_zero, 30);
         buttonwert.add(0);
     }
 
     // Jeton Bild auf 00
-    public void buttonzerozero(ActionEvent actionEvent) {
+    public void btn_doubleZero_onAction(ActionEvent actionEvent) {
         jetonMaker(btn_doubleZero, 30);
         buttonwert.add(100);
     }
@@ -120,7 +113,7 @@ public class RouletteController implements Controller {
         // Array für die Roulette Rad Zahlen
         numbers[0] = "00";
         numbers[1] = "0";
-        for(int i = 2; i < 38; i++){
+        for (int i = 2; i < 38; i++) {
             int c = i - 1;
             numbers[i] = "" + c;
         }
@@ -212,9 +205,9 @@ public class RouletteController implements Controller {
 
     // Rotation des Roulette Rads
     public void handleDrehen(MouseEvent mouseEvent) {
-        if(spinning){
+        if (spinning) {
 
-        }else {
+        } else {
             label_win.setText("");
             imgV_spin.setImage(new Image("/images/roulette/drehen_transp.png"));
             imgV_ballRotate.setImage(new Image("/images/roulette/rouletterad-ball.png"));
@@ -238,7 +231,7 @@ public class RouletteController implements Controller {
                 jetonausg = true;
 
 
-                for (int i = 0; i < jetonentf.size(); i++){
+                for (int i = 0; i < jetonentf.size(); i++) {
                     anchorPane.getChildren().remove(jetonentf.get(i));
                 }
 
@@ -249,17 +242,17 @@ public class RouletteController implements Controller {
 
     // Bilder der Buttons anpassen
     public void handledrepressing(MouseEvent mouseEvent) {
-        if(spinning){
+        if (spinning) {
 
-        }else {
+        } else {
             imgV_spin.setImage(new Image("/images/roulette/drehen_ausg.png"));
         }
     }
 
     public void handledrerelease(MouseEvent mouseEvent) {
-        if(spinning){
+        if (spinning) {
 
-        }else {
+        } else {
             imgV_spin.setImage(new Image("/images/roulette/drehen_button.png"));
         }
     }
@@ -269,35 +262,31 @@ public class RouletteController implements Controller {
     }
 
     // Nummer aus dem Rad generieren
-    private void test(){
+    private void test() {
         Random rnd = new Random();
         int d = rnd.nextInt(38);
         String rndnumber = numbers[d];
         label_rndNumber.setText("Gedrehte Nummer: " + rndnumber);
-        if(rndnumber == "00"){
+        if (rndnumber == "00") {
             rndnumber = "100";
         }
 
         imgV_spin.setImage(new Image("/images/roulette/drehen_button.png"));
-        if(betrag.containsKey(Integer.parseInt(rndnumber))){
+        if (betrag.containsKey(Integer.parseInt(rndnumber))) {
             gewinn(Integer.parseInt(rndnumber));
         }
         betrag.clear();
     }
 
     // Gewinnanzeige
-    private void gewinn(int d){
+    private void gewinn(int d) {
         label_win.setText("Du hast " + betrag.get(d) + " gewonnen!");
-        try {
-            rouletteModel.addCoins(betrag.get(d), CoinChangeReason.PLAYER_WIN_OR_LOSS);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        rouletteModel.changeCoinsWinOrLoss(betrag.get(d));
         update();
     }
 
     // Werte den Buttons zuordnen
-    private void setWert(Button button){
+    private void setWert(Button button) {
         //Obere Seite
         int column = GridPane.getColumnIndex(button);
         //Linke Seite
@@ -306,7 +295,7 @@ public class RouletteController implements Controller {
 
         chips.add(jeton);
 
-        switch (row){
+        switch (row) {
             case 0:
                 scColumn(column, 0, 1);
                 break;
@@ -333,158 +322,157 @@ public class RouletteController implements Controller {
     }
 
     // Betrag wird ausgerechnet, durch das gestzte und die gedrehte Zahl
-    private void addBetrag(int i, int multiplicator){
+    private void addAmount(int i, int multiplicator) {
         int d = 0;
-        if(betrag.containsKey(i)){
-             d = betrag.get(i);
+        if (betrag.containsKey(i)) {
+            d = betrag.get(i);
             betrag.remove(i);
         }
-
-        int mult = chips.get(chips.size() - 1) * multiplicator ;
+        int mult = chips.get(chips.size() - 1) * multiplicator;
         d += mult;
 
         betrag.put(i, d);
     }
 
-    private void scColumn(int column, int row, int divide){
+    private void scColumn(int column, int row, int divide) {
         int multiplicatorr = 36;
-        if(column % 2 == 1){
+        if (column % 2 == 1) {
             multiplicatorr = 18;
         }
 
         multiplicatorr /= divide;
 
-        switch (column){
+        switch (column) {
             case 0:
                 buttonwert.add(3 - row);
-                addBetrag(3 - row, multiplicatorr);
+                addAmount(3 - row, multiplicatorr);
                 break;
             case 2:
                 buttonwert.add(6 - row);
-                addBetrag(6 - row, multiplicatorr);
+                addAmount(6 - row, multiplicatorr);
                 break;
             case 4:
                 buttonwert.add(9 - row);
-                addBetrag(9 - row, multiplicatorr);
+                addAmount(9 - row, multiplicatorr);
                 break;
             case 6:
                 buttonwert.add(12 - row);
-                addBetrag(12 - row, multiplicatorr);
+                addAmount(12 - row, multiplicatorr);
                 break;
             case 8:
                 buttonwert.add(15 - row);
-                addBetrag(15 - row, multiplicatorr);
+                addAmount(15 - row, multiplicatorr);
                 break;
             case 10:
                 buttonwert.add(18 - row);
-                addBetrag(18 - row, multiplicatorr);
+                addAmount(18 - row, multiplicatorr);
                 break;
             case 12:
                 buttonwert.add(21 - row);
-                addBetrag(21 - row, multiplicatorr);
+                addAmount(21 - row, multiplicatorr);
                 break;
             case 14:
                 buttonwert.add(24 - row);
-                addBetrag(24 - row, multiplicatorr);
+                addAmount(24 - row, multiplicatorr);
                 break;
             case 16:
                 buttonwert.add(27 - row);
-                addBetrag(27 - row, multiplicatorr);
+                addAmount(27 - row, multiplicatorr);
                 break;
             case 18:
                 buttonwert.add(30 - row);
-                addBetrag(30 - row, multiplicatorr);
+                addAmount(30 - row, multiplicatorr);
                 break;
             case 20:
                 buttonwert.add(33 - row);
-                addBetrag(33 - row, multiplicatorr);
+                addAmount(33 - row, multiplicatorr);
                 break;
             case 22:
                 buttonwert.add(36 - row);
-                addBetrag(36 - row, multiplicatorr);
+                addAmount(36 - row, multiplicatorr);
                 break;
             case 1:
                 buttonwert.add(3 - row);
-                addBetrag(3 - row, multiplicatorr);
+                addAmount(3 - row, multiplicatorr);
                 buttonwert.add(6 - row);
-                addBetrag(6 - row, multiplicatorr);
+                addAmount(6 - row, multiplicatorr);
                 break;
             case 3:
                 buttonwert.add(6 - row);
-                addBetrag(6 - row, multiplicatorr);
+                addAmount(6 - row, multiplicatorr);
                 buttonwert.add(9 - row);
-                addBetrag(9 - row, multiplicatorr);
+                addAmount(9 - row, multiplicatorr);
                 break;
             case 5:
                 buttonwert.add(9 - row);
-                addBetrag(9 - row, multiplicatorr);
+                addAmount(9 - row, multiplicatorr);
                 buttonwert.add(12 - row);
-                addBetrag(12 - row, multiplicatorr);
+                addAmount(12 - row, multiplicatorr);
                 break;
             case 7:
                 buttonwert.add(12 - row);
-                addBetrag(12 - row, multiplicatorr);
+                addAmount(12 - row, multiplicatorr);
                 buttonwert.add(15 - row);
-                addBetrag(15 - row, multiplicatorr);
+                addAmount(15 - row, multiplicatorr);
                 break;
             case 9:
                 buttonwert.add(15 - row);
-                addBetrag(15 - row, multiplicatorr);
+                addAmount(15 - row, multiplicatorr);
                 buttonwert.add(18 - row);
-                addBetrag(18 - row, multiplicatorr);
+                addAmount(18 - row, multiplicatorr);
                 break;
             case 11:
                 buttonwert.add(18 - row);
-                addBetrag(18 - row, multiplicatorr);
+                addAmount(18 - row, multiplicatorr);
                 buttonwert.add(21 - row);
-                addBetrag(21 - row, multiplicatorr);
+                addAmount(21 - row, multiplicatorr);
                 break;
             case 13:
                 buttonwert.add(21 - row);
-                addBetrag(21 - row, multiplicatorr);
+                addAmount(21 - row, multiplicatorr);
                 buttonwert.add(24 - row);
-                addBetrag(24 - row, multiplicatorr);
+                addAmount(24 - row, multiplicatorr);
                 break;
             case 15:
                 buttonwert.add(24 - row);
-                addBetrag(24 - row, multiplicatorr);
+                addAmount(24 - row, multiplicatorr);
                 buttonwert.add(27 - row);
-                addBetrag(27 - row, multiplicatorr);
+                addAmount(27 - row, multiplicatorr);
                 break;
             case 17:
                 buttonwert.add(27 - row);
-                addBetrag(27 - row, multiplicatorr);
+                addAmount(27 - row, multiplicatorr);
                 buttonwert.add(30 - row);
-                addBetrag(30 - row, multiplicatorr);
+                addAmount(30 - row, multiplicatorr);
                 break;
             case 19:
                 buttonwert.add(30 - row);
-                addBetrag(30 - row, multiplicatorr);
+                addAmount(30 - row, multiplicatorr);
                 buttonwert.add(33 - row);
-                addBetrag(33 - row, multiplicatorr);
+                addAmount(33 - row, multiplicatorr);
                 break;
             case 21:
                 buttonwert.add(33 - row);
-                addBetrag(33 - row, multiplicatorr);
+                addAmount(33 - row, multiplicatorr);
                 buttonwert.add(36 - row);
-                addBetrag(36 - row, multiplicatorr);
+                addAmount(36 - row, multiplicatorr);
                 break;
+        }
     }
-}
 
     // Verschieden Bilder für die Buttons
     public void drehenter(MouseEvent mouseEvent) {
-        if(spinning) {
+        if (spinning) {
 
-        }else {
+        } else {
             imgV_spin.setImage(new Image("/images/roulette/drehen_ausg.png"));
         }
     }
 
     public void drehexit(MouseEvent mouseEvent) {
-        if(spinning){
+        if (spinning) {
 
-        }else {
+        } else {
             imgV_spin.setImage(new Image("/images/roulette/drehen_button.png"));
         }
     }
@@ -499,260 +487,261 @@ public class RouletteController implements Controller {
     }
 
     // Spiel schliesst sich. Zurück auf Startseite/Menü.
-    public void abbrechen_onClick(MouseEvent mouseEvent) {
+    public void imgV_quit_onMouseClick(MouseEvent mouseEvent) {
         rouletteModel.close();
     }
 
     // Die anderen Buttons auf dem Feld
-    public void onActionFirst(ActionEvent actionEvent) {
-        if(jetonausg) {
+    public void btn_first_onAction(ActionEvent actionEvent) {
+        if (jetonausg) {
             buttonwert.clear();
             jetonMaker(btn_first, 40);
             chips.add(jeton);
-            numbersUpperleft(3);
-            numbersMiddleleft(3);
-            numbersBottomleft(3);
+            numbersUpperLeft(3);
+            numbersMiddleLeft(3);
+            numbersBottomLeft(3);
         }
     }
 
-    public void onActionSecond(ActionEvent actionEvent) {
-        if(jetonausg) {
+    public void btn_second_onAction(ActionEvent actionEvent) {
+        if (jetonausg) {
             buttonwert.clear();
             jetonMaker(btn_second, 40);
             chips.add(jeton);
-            numbersUppermid(3);
-            numbersMiddlemid(3);
-            numbersBottommid(3);
+            numbersUpperMid(3);
+            numbersMiddleMid(3);
+            numbersBottomID(3);
         }
     }
 
-    public void onActionThird(ActionEvent actionEvent) {
-        if(jetonausg) {
+    public void btn_third_onAction(ActionEvent actionEvent) {
+        if (jetonausg) {
             buttonwert.clear();
             jetonMaker(btn_third, 40);
             chips.add(jeton);
-            numbersUpperright(3);
-            numbersMiddleright(3);
-            numbersBottomright(3);
+            numbersUpperRight(3);
+            numbersMiddleRight(3);
+            numbersBottomRight(3);
         }
     }
 
-    public void onActionBlack(ActionEvent actionEvent) {
-        if(jetonausg) {
+    public void btn_black_onAction(ActionEvent actionEvent) {
+        if (jetonausg) {
             buttonwert.clear();
             jetonMaker(btn_black, 40);
             chips.add(jeton);
-            addBetrag(2, 2);
-            addBetrag(4, 2);
-            addBetrag(6, 2);
-            addBetrag(8, 2);
-            addBetrag(10, 2);
-            addBetrag(11, 2);
-            addBetrag(13, 2);
-            addBetrag(15, 2);
-            addBetrag(17, 2);
-            addBetrag(20, 2);
-            addBetrag(22, 2);
-            addBetrag(24, 2);
-            addBetrag(26, 2);
-            addBetrag(28, 2);
-            addBetrag(29, 2);
-            addBetrag(31, 2);
-            addBetrag(33, 2);
-            addBetrag(35, 2);
+            addAmount(2, 2);
+            addAmount(4, 2);
+            addAmount(6, 2);
+            addAmount(8, 2);
+            addAmount(10, 2);
+            addAmount(11, 2);
+            addAmount(13, 2);
+            addAmount(15, 2);
+            addAmount(17, 2);
+            addAmount(20, 2);
+            addAmount(22, 2);
+            addAmount(24, 2);
+            addAmount(26, 2);
+            addAmount(28, 2);
+            addAmount(29, 2);
+            addAmount(31, 2);
+            addAmount(33, 2);
+            addAmount(35, 2);
         }
     }
 
-    public void onAction1to18(ActionEvent actionEvent) {
-        if(jetonausg) {
+    public void btn_1to18_onAction(ActionEvent actionEvent) {
+        if (jetonausg) {
             buttonwert.clear();
             jetonMaker(btn_1to18, 40);
             chips.add(jeton);
-            numbersUpperleft(2);
-            numbersMiddleleft(2);
-            numbersBottomleft(2);
-            addBetrag(13, 2);
-            addBetrag(14, 2);
-            addBetrag(15, 2);
-            addBetrag(16, 2);
-            addBetrag(17, 2);
-            addBetrag(18, 2);
+            numbersUpperLeft(2);
+            numbersMiddleLeft(2);
+            numbersBottomLeft(2);
+            addAmount(13, 2);
+            addAmount(14, 2);
+            addAmount(15, 2);
+            addAmount(16, 2);
+            addAmount(17, 2);
+            addAmount(18, 2);
         }
     }
 
-    public void onActionEven(ActionEvent actionEvent) {
-        if(jetonausg) {
+    public void btn_even_onAction(ActionEvent actionEvent) {
+        if (jetonausg) {
             chips.add(jeton);
             buttonwert.clear();
             jetonMaker(btn_even, 40);
 
             for (int i = 2; i <= 36; i += 2) {
-                addBetrag(i, 2);
+                addAmount(i, 2);
             }
         }
     }
 
-    public void onActionRed(ActionEvent actionEvent) {
-        if(jetonausg) {
+    public void btn_red_onAction(ActionEvent actionEvent) {
+        if (jetonausg) {
             chips.add(jeton);
             buttonwert.clear();
             jetonMaker(btn_red, 40);
-            addBetrag(1, 2);
-            addBetrag(3, 2);
-            addBetrag(5, 2);
-            addBetrag(7, 2);
-            addBetrag(9, 2);
-            addBetrag(12, 2);
-            addBetrag(14, 2);
-            addBetrag(16, 2);
-            addBetrag(18, 2);
-            addBetrag(19, 2);
-            addBetrag(21, 2);
-            addBetrag(23, 2);
-            addBetrag(25, 2);
-            addBetrag(27, 2);
-            addBetrag(30, 2);
-            addBetrag(32, 2);
-            addBetrag(34, 2);
-            addBetrag(36, 2);
+            addAmount(1, 2);
+            addAmount(3, 2);
+            addAmount(5, 2);
+            addAmount(7, 2);
+            addAmount(9, 2);
+            addAmount(12, 2);
+            addAmount(14, 2);
+            addAmount(16, 2);
+            addAmount(18, 2);
+            addAmount(19, 2);
+            addAmount(21, 2);
+            addAmount(23, 2);
+            addAmount(25, 2);
+            addAmount(27, 2);
+            addAmount(30, 2);
+            addAmount(32, 2);
+            addAmount(34, 2);
+            addAmount(36, 2);
         }
     }
 
-    public void onActionOdd(ActionEvent actionEvent) {
-        if(jetonausg) {
+    public void btn_odd_onAction(ActionEvent actionEvent) {
+        if (jetonausg) {
             chips.add(jeton);
             buttonwert.clear();
             jetonMaker(btn_odd, 40);
 
             for (int i = 1; i <= 35; i += 2) {
-                addBetrag(i, 2);
+                addAmount(i, 2);
             }
         }
     }
 
-    public void onAction19to36(ActionEvent actionEvent) {
-        if(jetonausg) {
+    public void btn_19to36_onAction(ActionEvent actionEvent) {
+        if (jetonausg) {
             chips.add(jeton);
             buttonwert.clear();
             jetonMaker(btn_19to36, 40);
-            numbersUpperright(2);
-            numbersMiddleright(2);
-            numbersBottomright(2);
-            addBetrag(19, 2);
-            addBetrag(20, 2);
-            addBetrag(21, 2);
-            addBetrag(22, 2);
-            addBetrag(23, 2);
-            addBetrag(24, 2);
+            numbersUpperRight(2);
+            numbersMiddleRight(2);
+            numbersBottomRight(2);
+            addAmount(19, 2);
+            addAmount(20, 2);
+            addAmount(21, 2);
+            addAmount(22, 2);
+            addAmount(23, 2);
+            addAmount(24, 2);
         }
     }
 
-    public void onActionUp(ActionEvent actionEvent) {
-        if(jetonausg) {
+    public void btn_up_onAction(ActionEvent actionEvent) {
+        if (jetonausg) {
             chips.add(jeton);
             buttonwert.clear();
             jetonMaker(btn_up, 40);
-            numbersUpperleft(3);
-            numbersUppermid(3);
-            numbersUpperright(3);
+            numbersUpperLeft(3);
+            numbersUpperMid(3);
+            numbersUpperRight(3);
         }
     }
 
-    public void onActionMid(ActionEvent actionEvent) {
-        if(jetonausg) {
+    public void btn_mid_onAction(ActionEvent actionEvent) {
+        if (jetonausg) {
             chips.add(jeton);
             buttonwert.clear();
             jetonMaker(btn_mid, 40);
-            numbersMiddleleft(3);
-            numbersMiddlemid(3);
-            numbersMiddleright(3);
+            numbersMiddleLeft(3);
+            numbersMiddleMid(3);
+            numbersMiddleRight(3);
         }
     }
 
-    public void onActionDown(ActionEvent actionEvent) {
-        if(jetonausg) {
+    public void btn_down_onAction(ActionEvent actionEvent) {
+        if (jetonausg) {
             chips.add(jeton);
             buttonwert.clear();
             jetonMaker(btn_down, 40);
-            numbersBottomleft(3);
-            numbersBottommid(3);
-            numbersBottomright(3);
+            numbersBottomLeft(3);
+            numbersBottomID(3);
+            numbersBottomRight(3);
         }
     }
 
-    public void onActionfivenumbers(ActionEvent actionEvent) {
-        if(jetonausg) {
+    public void btn_five_onAction(ActionEvent actionEvent) {
+        if (jetonausg) {
             chips.add(jeton);
             buttonwert.clear();
             jetonMaker(btn_five, 40);
-            addBetrag(0, 7);
-            addBetrag(100, 7);
-            addBetrag(1, 7);
-            addBetrag(2, 7);
-            addBetrag(3, 7);
+            addAmount(0, 7);
+            addAmount(100, 7);
+            addAmount(1, 7);
+            addAmount(2, 7);
+            addAmount(3, 7);
         }
     }
 
-    // Funktionen für Zahlfelder
-    private void numbersUpperleft(int multi){
-        addBetrag(3, multi);
-        addBetrag(6, multi);
-        addBetrag(9, multi);
-        addBetrag(12, multi);
+    //Funktionen für Zahlfelder
+    private void numbersUpperLeft(int multi) {
+        addAmount(3, multi);
+        addAmount(6, multi);
+        addAmount(9, multi);
+        addAmount(12, multi);
     }
 
-    private void numbersUppermid(int multi){
-        addBetrag(15, multi);
-        addBetrag(18, multi);
-        addBetrag(21, multi);
-        addBetrag(24, multi);
+    private void numbersUpperMid(int multi) {
+        addAmount(15, multi);
+        addAmount(18, multi);
+        addAmount(21, multi);
+        addAmount(24, multi);
     }
 
-    private void numbersUpperright(int multi){
-        addBetrag(27, multi);
-        addBetrag(30, multi);
-        addBetrag(33, multi);
-        addBetrag(36, multi);
+    private void numbersUpperRight(int multi) {
+        addAmount(27, multi);
+        addAmount(30, multi);
+        addAmount(33, multi);
+        addAmount(36, multi);
     }
 
-    private void numbersMiddleleft(int multi){
-        addBetrag(2, multi);
-        addBetrag(5, multi);
-        addBetrag(8, multi);
-        addBetrag(11, multi);
+    private void numbersMiddleLeft(int multi) {
+        addAmount(2, multi);
+        addAmount(5, multi);
+        addAmount(8, multi);
+        addAmount(11, multi);
     }
 
-    private void numbersMiddlemid(int multi){
-        addBetrag(14, multi);
-        addBetrag(17, multi);
-        addBetrag(20, multi);
-        addBetrag(23, multi);
-    }
-    private void numbersMiddleright(int multi){
-        addBetrag(26, multi);
-        addBetrag(29, multi);
-        addBetrag(32, multi);
-        addBetrag(35, multi);
+    private void numbersMiddleMid(int multi) {
+        addAmount(14, multi);
+        addAmount(17, multi);
+        addAmount(20, multi);
+        addAmount(23, multi);
     }
 
-    private void numbersBottomleft(int multi){
-        addBetrag(1, multi);
-        addBetrag(4, multi);
-        addBetrag(7, multi);
-        addBetrag(10, multi);
+    private void numbersMiddleRight(int multi) {
+        addAmount(26, multi);
+        addAmount(29, multi);
+        addAmount(32, multi);
+        addAmount(35, multi);
     }
 
-    private void numbersBottommid(int multi){
-        addBetrag(13, multi);
-        addBetrag(16, multi);
-        addBetrag(19, multi);
-        addBetrag(22, multi);
+    private void numbersBottomLeft(int multi) {
+        addAmount(1, multi);
+        addAmount(4, multi);
+        addAmount(7, multi);
+        addAmount(10, multi);
     }
 
-    private void numbersBottomright(int multi){
-        addBetrag(25, multi);
-        addBetrag(28, multi);
-        addBetrag(31, multi);
-        addBetrag(34, multi);
+    private void numbersBottomID(int multi) {
+        addAmount(13, multi);
+        addAmount(16, multi);
+        addAmount(19, multi);
+        addAmount(22, multi);
+    }
+
+    private void numbersBottomRight(int multi) {
+        addAmount(25, multi);
+        addAmount(28, multi);
+        addAmount(31, multi);
+        addAmount(34, multi);
     }
 }

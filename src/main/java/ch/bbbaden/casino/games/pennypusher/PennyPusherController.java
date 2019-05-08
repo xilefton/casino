@@ -8,6 +8,7 @@ import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -28,6 +29,7 @@ public class PennyPusherController implements Controller {
     public Button btn_push;
     public AnchorPane anchorPane;
     public Label label_profit;
+    public Button btn_quit;
 
     private Image[] coinImages = new Image[]{
             new Image("/images/pennypusher/coin_none.png"), new Image("/images/pennypusher/coin_stack1.png"),
@@ -70,7 +72,7 @@ public class PennyPusherController implements Controller {
     }
 
     public void update() {
-        label_coins.setText(pennyPusherModel.getCoins());
+        label_coins.setText(Long.toString(pennyPusherModel.getCoins()));
         if (!pennyPusherModel.getFieldChanges().isEmpty()) animateChanges();
         else updateField(pennyPusherModel.getField());
         label_profit.setText(Long.toString(pennyPusherModel.getRoundProfit()));
@@ -154,6 +156,10 @@ public class PennyPusherController implements Controller {
         }
         updateField(pennyPusherModel.getField());
         update();
+    }
+
+    public void btn_quit_onAction(ActionEvent actionEvent) {
+        pennyPusherModel.quitGame();
     }
 
     public void btn_slot1_onAction() {

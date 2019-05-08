@@ -3,6 +3,7 @@ package ch.bbbaden.casino.games.roulette;
 import ch.bbbaden.casino.CoinChangeReason;
 import ch.bbbaden.casino.NormalUser;
 import ch.bbbaden.casino.games.Game;
+import ch.bbbaden.casino.scenes.ErrorType;
 
 import java.sql.SQLException;
 
@@ -16,14 +17,24 @@ public class RouletteModel extends Game {
         try {
             return getNormalUser().getCoins();
         } catch (SQLException e) {
-            System.err.println(e);
+            showErrorMessage("Fehler beim Zugriff auf die Datenbank, bitte überprüfen Sie ihre Internetverbindung und versuchen Sie es später erneut: " + e.getLocalizedMessage(), "Verbindungsfehler", ErrorType.CONNECTION);
         }
         return 0;
     }
 
-
-    public void addCoins(int coins, CoinChangeReason coinChangeReason) throws SQLException {
-        getNormalUser().changeCoins(coins, coinChangeReason);
+    private void changeCoins(int amountOfCoins, CoinChangeReason coinChangeReason) {
+        try {
+            getNormalUser().changeCoins(amountOfCoins, coinChangeReason);
+        } catch (SQLException e) {
+            showErrorMessage("Fehler beim Zugriff auf die Datenbank, bitte überprüfen Sie ihre Internetverbindung und versuchen Sie es später erneut: " + e.getLocalizedMessage(), "Verbindungsfehler", ErrorType.CONNECTION);
+        }
     }
 
+    void changeCoinsBet(int amountOfCoins) {
+        changeCoins(-amountOfCoins, CoinChangeReason.PLAYER_BET);
+    }
+
+    void changeCoinsWinOrLoss(int amountOfCoins) {
+        changeCoins(amountOfCoins, CoinChangeReason.PLAYER_WIN_OR_LOSS);
+    }
 }

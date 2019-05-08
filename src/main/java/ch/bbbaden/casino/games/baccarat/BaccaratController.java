@@ -25,6 +25,7 @@ public class BaccaratController implements Controller {
     public Button btn_draw;
     public Button btn_newTurn;
     public Button btn_newDeck;
+    public Button btn_quit;
     public Label label_coins;
     public Label label_result;
     public Label label_remainingCards;
@@ -36,13 +37,6 @@ public class BaccaratController implements Controller {
     private int checkTurn = 1;
     private boolean is5 = false;
 
-    public void update() {
-        label_coins.setText(baccaratModel.getCoins());
-        label_remainingCards.setText(Integer.toString(baccaratModel.getRemainingCards()));
-        label_pointsYou.setText("= " + baccaratModel.getPointsPlayer() + " Punkte");
-        label_pointsCroupier.setText("= " + baccaratModel.getPointsCroupier() + " Punkte");
-    }
-
     @Override
     public void initialize(Model model) {
         comboBox.getItems().addAll("5", "10", "25", "50", "100");
@@ -53,23 +47,30 @@ public class BaccaratController implements Controller {
         update();
     }
 
-    public void bet(ActionEvent actionEvent) {
+    public void update() {
+        label_coins.setText(Long.toString(baccaratModel.getCoins()));
+        label_remainingCards.setText(Integer.toString(baccaratModel.getRemainingCards()));
+        label_pointsYou.setText("= " + baccaratModel.getPointsPlayer() + " Punkte");
+        label_pointsCroupier.setText("= " + baccaratModel.getPointsCroupier() + " Punkte");
+    }
+
+    public void btn_bet_onAction(ActionEvent actionEvent) {
         String selectedBet = comboBox.getValue().toString();
         label_activeBet.setText(selectedBet);
         label_activeBet.setVisible(true);
-        if (Integer.parseInt(selectedBet) <= Integer.parseInt(baccaratModel.getCoins())) {
+        if (Long.parseLong(selectedBet) <= baccaratModel.getCoins()) {
             comboBox.setDisable(true);
             btn_bet.setDisable(true);
             btn_newDeck.setDisable(true);
             btn_draw.setDisable(false);
-            baccaratModel.updateCoins(Integer.parseInt(selectedBet));
+            baccaratModel.changeCoinsBet(Integer.parseInt(selectedBet));
         } else {
             baccaratModel.showMessage("Sie haben zu wenig Geld!", "Nicht möglich");
         }
         update();
     }
 
-    public void draw(ActionEvent actionEvent) throws InterruptedException {
+    public void btn_draw_onAction(ActionEvent actionEvent) throws InterruptedException {
         switch (checkTurn) {
             case 1:
                 baccaratModel.resetPoints();
@@ -131,7 +132,7 @@ public class BaccaratController implements Controller {
         update();
     }
 
-    public void newTurn(ActionEvent actionEvent) {
+    public void btn_newTurn_onAction(ActionEvent actionEvent) {
         if (!is5) {
             btn_newDeck.setDisable(false);
             btn_newTurn.setDisable(true);
@@ -157,10 +158,14 @@ public class BaccaratController implements Controller {
         update();
     }
 
-    public void newDeck(ActionEvent actionEvent) {
+    public void btn_newDeck_onAction(ActionEvent actionEvent) {
         btn_bet.setDisable(false);
         btn_newDeck.setDisable(true);
         baccaratModel.createDeck();
         update();
+    }
+
+    public void btn_quit_onAction(ActionEvent actionEvent) {
+        baccaratModel.quitGame();
     }
 }

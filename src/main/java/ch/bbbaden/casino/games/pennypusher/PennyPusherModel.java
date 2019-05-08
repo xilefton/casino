@@ -53,21 +53,33 @@ public class PennyPusherModel extends Game {
         return btn_slot3_disabled;
     }
 
-    public String getCoins() {
+    public long getCoins() {
         try {
-            return Long.toString(getNormalUser().getCoins());
+            return getNormalUser().getCoins();
         } catch (SQLException e) {
             showErrorMessage("Fehler beim Zugriff auf die Datenbank, bitte überprüfen Sie ihre Internetverbindung und versuchen Sie es später erneut: " + e.getLocalizedMessage(), "Verbindungsfehler", ErrorType.CONNECTION);
         }
-        return null;
+        return 0;
+    }
+
+    private void changeCoins(int amountOfCoins, CoinChangeReason coinChangeReason) {
+        try {
+            getNormalUser().changeCoins(amountOfCoins, coinChangeReason);
+        } catch (SQLException e) {
+            showErrorMessage("Fehler beim Zugriff auf die Datenbank, bitte überprüfen Sie ihre Internetverbindung und versuchen Sie es später erneut: " + e.getLocalizedMessage(), "Verbindungsfehler", ErrorType.CONNECTION);
+        }
+    }
+
+    void changeCoinsBet(int amountOfCoins) {
+        changeCoins(-amountOfCoins, CoinChangeReason.PLAYER_BET);
+    }
+
+    void changeCoinsWinOrLoss(int amountOfCoins) {
+        changeCoins(amountOfCoins, CoinChangeReason.PLAYER_WIN_OR_LOSS);
     }
 
     void slot1() {
-        try {
-            getNormalUser().changeCoins(-1, CoinChangeReason.PLAYER_BET);
-        } catch (SQLException e) {
-            showErrorMessage("Fehler beim Zugriff auf die Datenbank, bitte überprüfen Sie ihre Internetverbindung und versuchen Sie es später erneut: " + e.getLocalizedMessage(), "Verbindungsfehler", ErrorType.CONNECTION);
-        }
+        changeCoinsBet(1);
         field[rnd.nextInt(1)][rnd.nextInt(4)]++;
         btn_push_disabled = false;
         btn_slot1_disabled = true;
@@ -76,12 +88,7 @@ public class PennyPusherModel extends Game {
 
     void slot2() {
 
-        try {
-            getNormalUser().changeCoins(-1, CoinChangeReason.PLAYER_BET);
-        } catch (SQLException e) {
-            showErrorMessage("Fehler beim Zugriff auf die Datenbank, bitte überprüfen Sie ihre Internetverbindung und versuchen Sie es später erneut: " + e.getLocalizedMessage(), "Verbindungsfehler", ErrorType.CONNECTION);
-        }
-
+        changeCoinsBet(1);
 
         field[rnd.nextInt(1)][4 + rnd.nextInt(4)]++;
         btn_push_disabled = false;
@@ -91,12 +98,8 @@ public class PennyPusherModel extends Game {
 
     void slot3() {
 
-        try {
-            System.out.println("-1");
-            getNormalUser().changeCoins(-1, CoinChangeReason.PLAYER_BET);
-        } catch (SQLException e) {
-            showErrorMessage("Fehler beim Zugriff auf die Datenbank, bitte überprüfen Sie ihre Internetverbindung und versuchen Sie es später erneut: " + e.getLocalizedMessage(), "Verbindungsfehler", ErrorType.CONNECTION);
-        }
+        System.out.println("-1");
+        changeCoinsBet(1);
 
         field[0][8 + rnd.nextInt(4)]++;
         btn_push_disabled = false;
@@ -165,11 +168,7 @@ public class PennyPusherModel extends Game {
                                 fieldChange.setEndY(i);
                                 fieldChanges.add(fieldChange);
                             } else if (i == 6) {
-                                try {
-                                    getNormalUser().changeCoins(1, CoinChangeReason.PLAYER_WIN_OR_LOSS);
-                                } catch (SQLException e) {
-                                    showErrorMessage("Fehler beim Zugriff auf die Datenbank, bitte überprüfen Sie ihre Internetverbindung und versuchen Sie es später erneut: " + e.getLocalizedMessage(), "Verbindungsfehler", ErrorType.CONNECTION);
-                                }
+                                changeCoinsWinOrLoss(1);
                             }
                         } else {
                             if (j + 1 < 13) {
@@ -178,20 +177,12 @@ public class PennyPusherModel extends Game {
                                 fieldChange.setEndY(i);
                                 fieldChanges.add(fieldChange);
                             } else if (i == 6) {
-                                try {
-                                    getNormalUser().changeCoins(1, CoinChangeReason.PLAYER_WIN_OR_LOSS);
-                                } catch (SQLException e) {
-                                    showErrorMessage("Fehler beim Zugriff auf die Datenbank, bitte überprüfen Sie ihre Internetverbindung und versuchen Sie es später erneut: " + e.getLocalizedMessage(), "Verbindungsfehler", ErrorType.CONNECTION);
-                                }
+                                changeCoinsWinOrLoss(1);
                             }
                         }
                     } else {
                         if (i + 1 >= 6) {
-                            try {
-                                getNormalUser().changeCoins(1, CoinChangeReason.PLAYER_WIN_OR_LOSS);
-                            } catch (SQLException e) {
-                                showErrorMessage("Fehler beim Zugriff auf die Datenbank, bitte überprüfen Sie ihre Internetverbindung und versuchen Sie es später erneut: " + e.getLocalizedMessage(), "Verbindungsfehler", ErrorType.CONNECTION);
-                            }
+                            changeCoinsWinOrLoss(1);
                         } else {
                             field[i + 1][j]++;
                             fieldChange.setEndX(j);
@@ -247,11 +238,7 @@ public class PennyPusherModel extends Game {
                         fieldChange.setEndY(i + 1);
                         fieldChanges.add(fieldChange);
                     } else {
-                        try {
-                            getNormalUser().changeCoins(1, CoinChangeReason.PLAYER_WIN_OR_LOSS);
-                        } catch (SQLException e) {
-                            showErrorMessage("Fehler beim Zugriff auf die Datenbank, bitte überprüfen Sie ihre Internetverbindung und versuchen Sie es später erneut: " + e.getLocalizedMessage(), "Verbindungsfehler", ErrorType.CONNECTION);
-                        }
+                        changeCoinsWinOrLoss(1);
                     }
                 }
             }
@@ -264,5 +251,9 @@ public class PennyPusherModel extends Game {
 
     HashSet<FieldChange> getFieldChanges() {
         return fieldChanges;
+    }
+
+    void quitGame() {
+        close();
     }
 }

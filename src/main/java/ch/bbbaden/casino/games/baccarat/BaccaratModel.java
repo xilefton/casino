@@ -11,7 +11,6 @@ import java.util.Random;
 
 public class BaccaratModel extends Game {
 
-    private NormalUser normalUser;
     private Deck deck = new Deck();
     private Card card;
     private ArrayList<Card> cards = new ArrayList();
@@ -22,32 +21,39 @@ public class BaccaratModel extends Game {
 
     public BaccaratModel(NormalUser normalUser) {
         super("/fxml/Baccarat.fxml", "baccarat by Felix", "/images/Baccarat_Logo.png", normalUser, "Baccarat");
-        this.normalUser = normalUser;
     }
 
-    public String getCoins() {
+    public long getCoins() {
         try {
-            return Long.toString(normalUser.getCoins());
+            return getNormalUser().getCoins();
         } catch (SQLException e) {
-            System.err.println(e);
+            showErrorMessage("Fehler beim Zugriff auf die Datenbank, bitte überprüfen Sie ihre Internetverbindung und versuchen Sie es später erneut: " + e.getLocalizedMessage(), "Verbindungsfehler", ErrorType.CONNECTION);
         }
-        return null;
+        return 0;
     }
 
-    public void updateCoins(int selectedBet) {
-        this.selectedBet = selectedBet;
+    private void changeCoins(int amountOfCoins, CoinChangeReason coinChangeReason) {
+        this.selectedBet = amountOfCoins;
         try {
-            normalUser.changeCoins(-selectedBet, CoinChangeReason.PLAYER_BET);
+            getNormalUser().changeCoins(amountOfCoins, coinChangeReason);
         } catch (SQLException e) {
             showErrorMessage("Fehler beim Zugriff auf die Datenbank, bitte überprüfen Sie ihre Internetverbindung und versuchen Sie es später erneut: " + e.getLocalizedMessage(), "Verbindungsfehler", ErrorType.CONNECTION);
         }
     }
 
-    public void createDeck() {
+    void changeCoinsBet(int amountOfCoins) {
+        changeCoins(-amountOfCoins, CoinChangeReason.PLAYER_BET);
+    }
+
+    void changeCoinsWinOrLoss(int amountOfCoins) {
+        changeCoins(amountOfCoins, CoinChangeReason.PLAYER_WIN_OR_LOSS);
+    }
+
+    void createDeck() {
         cards = deck.createDeck();
     }
 
-    public String getRandomCard(boolean thirdPlayerCard) {
+    String getRandomCard(boolean thirdPlayerCard) {
         card = cards.get(random.nextInt(cards.size()));
         cards.remove(card);
 
@@ -72,7 +78,7 @@ public class BaccaratModel extends Game {
         return card.getImagePath();
     }
 
-    public boolean checkPlayerThird() {
+    boolean checkPlayerThird() {
         if (pointsPlayer <= 5) {
             return true;
         } else {
@@ -80,7 +86,7 @@ public class BaccaratModel extends Game {
         }
     }
 
-    public boolean checkCroupierThird() {
+    boolean checkCroupierThird() {
         switch (pointsCroupier) {
             case 0:
                 return true;
@@ -118,7 +124,7 @@ public class BaccaratModel extends Game {
         return false;
     }
 
-    public boolean check5() {
+    boolean check5() {
         if (pointsPlayer == 5) {
             return true;
         } else {
@@ -126,7 +132,7 @@ public class BaccaratModel extends Game {
         }
     }
 
-    public boolean check89() {
+    boolean check89() {
         if (pointsPlayer == 8 | pointsCroupier == 8) {
             return true;
         } else if (pointsPlayer == 9 | pointsCroupier == 9) {
@@ -136,7 +142,7 @@ public class BaccaratModel extends Game {
         }
     }
 
-    public boolean checkWon() {
+    boolean checkWon() {
         if (pointsPlayer - 9 > pointsCroupier - 9) {
             return true;
         } else {
@@ -144,7 +150,7 @@ public class BaccaratModel extends Game {
         }
     }
 
-    public boolean checkDraw() {
+    boolean checkDraw() {
         if (pointsPlayer - 9 == pointsCroupier - 9) {
             return true;
         } else {
@@ -152,50 +158,50 @@ public class BaccaratModel extends Game {
         }
     }
 
-    public void manageResult(boolean blackjack) {
-        try {
+    void manageResult(boolean blackjack) {
             if (check89() && blackjack) {
                 coinsWon = selectedBet * 2.5;
-                normalUser.changeCoins((int) coinsWon, CoinChangeReason.PLAYER_WIN_OR_LOSS);
+                changeCoinsWinOrLoss((int) coinsWon);
             } else if (checkWon()) {
                 coinsWon = selectedBet * 2;
-                normalUser.changeCoins((int) coinsWon, CoinChangeReason.PLAYER_WIN_OR_LOSS);
+                changeCoinsWinOrLoss((int) coinsWon);
             } else if (checkDraw()) {
                 coinsWon = selectedBet;
-                normalUser.changeCoins((int) coinsWon, CoinChangeReason.PLAYER_WIN_OR_LOSS);
+                changeCoinsWinOrLoss((int) coinsWon);
             }
-        } catch (SQLException e) {
-            showErrorMessage("Fehler beim Zugriff auf die Datenbank, bitte überprüfen Sie ihre Internetverbindung und versuchen Sie es später erneut: " + e.getLocalizedMessage(), "Verbindungsfehler", ErrorType.CONNECTION);
-        }
     }
 
-    public int getRemainingCards() {
+    int getRemainingCards() {
         return cards.size();
     }
 
-    public void setCardForPlayer(boolean cardForPlayer) {
+    void setCardForPlayer(boolean cardForPlayer) {
         this.cardForPlayer = cardForPlayer;
     }
 
-    public int getResult() {
+    int getResult() {
         return (int) coinsWon;
     }
 
-    public int getPointsPlayer() {
+    int getPointsPlayer() {
         return pointsPlayer;
     }
 
-    public int getPointsCroupier() {
+    int getPointsCroupier() {
         return pointsCroupier;
     }
 
-    public void resetPoints() {
+    void resetPoints() {
         pointsPlayer = 0;
         pointsCroupier = 0;
         pointsThirdCard = 0;
     }
 
-    public void showMessage(String message, String title) {
+    void showMessage(String message, String title) {
         showErrorMessage(message, title, ErrorType.NOTIFICATION);
+    }
+
+    void quitGame() {
+        close();
     }
 }
