@@ -1,6 +1,6 @@
 package ch.bbbaden.casino.games.roulette;
 
-import ch.bbbaden.casino.Model;
+import ch.bbbaden.casino.CoinChangeReason;
 import ch.bbbaden.casino.NormalUser;
 import ch.bbbaden.casino.games.Game;
 
@@ -8,11 +8,11 @@ import java.sql.SQLException;
 
 public class RouletteModel extends Game {
     public RouletteModel(NormalUser normalUser) {
-        super("/fxml/Roulette.fxml", "Roulette","/images/Roulette_Logo.png", normalUser);
+        super("/fxml/Roulette.fxml", "Roulette","/images/Roulette_Logo.png", normalUser, "Roulette");
 
     }
 
-    public int getCoins(){
+    public long getCoins(){
         try {
             return getNormalUser().getCoins();
         } catch (SQLException e) {
@@ -22,8 +22,8 @@ public class RouletteModel extends Game {
     }
 
 
-    public void addCoins(int coins) throws SQLException {
-        getNormalUser().addCoins(coins, false);
+    public void addCoins(int coins, CoinChangeReason coinChangeReason) throws SQLException {
+        getNormalUser().changeCoins(coins, coinChangeReason);
     }
 
 }

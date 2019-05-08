@@ -8,7 +8,7 @@ public class ErrorMessageModel extends Model {
     private ErrorType errorType;
 
     public ErrorMessageModel(String errorMessage, String windowTitle, ErrorType errorType) {
-        super("/fxml/Error.fxml", "Register failed", false);
+        super("/fxml/Error.fxml", windowTitle, false);
         this.errorMessage = errorMessage;
         this.windowTitle = windowTitle;
         this.errorType = errorType;

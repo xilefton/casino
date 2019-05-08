@@ -10,142 +10,175 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="600.0" prefWidth="896.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.bbbaden.casino.games.roulette.RouletteController">
-   <children>
-      <ImageView fitHeight="605.0" fitWidth="916.0" layoutX="-4.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/roulette/roulette-2.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="283.0" fitWidth="497.0" layoutX="331.0" layoutY="234.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/roulette/roulette-Feld-V2.png" />
-         </image>
-      </ImageView>
-      <GridPane fx:id="gridPane" layoutX="379.0" layoutY="247.0" prefHeight="176.0" prefWidth="406.0">
+<AnchorPane fx:id="anchorPane" prefHeight="600.0" prefWidth="896.0" xmlns="http://javafx.com/javafx/8.0.202"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.bbbaden.casino.games.roulette.RouletteController">
+    <ImageView fitHeight="605.0" fitWidth="916.0" layoutX="-4.0" layoutY="-6.0" pickOnBounds="true"
+               preserveRatio="true">
+        <Image url="@../images/roulette/roulette-2.png"/>
+    </ImageView>
+    <ImageView fitHeight="283.0" fitWidth="497.0" layoutX="331.0" layoutY="234.0" pickOnBounds="true"
+               preserveRatio="true">
+        <Image url="@../images/roulette/roulette-Feld-V2.png"/>
+    </ImageView>
+    <GridPane fx:id="gridPane" layoutX="379.0" layoutY="247.0" prefHeight="176.0" prefWidth="406.0">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="32.00001831054688" minWidth="27.0" prefWidth="28.266680908203124" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="6.666644287109374" minWidth="2.3999816894531207" prefWidth="6.133319091796874" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="24.0" minWidth="24.0" prefWidth="24.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="3.0" minWidth="8.0" prefWidth="3.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="27.0" minWidth="27.0" prefWidth="27.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="3.0" minWidth="7.0" prefWidth="3.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="25.0" minWidth="25.0" prefWidth="25.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="3.0" minWidth="8.0" prefWidth="3.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="24.0" minWidth="24.0" prefWidth="24.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="3.0" minWidth="8.0" prefWidth="3.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="28.0" minWidth="28.0" prefWidth="28.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="3.0" minWidth="8.0" prefWidth="3.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="24.0" minWidth="25.0" prefWidth="24.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="3.0" minWidth="7.0" prefWidth="3.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="25.0" minWidth="25.0" prefWidth="25.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="3.0" minWidth="7.0" prefWidth="3.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="25.0" minWidth="25.0" prefWidth="25.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="3.0" minWidth="9.0" prefWidth="3.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="24.0" minWidth="24.0" prefWidth="24.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="3.0" minWidth="8.0" prefWidth="3.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="25.0" minWidth="25.0" prefWidth="25.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="3.0" minWidth="7.0" prefWidth="3.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="30.400048828125023" minWidth="20.800012207031273" prefWidth="21.333398437500023" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="32.00001831054688" minWidth="27.0"
+                               prefWidth="28.266680908203124"/>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="6.666644287109374" minWidth="2.3999816894531207"
+                               prefWidth="6.133319091796874"/>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="24.0" minWidth="24.0" prefWidth="24.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="3.0" minWidth="8.0" prefWidth="3.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="27.0" minWidth="27.0" prefWidth="27.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="3.0" minWidth="7.0" prefWidth="3.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="25.0" minWidth="25.0" prefWidth="25.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="3.0" minWidth="8.0" prefWidth="3.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="24.0" minWidth="24.0" prefWidth="24.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="3.0" minWidth="8.0" prefWidth="3.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="28.0" minWidth="28.0" prefWidth="28.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="3.0" minWidth="8.0" prefWidth="3.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="24.0" minWidth="25.0" prefWidth="24.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="3.0" minWidth="7.0" prefWidth="3.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="25.0" minWidth="25.0" prefWidth="25.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="3.0" minWidth="7.0" prefWidth="3.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="25.0" minWidth="25.0" prefWidth="25.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="3.0" minWidth="9.0" prefWidth="3.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="24.0" minWidth="24.0" prefWidth="24.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="3.0" minWidth="8.0" prefWidth="3.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="25.0" minWidth="25.0" prefWidth="25.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="3.0" minWidth="7.0" prefWidth="3.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="30.400048828125023" minWidth="20.800012207031273"
+                               prefWidth="21.333398437500023"/>
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="50.0" minHeight="52.0" prefHeight="50.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="3.0" minHeight="9.0" prefHeight="3.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="47.0" minHeight="47.0" prefHeight="47.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="3.0" minHeight="9.0" prefHeight="3.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="48.0" minHeight="48.0" prefHeight="48.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="18.133325195312494" minHeight="8.866674804687506" prefHeight="8.866674804687506" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="50.0" minHeight="52.0" prefHeight="50.0" vgrow="SOMETIMES"/>
+            <RowConstraints maxHeight="3.0" minHeight="9.0" prefHeight="3.0" vgrow="SOMETIMES"/>
+            <RowConstraints maxHeight="47.0" minHeight="47.0" prefHeight="47.0" vgrow="SOMETIMES"/>
+            <RowConstraints maxHeight="3.0" minHeight="9.0" prefHeight="3.0" vgrow="SOMETIMES"/>
+            <RowConstraints maxHeight="48.0" minHeight="48.0" prefHeight="48.0" vgrow="SOMETIMES"/>
+            <RowConstraints maxHeight="18.133325195312494" minHeight="8.866674804687506"
+                            prefHeight="8.866674804687506" vgrow="SOMETIMES"/>
         </rowConstraints>
-         <children>
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="0.0" prefHeight="11.0" prefWidth="9.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="0.0" prefHeight="11.0" prefWidth="9.0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="0.0" prefHeight="11.0" prefWidth="9.0" GridPane.columnIndex="5" GridPane.rowIndex="5" />
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="0.0" prefHeight="11.0" prefWidth="9.0" GridPane.columnIndex="7" GridPane.rowIndex="5" />
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="0.0" prefHeight="11.0" prefWidth="9.0" GridPane.columnIndex="9" GridPane.rowIndex="5" />
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="0.0" prefHeight="11.0" prefWidth="9.0" GridPane.columnIndex="11" GridPane.rowIndex="5" />
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="0.0" prefHeight="11.0" prefWidth="9.0" GridPane.columnIndex="13" GridPane.rowIndex="5" />
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="0.0" prefHeight="11.0" prefWidth="9.0" GridPane.columnIndex="15" GridPane.rowIndex="5" />
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="0.0" prefHeight="11.0" prefWidth="9.0" GridPane.columnIndex="17" GridPane.rowIndex="5" />
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="0.0" prefHeight="11.0" prefWidth="9.0" GridPane.columnIndex="19" GridPane.rowIndex="5" />
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="0.0" prefHeight="11.0" prefWidth="9.0" GridPane.columnIndex="21" GridPane.rowIndex="5" />
-         </children>
-      </GridPane>
-      <Label fx:id="anzeige_geldbetrag" layoutX="302.0" layoutY="98.0" prefHeight="32.0" prefWidth="250.0" text=" Ihr Geldbetrag:" textFill="WHITE">
-         <font>
-            <Font name="System Italic" size="18.0" />
-         </font>
-      </Label>
-      <ImageView fx:id="jeton5" fitHeight="101.0" fitWidth="81.0" layoutX="35.0" layoutY="1.0" onMouseClicked="#handleJeton5" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/roulette/jetons-5.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="jeton25" fitHeight="101.0" fitWidth="81.0" layoutX="36.0" layoutY="87.0" onMouseClicked="#handleJeton25" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/roulette/jetons-25.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="jeton50" fitHeight="101.0" fitWidth="74.0" layoutX="117.0" layoutY="105.0" onMouseClicked="#handleJeton50" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/roulette/jetons-50.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="jeton10" fitHeight="101.0" fitWidth="81.0" layoutX="113.0" onMouseClicked="#handleJeton10" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/roulette/jetons-10.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="drehenimageview" fitHeight="176.0" fitWidth="331.0" layoutX="226.0" layoutY="16.0" onMouseClicked="#handleDrehen" onMouseEntered="#drehenter" onMouseExited="#drehexit" onMousePressed="#handledrepressing" onMouseReleased="#handledrerelease" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/roulette/drehen_button.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="abbrechenimageview" fitHeight="144.0" fitWidth="332.0" layoutX="560.0" layoutY="16.0" onMouseClicked="#abbrechen_onClick" onMouseEntered="#abbenter" onMouseExited="#abbexit" onMousePressed="#handlepressing" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/roulette/abbrechen_button.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="jeton100" fitHeight="101.0" fitWidth="81.0" layoutX="183.0" layoutY="50.0" onMouseClicked="#handleJeton100" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/roulette/jetons-100.png" />
-         </image>
-      </ImageView>
-      <Button fx:id="btn_block" layoutX="717.0" layoutY="81.0" mnemonicParsing="false" prefHeight="161.0" prefWidth="170.0" style="-fx-background-color: none;" />
-      <Button layoutX="292.0" layoutY="81.0" mnemonicParsing="false" prefHeight="92.0" prefWidth="497.0" style="-fx-background-color: none;" />
-      <ImageView fx:id="rotaterad" fitHeight="242.0" fitWidth="250.0" layoutX="38.0" layoutY="234.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/roulette/american-wheel.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="ballrotate" fitHeight="288.0" fitWidth="288.0" layoutX="15.0" layoutY="211.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/roulette/rouletterad-ball.png" />
-         </image>
-      </ImageView>
-      <Label fx:id="gewinnlabel" layoutX="302.0" layoutY="142.0" prefHeight="18.0" prefWidth="242.0" textFill="WHITE">
-         <font>
-            <Font name="System Italic" size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="labelrndnumber" layoutX="302.0" layoutY="179.0" prefHeight="18.0" prefWidth="250.0" textFill="WHITE">
-         <font>
-            <Font name="System Italic" size="18.0" />
-         </font>
-      </Label>
-      <Button fx:id="buttonzero" layoutX="349.0" layoutY="332.0" mnemonicParsing="false" onAction="#buttonzero" prefHeight="83.0" prefWidth="31.0" style="-fx-background-color: none;" />
-      <Button fx:id="buttonzerozero" layoutX="348.0" layoutY="251.0" mnemonicParsing="false" onAction="#buttonzerozero" prefHeight="82.0" prefWidth="34.0" style="-fx-background-color: none;" />
-      <Button fx:id="buttonfirst" layoutX="384.0" layoutY="421.0" mnemonicParsing="false" onAction="#onActionFirst" opacity="0.0" prefHeight="8.0" prefWidth="130.0" text="Button" />
-      <Button fx:id="buttonsecond" layoutX="517.0" layoutY="421.0" mnemonicParsing="false" onAction="#onActionSecond" opacity="0.0" prefHeight="8.0" prefWidth="130.0" text="Button" />
-      <Button fx:id="buttonthird" layoutX="654.0" layoutY="423.0" mnemonicParsing="false" onAction="#onActionThird" opacity="0.0" prefHeight="8.0" prefWidth="130.0" text="Button" />
-      <Button fx:id="buttonblack" layoutX="518.0" layoutY="448.0" mnemonicParsing="false" onAction="#onActionBlack" opacity="0.0" prefHeight="26.0" prefWidth="62.0" text="Button" />
-      <Button fx:id="button1to18" layoutX="384.0" layoutY="449.0" mnemonicParsing="false" onAction="#onAction1to18" opacity="0.0" prefHeight="26.0" prefWidth="62.0" text="Button" />
-      <Button fx:id="buttoneven" layoutX="450.0" layoutY="449.0" mnemonicParsing="false" onAction="#onActionEven" opacity="0.0" prefHeight="26.0" prefWidth="62.0" text="Button" />
-      <Button fx:id="buttonred" layoutX="584.0" layoutY="449.0" mnemonicParsing="false" onAction="#onActionRed" opacity="0.0" prefHeight="26.0" prefWidth="62.0" text="Button" />
-      <Button fx:id="buttonodd" layoutX="652.0" layoutY="449.0" mnemonicParsing="false" onAction="#onActionOdd" opacity="0.0" prefHeight="26.0" prefWidth="62.0" text="Button" />
-      <Button fx:id="button19to36" layoutX="719.0" layoutY="449.0" mnemonicParsing="false" onAction="#onAction19to36" opacity="0.0" prefHeight="26.0" prefWidth="62.0" text="Button" />
-      <Button fx:id="buttonup" layoutX="786.0" layoutY="248.0" mnemonicParsing="false" onAction="#onActionUp" opacity="0.0" prefHeight="53.0" prefWidth="28.0" text="Button" />
-      <Button fx:id="buttonmid" layoutX="786.0" layoutY="305.0" mnemonicParsing="false" onAction="#onActionMid" opacity="0.0" prefHeight="53.0" prefWidth="28.0" text="Button" />
-      <Button fx:id="buttondown" layoutX="786.0" layoutY="362.0" mnemonicParsing="false" onAction="#onActionDown" opacity="0.0" prefHeight="53.0" prefWidth="28.0" text="Button" />
-      <Button fx:id="buttonfive" layoutX="365.0" layoutY="410.0" mnemonicParsing="false" onAction="#onActionfivenumbers" opacity="0.0" prefHeight="11.0" prefWidth="0.0" text="Button" />
-   </children>
+        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                mnemonicParsing="false" opacity="0.0" prefHeight="11.0" prefWidth="9.0" GridPane.columnIndex="1"
+                GridPane.rowIndex="5"/>
+        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                mnemonicParsing="false" opacity="0.0" prefHeight="11.0" prefWidth="9.0" GridPane.columnIndex="3"
+                GridPane.rowIndex="5"/>
+        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                mnemonicParsing="false" opacity="0.0" prefHeight="11.0" prefWidth="9.0" GridPane.columnIndex="5"
+                GridPane.rowIndex="5"/>
+        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                mnemonicParsing="false" opacity="0.0" prefHeight="11.0" prefWidth="9.0" GridPane.columnIndex="7"
+                GridPane.rowIndex="5"/>
+        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                mnemonicParsing="false" opacity="0.0" prefHeight="11.0" prefWidth="9.0" GridPane.columnIndex="9"
+                GridPane.rowIndex="5"/>
+        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                mnemonicParsing="false" opacity="0.0" prefHeight="11.0" prefWidth="9.0" GridPane.columnIndex="11"
+                GridPane.rowIndex="5"/>
+        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                mnemonicParsing="false" opacity="0.0" prefHeight="11.0" prefWidth="9.0" GridPane.columnIndex="13"
+                GridPane.rowIndex="5"/>
+        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                mnemonicParsing="false" opacity="0.0" prefHeight="11.0" prefWidth="9.0" GridPane.columnIndex="15"
+                GridPane.rowIndex="5"/>
+        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                mnemonicParsing="false" opacity="0.0" prefHeight="11.0" prefWidth="9.0" GridPane.columnIndex="17"
+                GridPane.rowIndex="5"/>
+        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                mnemonicParsing="false" opacity="0.0" prefHeight="11.0" prefWidth="9.0" GridPane.columnIndex="19"
+                GridPane.rowIndex="5"/>
+        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                mnemonicParsing="false" opacity="0.0" prefHeight="11.0" prefWidth="9.0" GridPane.columnIndex="21"
+                GridPane.rowIndex="5"/>
+    </GridPane>
+    <Label fx:id="label_coins" layoutX="302.0" layoutY="98.0" prefHeight="32.0" prefWidth="250.0" text=" Ihr Geldbetrag:"
+           textFill="WHITE">
+        <font>
+          <Font name="System Italic" size="18.0"/>
+        </font>
+    </Label>
+    <ImageView fx:id="imgV_jeton5" fitHeight="101.0" fitWidth="81.0" layoutX="35.0" layoutY="1.0"
+               onMouseClicked="#handleJeton5" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../images/roulette/jetons-5.png"/>
+    </ImageView>
+    <ImageView fx:id="imgV_jeton25" fitHeight="101.0" fitWidth="81.0" layoutX="36.0" layoutY="87.0"
+               onMouseClicked="#handleJeton25" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../images/roulette/jetons-25.png"/>
+    </ImageView>
+    <ImageView fx:id="imgV_jeton50" fitHeight="101.0" fitWidth="74.0" layoutX="117.0" layoutY="105.0"
+               onMouseClicked="#handleJeton50" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../images/roulette/jetons-50.png"/>
+    </ImageView>
+    <ImageView fx:id="imgV_jeton10" fitHeight="101.0" fitWidth="81.0" layoutX="113.0" onMouseClicked="#handleJeton10"
+               pickOnBounds="true" preserveRatio="true">
+        <Image url="@../images/roulette/jetons-10.png"/>
+    </ImageView>
+    <ImageView fx:id="imgV_spin" fitHeight="176.0" fitWidth="331.0" layoutX="226.0" layoutY="16.0"
+               onMouseClicked="#handleDrehen" onMouseEntered="#drehenter" onMouseExited="#drehexit"
+               onMousePressed="#handledrepressing" onMouseReleased="#handledrerelease" pickOnBounds="true"
+               preserveRatio="true">
+        <Image url="@../images/roulette/drehen_button.png"/>
+    </ImageView>
+    <ImageView fx:id="imgV_quit" fitHeight="144.0" fitWidth="332.0" layoutX="560.0" layoutY="16.0"
+               onMouseClicked="#abbrechen_onClick" onMouseEntered="#abbenter" onMouseExited="#abbexit"
+               onMousePressed="#handlepressing" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../images/roulette/abbrechen_button.png"/>
+    </ImageView>
+    <ImageView fx:id="imgV_jeton100" fitHeight="101.0" fitWidth="81.0" layoutX="183.0" layoutY="50.0"
+               onMouseClicked="#handleJeton100" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../images/roulette/jetons-100.png"/>
+    </ImageView>
+    <Button fx:id="btn_block" layoutX="717.0" layoutY="81.0" mnemonicParsing="false" prefHeight="161.0"
+            prefWidth="170.0" style="-fx-background-color: none;"/>
+    <Button layoutX="292.0" layoutY="81.0" mnemonicParsing="false" prefHeight="92.0" prefWidth="497.0"
+            style="-fx-background-color: none;"/>
+    <ImageView fx:id="imgV_spinWheel" fitHeight="242.0" fitWidth="250.0" layoutX="38.0" layoutY="234.0" pickOnBounds="true"
+               preserveRatio="true">
+        <Image url="@../images/roulette/american-wheel.png"/>
+    </ImageView>
+    <ImageView fx:id="imgV_ballRotate" fitHeight="288.0" fitWidth="288.0" layoutX="15.0" layoutY="211.0" pickOnBounds="true"
+               preserveRatio="true">
+        <Image url="@../images/roulette/rouletterad-ball.png"/>
+    </ImageView>
+    <Label fx:id="label_win" layoutX="302.0" layoutY="142.0" prefHeight="18.0" prefWidth="242.0" textFill="WHITE">
+        <font>
+          <Font name="System Italic" size="18.0"/>
+        </font>
+    </Label>
+    <Label fx:id="label_rndNumber" layoutX="302.0" layoutY="179.0" prefHeight="18.0" prefWidth="250.0" textFill="WHITE">
+        <font>
+          <Font name="System Italic" size="18.0"/>
+        </font>
+    </Label>
+    <Button fx:id="btn_zero" layoutX="349.0" layoutY="332.0" mnemonicParsing="false" onAction="#buttonzero"
+            prefHeight="83.0" prefWidth="31.0" style="-fx-background-color: none;"/>
+    <Button fx:id="btn_doubleZero" layoutX="348.0" layoutY="251.0" mnemonicParsing="false" onAction="#buttonzerozero"
+            prefHeight="82.0" prefWidth="34.0" style="-fx-background-color: none;"/>
+    <Button fx:id="btn_first" layoutX="384.0" layoutY="421.0" mnemonicParsing="false" onAction="#onActionFirst"
+            opacity="0.0" prefHeight="8.0" prefWidth="130.0" text="Button"/>
+    <Button fx:id="btn_second" layoutX="517.0" layoutY="421.0" mnemonicParsing="false" onAction="#onActionSecond"
+            opacity="0.0" prefHeight="8.0" prefWidth="130.0" text="Button"/>
+    <Button fx:id="btn_third" layoutX="654.0" layoutY="423.0" mnemonicParsing="false" onAction="#onActionThird"
+            opacity="0.0" prefHeight="8.0" prefWidth="130.0" text="Button"/>
+    <Button fx:id="btn_black" layoutX="518.0" layoutY="448.0" mnemonicParsing="false" onAction="#onActionBlack"
+            opacity="0.0" prefHeight="26.0" prefWidth="62.0" text="Button"/>
+    <Button fx:id="btn_1to18" layoutX="384.0" layoutY="449.0" mnemonicParsing="false" onAction="#onAction1to18"
+            opacity="0.0" prefHeight="26.0" prefWidth="62.0" text="Button"/>
+    <Button fx:id="btn_even" layoutX="450.0" layoutY="449.0" mnemonicParsing="false" onAction="#onActionEven"
+            opacity="0.0" prefHeight="26.0" prefWidth="62.0" text="Button"/>
+    <Button fx:id="btn_red" layoutX="584.0" layoutY="449.0" mnemonicParsing="false" onAction="#onActionRed"
+            opacity="0.0" prefHeight="26.0" prefWidth="62.0" text="Button"/>
+    <Button fx:id="btn_odd" layoutX="652.0" layoutY="449.0" mnemonicParsing="false" onAction="#onActionOdd"
+            opacity="0.0" prefHeight="26.0" prefWidth="62.0" text="Button"/>
+    <Button fx:id="btn_19to36" layoutX="719.0" layoutY="449.0" mnemonicParsing="false" onAction="#onAction19to36"
+            opacity="0.0" prefHeight="26.0" prefWidth="62.0" text="Button"/>
+    <Button fx:id="btn_up" layoutX="786.0" layoutY="248.0" mnemonicParsing="false" onAction="#onActionUp"
+            opacity="0.0" prefHeight="53.0" prefWidth="28.0" text="Button"/>
+    <Button fx:id="btn_mid" layoutX="786.0" layoutY="305.0" mnemonicParsing="false" onAction="#onActionMid"
+            opacity="0.0" prefHeight="53.0" prefWidth="28.0" text="Button"/>
+    <Button fx:id="btn_down" layoutX="786.0" layoutY="362.0" mnemonicParsing="false" onAction="#onActionDown"
+            opacity="0.0" prefHeight="53.0" prefWidth="28.0" text="Button"/>
+    <Button fx:id="btn_five" layoutX="365.0" layoutY="410.0" mnemonicParsing="false" onAction="#onActionfivenumbers"
+            opacity="0.0" prefHeight="11.0" prefWidth="0.0" text="Button"/>
 </AnchorPane>

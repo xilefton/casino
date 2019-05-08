@@ -1,5 +1,6 @@
 package ch.bbbaden.casino.games.roulette;
 
+import ch.bbbaden.casino.CoinChangeReason;
 import ch.bbbaden.casino.Controller;
 import ch.bbbaden.casino.Model;
 import javafx.animation.Interpolator;
@@ -24,34 +25,34 @@ import java.util.Random;
 
 public class RouletteController implements Controller {
     public Button btn_block;
-    public Label anzeige_geldbetrag;
-    public ImageView abbrechenimageview;
-    public ImageView drehenimageview;
-    public ImageView rotaterad;
-    public Label labelrndnumber;
-    public Label gewinnlabel;
-    public Button buttonzero;
-    public Button buttonzerozero;
+    public Label label_coins;
+    public ImageView imgV_quit;
+    public ImageView imgV_spin;
+    public ImageView imgV_spinWheel;
+    public Label label_rndNumber;
+    public Label label_win;
+    public Button btn_zero;
+    public Button btn_doubleZero;
     public AnchorPane anchorPane;
-    public ImageView jeton5;
-    public ImageView jeton10;
-    public ImageView jeton25;
-    public ImageView jeton50;
-    public ImageView jeton100;
-    public Button buttonfirst;
-    public Button buttonsecond;
-    public Button buttonthird;
-    public Button buttonblack;
-    public Button button1to18;
-    public Button buttoneven;
-    public Button buttonred;
-    public Button buttonodd;
-    public Button button19to36;
-    public Button buttonup;
-    public Button buttonmid;
-    public Button buttondown;
-    public Button buttonfive;
-    public ImageView ballrotate;
+    public ImageView imgV_jeton5;
+    public ImageView imgV_jeton10;
+    public ImageView imgV_jeton25;
+    public ImageView imgV_jeton50;
+    public ImageView imgV_jeton100;
+    public Button btn_first;
+    public Button btn_second;
+    public Button btn_third;
+    public Button btn_black;
+    public Button btn_1to18;
+    public Button btn_even;
+    public Button btn_red;
+    public Button btn_odd;
+    public Button btn_19to36;
+    public Button btn_up;
+    public Button btn_mid;
+    public Button btn_down;
+    public Button btn_five;
+    public ImageView imgV_ballRotate;
     @FXML
     private GridPane gridPane;
     private RouletteModel rouletteModel;
@@ -83,7 +84,7 @@ public class RouletteController implements Controller {
             iv.setScaleY(0.4);
 
             try {
-                rouletteModel.addCoins(selectedValue);
+                rouletteModel.addCoins(selectedValue, CoinChangeReason.PLAYER_BET);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -100,19 +101,19 @@ public class RouletteController implements Controller {
 
     // Jeton Bild auf 0
     public void buttonzero(ActionEvent actionEvent) {
-        jetonMaker(buttonzero, 30);
+        jetonMaker(btn_zero, 30);
         buttonwert.add(0);
     }
 
     // Jeton Bild auf 00
     public void buttonzerozero(ActionEvent actionEvent) {
-        jetonMaker(buttonzerozero, 30);
+        jetonMaker(btn_doubleZero, 30);
         buttonwert.add(100);
     }
 
     // Geldbetrag anzeigen
     public void update() {
-        anzeige_geldbetrag.setText("Ihr Geldbetrag: " + rouletteModel.getCoins());
+        label_coins.setText("Ihr Geldbetrag: " + rouletteModel.getCoins());
     }
 
     public void initialize(Model model) {
@@ -150,60 +151,60 @@ public class RouletteController implements Controller {
 
     // Jeton Bilder und Werte setzen
     public void handleJeton5(MouseEvent mouseEvent) {
-        jeton5.setImage(new Image("/images/roulette/Jetons-5-Ausgewählt.png"));
+        imgV_jeton5.setImage(new Image("/images/roulette/Jetons-5-Ausgewählt.png"));
         image = "/images/roulette/Jetons-5.png";
-        jeton10.setImage(new Image("/images/roulette/jetons-10.png"));
-        jeton25.setImage(new Image("/images/roulette/jetons-25.png"));
-        jeton50.setImage(new Image("/images/roulette/jetons-50.png"));
-        jeton100.setImage(new Image("/images/roulette/jetons-100.png"));
+        imgV_jeton10.setImage(new Image("/images/roulette/jetons-10.png"));
+        imgV_jeton25.setImage(new Image("/images/roulette/jetons-25.png"));
+        imgV_jeton50.setImage(new Image("/images/roulette/jetons-50.png"));
+        imgV_jeton100.setImage(new Image("/images/roulette/jetons-100.png"));
         jetonausg = true;
         selectedValue = -5;
         jeton = 5;
     }
 
     public void handleJeton10(MouseEvent mouseEvent) {
-        jeton10.setImage(new Image("/images/roulette/Jetons-10-Ausgewählt.png"));
+        imgV_jeton10.setImage(new Image("/images/roulette/Jetons-10-Ausgewählt.png"));
         image = "/images/roulette/Jetons-10.png";
-        jeton5.setImage(new Image("/images/roulette/Jetons-5.png"));
-        jeton25.setImage(new Image("/images/roulette/jetons-25.png"));
-        jeton50.setImage(new Image("/images/roulette/jetons-50.png"));
-        jeton100.setImage(new Image("/images/roulette/jetons-100.png"));
+        imgV_jeton5.setImage(new Image("/images/roulette/Jetons-5.png"));
+        imgV_jeton25.setImage(new Image("/images/roulette/jetons-25.png"));
+        imgV_jeton50.setImage(new Image("/images/roulette/jetons-50.png"));
+        imgV_jeton100.setImage(new Image("/images/roulette/jetons-100.png"));
         jetonausg = true;
         selectedValue = -10;
         jeton = 10;
     }
 
     public void handleJeton25(MouseEvent mouseEvent) {
-        jeton25.setImage(new Image("/images/roulette/Jetons-25-Ausgewählt.png"));
+        imgV_jeton25.setImage(new Image("/images/roulette/Jetons-25-Ausgewählt.png"));
         image = "/images/roulette/Jetons-25.png";
-        jeton5.setImage(new Image("/images/roulette/Jetons-5.png"));
-        jeton10.setImage(new Image("/images/roulette/jetons-10.png"));
-        jeton50.setImage(new Image("/images/roulette/jetons-50.png"));
-        jeton100.setImage(new Image("/images/roulette/jetons-100.png"));
+        imgV_jeton5.setImage(new Image("/images/roulette/Jetons-5.png"));
+        imgV_jeton10.setImage(new Image("/images/roulette/jetons-10.png"));
+        imgV_jeton50.setImage(new Image("/images/roulette/jetons-50.png"));
+        imgV_jeton100.setImage(new Image("/images/roulette/jetons-100.png"));
         jetonausg = true;
         selectedValue = -25;
         jeton = 25;
     }
 
     public void handleJeton50(MouseEvent mouseEvent) {
-        jeton50.setImage(new Image("/images/roulette/Jetons-50-Ausgewählt.png"));
+        imgV_jeton50.setImage(new Image("/images/roulette/Jetons-50-Ausgewählt.png"));
         image = "/images/roulette/Jetons-50.png";
-        jeton5.setImage(new Image("/images/roulette/Jetons-5.png"));
-        jeton10.setImage(new Image("/images/roulette/jetons-10.png"));
-        jeton25.setImage(new Image("/images/roulette/jetons-25.png"));
-        jeton100.setImage(new Image("/images/roulette/jetons-100.png"));
+        imgV_jeton5.setImage(new Image("/images/roulette/Jetons-5.png"));
+        imgV_jeton10.setImage(new Image("/images/roulette/jetons-10.png"));
+        imgV_jeton25.setImage(new Image("/images/roulette/jetons-25.png"));
+        imgV_jeton100.setImage(new Image("/images/roulette/jetons-100.png"));
         jetonausg = true;
         selectedValue = -50;
         jeton = 50;
     }
 
     public void handleJeton100(MouseEvent mouseEvent) {
-        jeton100.setImage(new Image("/images/roulette/Jetons-100-Ausgewählt.png"));
+        imgV_jeton100.setImage(new Image("/images/roulette/Jetons-100-Ausgewählt.png"));
         image = "/images/roulette/Jetons-100.png";
-        jeton5.setImage(new Image("/images/roulette/Jetons-5.png"));
-        jeton10.setImage(new Image("/images/roulette/jetons-10.png"));
-        jeton25.setImage(new Image("/images/roulette/jetons-25.png"));
-        jeton50.setImage(new Image("/images/roulette/jetons-50.png"));
+        imgV_jeton5.setImage(new Image("/images/roulette/Jetons-5.png"));
+        imgV_jeton10.setImage(new Image("/images/roulette/jetons-10.png"));
+        imgV_jeton25.setImage(new Image("/images/roulette/jetons-25.png"));
+        imgV_jeton50.setImage(new Image("/images/roulette/jetons-50.png"));
         jetonausg = true;
         selectedValue = -100;
         jeton = 100;
@@ -214,11 +215,11 @@ public class RouletteController implements Controller {
         if(spinning){
 
         }else {
-            gewinnlabel.setText("");
-            drehenimageview.setImage(new Image("/images/roulette/drehen_transp.png"));
-            ballrotate.setImage(new Image("/images/roulette/rouletterad-ball.png"));
-            RotateTransition rt = new RotateTransition(Duration.millis(3000), rotaterad);
-            RotateTransition rtball = new RotateTransition(Duration.millis(3000), ballrotate);
+            label_win.setText("");
+            imgV_spin.setImage(new Image("/images/roulette/drehen_transp.png"));
+            imgV_ballRotate.setImage(new Image("/images/roulette/rouletterad-ball.png"));
+            RotateTransition rt = new RotateTransition(Duration.millis(3000), imgV_spinWheel);
+            RotateTransition rtball = new RotateTransition(Duration.millis(3000), imgV_ballRotate);
             rt.setByAngle(750);
             rtball.setByAngle(-750);
             rt.setInterpolator(Interpolator.LINEAR);
@@ -231,7 +232,7 @@ public class RouletteController implements Controller {
             rt.setOnFinished(event -> {
                 test();
 
-                ballrotate.setImage(null);
+                imgV_ballRotate.setImage(null);
 
                 spinning = false;
                 jetonausg = true;
@@ -251,7 +252,7 @@ public class RouletteController implements Controller {
         if(spinning){
 
         }else {
-            drehenimageview.setImage(new Image("/images/roulette/drehen_ausg.png"));
+            imgV_spin.setImage(new Image("/images/roulette/drehen_ausg.png"));
         }
     }
 
@@ -259,12 +260,12 @@ public class RouletteController implements Controller {
         if(spinning){
 
         }else {
-            drehenimageview.setImage(new Image("/images/roulette/drehen_button.png"));
+            imgV_spin.setImage(new Image("/images/roulette/drehen_button.png"));
         }
     }
 
     public void handlepressing(MouseEvent mouseEvent) {
-        abbrechenimageview.setImage(new Image("/images/roulette/abbrechen_ausg.png"));
+        imgV_quit.setImage(new Image("/images/roulette/abbrechen_ausg.png"));
     }
 
     // Nummer aus dem Rad generieren
@@ -272,12 +273,12 @@ public class RouletteController implements Controller {
         Random rnd = new Random();
         int d = rnd.nextInt(38);
         String rndnumber = numbers[d];
-        labelrndnumber.setText("Gedrehte Nummer: " + rndnumber);
+        label_rndNumber.setText("Gedrehte Nummer: " + rndnumber);
         if(rndnumber == "00"){
             rndnumber = "100";
         }
 
-        drehenimageview.setImage(new Image("/images/roulette/drehen_button.png"));
+        imgV_spin.setImage(new Image("/images/roulette/drehen_button.png"));
         if(betrag.containsKey(Integer.parseInt(rndnumber))){
             gewinn(Integer.parseInt(rndnumber));
         }
@@ -286,9 +287,9 @@ public class RouletteController implements Controller {
 
     // Gewinnanzeige
     private void gewinn(int d){
-        gewinnlabel.setText("Du hast " + betrag.get(d) + " gewonnen!");
+        label_win.setText("Du hast " + betrag.get(d) + " gewonnen!");
         try {
-            rouletteModel.addCoins(betrag.get(d));
+            rouletteModel.addCoins(betrag.get(d), CoinChangeReason.PLAYER_WIN_OR_LOSS);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -476,7 +477,7 @@ public class RouletteController implements Controller {
         if(spinning) {
 
         }else {
-            drehenimageview.setImage(new Image("/images/roulette/drehen_ausg.png"));
+            imgV_spin.setImage(new Image("/images/roulette/drehen_ausg.png"));
         }
     }
 
@@ -484,17 +485,17 @@ public class RouletteController implements Controller {
         if(spinning){
 
         }else {
-            drehenimageview.setImage(new Image("/images/roulette/drehen_button.png"));
+            imgV_spin.setImage(new Image("/images/roulette/drehen_button.png"));
         }
     }
 
     public void abbenter(MouseEvent mouseEvent) {
-        abbrechenimageview.setImage(new Image("/images/roulette/abbrechen_ausg.png"));
+        imgV_quit.setImage(new Image("/images/roulette/abbrechen_ausg.png"));
     }
 
 
     public void abbexit(MouseEvent mouseEvent) {
-        abbrechenimageview.setImage(new Image("/images/roulette/abbrechen_button.png"));
+        imgV_quit.setImage(new Image("/images/roulette/abbrechen_button.png"));
     }
 
     // Spiel schliesst sich. Zurück auf Startseite/Menü.
@@ -506,7 +507,7 @@ public class RouletteController implements Controller {
     public void onActionFirst(ActionEvent actionEvent) {
         if(jetonausg) {
             buttonwert.clear();
-            jetonMaker(buttonfirst, 40);
+            jetonMaker(btn_first, 40);
             chips.add(jeton);
             numbersUpperleft(3);
             numbersMiddleleft(3);
@@ -517,7 +518,7 @@ public class RouletteController implements Controller {
     public void onActionSecond(ActionEvent actionEvent) {
         if(jetonausg) {
             buttonwert.clear();
-            jetonMaker(buttonsecond, 40);
+            jetonMaker(btn_second, 40);
             chips.add(jeton);
             numbersUppermid(3);
             numbersMiddlemid(3);
@@ -528,7 +529,7 @@ public class RouletteController implements Controller {
     public void onActionThird(ActionEvent actionEvent) {
         if(jetonausg) {
             buttonwert.clear();
-            jetonMaker(buttonthird, 40);
+            jetonMaker(btn_third, 40);
             chips.add(jeton);
             numbersUpperright(3);
             numbersMiddleright(3);
@@ -539,7 +540,7 @@ public class RouletteController implements Controller {
     public void onActionBlack(ActionEvent actionEvent) {
         if(jetonausg) {
             buttonwert.clear();
-            jetonMaker(buttonblack, 40);
+            jetonMaker(btn_black, 40);
             chips.add(jeton);
             addBetrag(2, 2);
             addBetrag(4, 2);
@@ -565,7 +566,7 @@ public class RouletteController implements Controller {
     public void onAction1to18(ActionEvent actionEvent) {
         if(jetonausg) {
             buttonwert.clear();
-            jetonMaker(button1to18, 40);
+            jetonMaker(btn_1to18, 40);
             chips.add(jeton);
             numbersUpperleft(2);
             numbersMiddleleft(2);
@@ -583,7 +584,7 @@ public class RouletteController implements Controller {
         if(jetonausg) {
             chips.add(jeton);
             buttonwert.clear();
-            jetonMaker(buttoneven, 40);
+            jetonMaker(btn_even, 40);
 
             for (int i = 2; i <= 36; i += 2) {
                 addBetrag(i, 2);
@@ -595,7 +596,7 @@ public class RouletteController implements Controller {
         if(jetonausg) {
             chips.add(jeton);
             buttonwert.clear();
-            jetonMaker(buttonred, 40);
+            jetonMaker(btn_red, 40);
             addBetrag(1, 2);
             addBetrag(3, 2);
             addBetrag(5, 2);
@@ -621,7 +622,7 @@ public class RouletteController implements Controller {
         if(jetonausg) {
             chips.add(jeton);
             buttonwert.clear();
-            jetonMaker(buttonodd, 40);
+            jetonMaker(btn_odd, 40);
 
             for (int i = 1; i <= 35; i += 2) {
                 addBetrag(i, 2);
@@ -633,7 +634,7 @@ public class RouletteController implements Controller {
         if(jetonausg) {
             chips.add(jeton);
             buttonwert.clear();
-            jetonMaker(button19to36, 40);
+            jetonMaker(btn_19to36, 40);
             numbersUpperright(2);
             numbersMiddleright(2);
             numbersBottomright(2);
@@ -650,7 +651,7 @@ public class RouletteController implements Controller {
         if(jetonausg) {
             chips.add(jeton);
             buttonwert.clear();
-            jetonMaker(buttonup, 40);
+            jetonMaker(btn_up, 40);
             numbersUpperleft(3);
             numbersUppermid(3);
             numbersUpperright(3);
@@ -661,7 +662,7 @@ public class RouletteController implements Controller {
         if(jetonausg) {
             chips.add(jeton);
             buttonwert.clear();
-            jetonMaker(buttonmid, 40);
+            jetonMaker(btn_mid, 40);
             numbersMiddleleft(3);
             numbersMiddlemid(3);
             numbersMiddleright(3);
@@ -672,7 +673,7 @@ public class RouletteController implements Controller {
         if(jetonausg) {
             chips.add(jeton);
             buttonwert.clear();
-            jetonMaker(buttondown, 40);
+            jetonMaker(btn_down, 40);
             numbersBottomleft(3);
             numbersBottommid(3);
             numbersBottomright(3);
@@ -683,7 +684,7 @@ public class RouletteController implements Controller {
         if(jetonausg) {
             chips.add(jeton);
             buttonwert.clear();
-            jetonMaker(buttonfive, 40);
+            jetonMaker(btn_five, 40);
             addBetrag(0, 7);
             addBetrag(100, 7);
             addBetrag(1, 7);

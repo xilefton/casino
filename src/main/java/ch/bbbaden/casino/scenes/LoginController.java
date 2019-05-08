@@ -52,6 +52,7 @@ public class LoginController implements Controller {
             username.requestFocus();
         } else {
             loginModel.login(username.getText(), password.getText());
+            username.requestFocus();
         }
     }
 

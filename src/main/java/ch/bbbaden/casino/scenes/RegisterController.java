@@ -34,7 +34,7 @@ public class RegisterController implements Controller {
             if (!oldValue.equals(newValue)) {
                 if (username.getLength() > 15 || !newValue.matches("^[a-zA-Z0-9]*$")) {
                     username.setText(oldValue);
-                } else if (newValue.matches("[a-z]")) {
+                } else {
                     username.setText(newValue.toUpperCase());
                 }
             }
@@ -67,7 +67,6 @@ public class RegisterController implements Controller {
         });
 
         startCoins.setOnKeyPressed(ke -> {
-            System.out.println(ke);
             if (ke.getCode().equals(KeyCode.ENTER)) {
                 if (!startCoins.getText().equals("") && (startCoins.getText()).matches("\\d+") && startCoins.getText() != null) {
                     if (username.getText().equals("")) {
