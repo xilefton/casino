@@ -1,54 +1,73 @@
 package ch.bbbaden.casino.games;
 
-import javafx.application.Platform;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import java.util.Iterator;
+import java.util.Random;
 
-import java.io.File;
-import java.util.ArrayList;
+public class SlotMachineRow implements Iterable<Fruit> {
 
-public class SlotMachineRow implements Runnable {
+    private Fruit[] row = new Fruit[]{
+            new Fruit("/images/supercherry/fruits/STAR.png", FruitType.STAR),
+            new Fruit("/images/supercherry/fruits/BELL.png", FruitType.BELL),
+            new Fruit("/images/supercherry/fruits/CHERRY.png", FruitType.CHERRY),
+            new Fruit("/images/supercherry/fruits/GRAPES.png", FruitType.GRAPES),
+            new Fruit("/images/supercherry/fruits/LEMON.png", FruitType.LEMON),
+            new Fruit("/images/supercherry/fruits/MELON.png", FruitType.MELON),
+            new Fruit("/images/supercherry/fruits/PEACH.png", FruitType.PEACH),
+            new Fruit("/images/supercherry/fruits/POTATO.png", FruitType.POTATO),
+            new Fruit("/images/supercherry/fruits/STRAWBERRY.png", FruitType.STRAWBERRY),
+    };
+    private int iterations = 0;
+    private int iterationCounter = 0;
+    private int index = 0;
+    private int indexOffset;
 
-    private  String urlOfImage;
-    private ImageView imageView;
+    public SlotMachineRow() {
+        Random random = new Random();
+        //Random für 0 - 8
+        indexOffset = random.nextInt(9);
+        index = indexOffset;
+        System.out.println(indexOffset);
+    }
 
-    public SlotMachineRow(ImageView imageView) {
-        this.imageView = imageView;
+    public void setIterations(int iterations) {
+        this.iterations = iterations;
+    }
+
+    public Fruit getFruit() {
+
+        Fruit returnFruit = row[index];
+        index = indexOffset;
+        iterationCounter = 0;
+        return returnFruit;
     }
     @Override
-    public void run() {
-        while (true) {
-            Platform.runLater(() -> {
-                imageView.setImage(new Image(getRandomFruit()));
-            });
-            try { Thread.sleep(120);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+    public Iterator<ch.bbbaden.casino.games.Fruit> iterator() {
+        return new Iterator<ch.bbbaden.casino.games.Fruit>() {
+
+            @Override
+            public boolean hasNext() {
+                if (iterationCounter < iterations) {
+                   return true;
+                } else {
+                    iterations = 0;
+                    iterationCounter = 0;
+                    return false;
+                }
             }
-        }
-    }
-    public String getRandomFruit() {
-        ArrayList<Fruits> fruitsArray;
-        fruitsArray = spin();
-        int randomNumber = (int) (Math.random() * 9);
-        urlOfImage = (fruitsArray.get(randomNumber).getImage());
-        return urlOfImage;
-    }
-    private ArrayList<Fruits> fruitsArray = new ArrayList<>();
 
-    private ArrayList<Fruits> spin() {
-
-        fruitsArray.add(new Fruits("STAR", 9));
-        fruitsArray.add(new Fruits("BELL", 8));
-        fruitsArray.add(new Fruits("CHERRY", 7));
-        fruitsArray.add(new Fruits("GRAPES", 6));
-        fruitsArray.add(new Fruits("LEMON", 5));
-        fruitsArray.add(new Fruits("MELON", 4));
-        fruitsArray.add(new Fruits("PEACH", 3));
-        fruitsArray.add(new Fruits("POTATO", 2));
-        fruitsArray.add(new Fruits("STRAWBERRY", 1));
-        return fruitsArray;
+            @Override
+            public Fruit next() {
+                Fruit fruit;
+                index++;
+                if (index >= row.length) {
+                    index = 0;
+                    fruit = row[index];
+                } else {
+                    fruit = row[index];
+                }
+                iterationCounter++;
+                return fruit;
+            }
+        };
     }
-    public String getUrlOfImage() { return urlOfImage; }
 }

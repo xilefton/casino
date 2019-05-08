@@ -1,343 +1,115 @@
 package ch.bbbaden.casino.games;
 
-import ch.bbbaden.casino.Model;
 import ch.bbbaden.casino.NormalUser;
-import javafx.animation.PauseTransition;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.util.Duration;
 
-import java.io.File;
-import java.net.MalformedURLException;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.Random;
 
 
 public class SlotMachineModel extends Game {
 
-    private NormalUser normalUser;
-    private SlotMachineRow firstRow, secondRow, thirdRow, holdRow;
-    private String urlOfFirstImage, urlOfSecondImage, urlOfThirdImage;
-    private Thread firstThread, secondThread, thirdThread, holdThread;
+    private SlotMachineRow row1 = new SlotMachineRow();
+    private SlotMachineRow row2 = new SlotMachineRow();
+    private SlotMachineRow row3 = new SlotMachineRow();
+    private int row1Iterations;
+    private int row2Iterations;
+    private int row3Iterations;
+    private int[] betFactor = new int[]{2, 5, 10, 20, 50};
+    private int betFactorIndex = 0;
+    private Fruit fruit1;
+    private Fruit fruit2;
+    private Fruit fruit3;
+    private int betCoins = 0;
+    private int winCoins = 0;
     private int winFactor = 0;
-    private boolean win = false;
-    private int betFactor = 1;
-    private int bet = 2;
-    private int betCoins;
-    private Image buttonImage;
-    private ArrayList<ThreeStarWin> threeStarWinArrayList  = new ArrayList<>();
-    private String urlOfThreeStarWinImage = "src/main/resources/images/supercherry/threestarwin/3-STAR-SELECTION.png";
-
-    private ArrayList<ThreeStarWin> addThreeStarWins() {
-        threeStarWinArrayList.add(new ThreeStarWin("CHERRYCOLLECT", 5));
-        threeStarWinArrayList.add(new ThreeStarWin("10X", 4));
-        threeStarWinArrayList.add(new ThreeStarWin("4XSHUFFLE", 3));
-        threeStarWinArrayList.add(new ThreeStarWin("2XSHUFFLE", 2));
-        threeStarWinArrayList.add(new ThreeStarWin("FRUITSTOP", 1));
-        return threeStarWinArrayList;
-    }
-    public String getRandomThreeStarWin() {
-        ArrayList<ThreeStarWin> threeStarWinArrayList;
-        threeStarWinArrayList = addThreeStarWins();
-        int randomNumber = (int) (Math.random() * 5);
-        urlOfThreeStarWinImage = (threeStarWinArrayList.get(randomNumber).getImage());
-        return urlOfThreeStarWinImage;
-    }
 
     public SlotMachineModel(NormalUser normalUser) {
         super("/fxml/SlotMachine.fxml", "Super Cherry", "/images/SuperCherry_Logo.png", normalUser);
-        this.normalUser = normalUser;
-
     }
 
-    public String getCoins() {
+    public int getCoins() {
         try {
-            return Integer.toString(normalUser.getCoins());
-        } catch (SQLException e) {
-            System.err.println(e);
-        } return null;
-    }
-    public void updateCoins(int coins, boolean purchased)  {
-        try {
-            normalUser.addCoins(coins, purchased);
+            return getNormalUser().getCoins();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return 0;
     }
-    public void spinFruits(ImageView first,ImageView second,ImageView third) {
-        firstRow = new SlotMachineRow(first);
-        firstThread = new Thread(firstRow);
-        firstThread.start();
-        secondRow = new SlotMachineRow(second);
-        secondThread = new Thread(secondRow);
-        secondThread.start();
-        thirdRow = new SlotMachineRow(third);
-        thirdThread = new Thread(thirdRow);
-        thirdThread.start();
-    }
-    public void stopSpinning() {
-        firstThread.stop();
-        secondThread.stop();
-        thirdThread.stop();
-        urlOfFirstImage=firstRow.getUrlOfImage();
-        urlOfSecondImage=secondRow.getUrlOfImage();
-        urlOfThirdImage=thirdRow.getUrlOfImage();
-        calculateWinFactor();
-    }
-    public void stopHold(SlotMachineRow slotMachineRow, int i) {
-        holdThread.stop();
-        switch (i) {
-            case 1:
-                urlOfFirstImage  = slotMachineRow.getUrlOfImage();
-                break;
-            case 2:
-                urlOfSecondImage = slotMachineRow.getUrlOfImage();
-                break;
-            case 3:
-                urlOfThirdImage = slotMachineRow.getUrlOfImage();
-        }
-        calculateWinFactor();
-    }
-    public void stopStep(SlotMachineRow slotMachineRow, int i) {
-        holdThread.stop();
-        switch (i) {
-            case 1:
-                urlOfFirstImage  = slotMachineRow.getUrlOfImage();
-                break;
-            case 2:
-                urlOfSecondImage = slotMachineRow.getUrlOfImage();
-                break;
-            case 3:
-                urlOfThirdImage = slotMachineRow.getUrlOfImage();
-        }
-        winFactor = 20;
-    }
-    private void calculateWinFactor() {
-        if(urlOfFirstImage.equals(urlOfSecondImage) && urlOfFirstImage.equals((urlOfThirdImage))) {
-            switch (urlOfFirstImage) {
-                case "/images/supercherry/fruits/STAR.png":
-                    String selectWin = getRandomThreeStarWin();
-                    switch (selectWin) {
-                        case "/images/supercherry/fruits/FRUITSTOP.png":
-                            winFactor = 100;
-                            win = true;
-                            break;
-                        case "/images/supercherry/fruits/2XSHUFFLE.png":
-                            winFactor = 101;
-                            win = true;
-                            break;
-                        case "/images/supercherry/fruits/4XSHUFFLE.png":
-                            winFactor = 102;
-                            win = true;
-                            break;
-                        case "/images/supercherry/fruits/10X.png":
-                            winFactor = 103;
-                            win = true;
-                            break;
-                        case "/images/supercherry/fruits/CHERRYCOLLECT.png":
-                            winFactor = 104;
-                            win = true;
-                            break;
-                    }
-                    break;
-                case "/images/supercherry/fruits/BELL.png":
-                    winFactor = 50;
-                    win = true;
-                    break;
-                case "/images/supercherry/fruits/CHERRY.png":
-                    winFactor = 20;
-                    win = true;
-                    break;
-                case "/images/supercherry/fruits/PEACH.png":
-                case "/images/supercherry/fruits/MELON.png":
-                    winFactor = 10;
-                    win = true;
-                    break;
-                case "/images/supercherry/fruits/STRAWBERRY.png":
-                case "/images/supercherry/fruits/LEMON.png":
-                    winFactor = 5;
-                    win = true;
-                    break;
-                case "/images/supercherry/fruits/POTATO.png":
-                case "/images/supercherry/fruits/GRAPES.png":
-                    winFactor = 2;
-                    win = true;
-                    break;
-            }
-        }
-        else if (urlOfFirstImage.equals(urlOfSecondImage) || urlOfSecondImage.equals(urlOfThirdImage) || urlOfFirstImage.equals(urlOfThirdImage)) {
-            if (urlOfFirstImage.equals("/images/supercherry/fruits/CHERRY.png") &&
-                    urlOfSecondImage.equals("/images/supercherry/fruits/CHERRY.png")) {
-                winFactor = 6;
-            } else if (urlOfSecondImage.equals("/images/supercherry/fruits/CHERRY.png") &&
-                    urlOfThirdImage.equals("/images/supercherry/fruits/CHERRY.png")) {
-                winFactor = 7;
-            } else if (urlOfFirstImage.equals("/images/supercherry/fruits/CHERRY.png") &&
-                    urlOfThirdImage.equals("/images/supercherry/fruits/CHERRY.png")) {
-                winFactor = 8;
-            } else if (urlOfFirstImage.equals(urlOfSecondImage)) {
-                winFactor = 1;
-            } else if(urlOfSecondImage.equals(urlOfThirdImage)) {
-                winFactor = 9;
-            } else if(urlOfFirstImage.equals(urlOfThirdImage)) {
-                winFactor = 11;
-            } else if(urlOfFirstImage.equals("/images/supercherry/fruits/CHERRY.png/") || urlOfSecondImage.equals("/images/supercherry/fruits/CHERRY.png/") || urlOfThirdImage.equals("/images/supercherry/fruits/CHERRY.png/")) {
-                winFactor = 12;
-            }
-        } else winFactor = 0;
-        System.out.println(winFactor);
-    }
-    public void step(ImageView imageView, int i) {
-        holdRow = new SlotMachineRow(imageView);
-        holdThread = new Thread(holdRow);
-        holdThread.start();
-        PauseTransition transition = new PauseTransition(Duration.seconds(5));
-        transition.setOnFinished(event -> {
-            switch (i) {
-                case 1:
-                    stopStep(firstRow, 1);
-                    urlOfFirstImage = "/images/supercherry/fruits/CHERRY.png";
-                    win = true;
-                    break;
-                case 2:
-                    stopStep(secondRow, 2);
-                    urlOfSecondImage = "/images/supercherry/fruits/CHERRY.png";
-                    win = true;
-                    break;
-                case 3:
-                    stopStep(thirdRow, 3);
-                    urlOfThirdImage = "/images/supercherry/fruits/CHERRY.png";
-                    win = true;
-                    break;
-            }
-            imageView.setImage(setButtonImage("/src/main/resources/images/supercherry/fruits/CHERRY.png"));
-        });
-        transition.play();
-    }
-    public void hold(ImageView imageView, int i) {
-        holdRow = new SlotMachineRow(imageView);
-        holdThread = new Thread(holdRow);
-        holdThread.start();
-        PauseTransition transition = new PauseTransition(Duration.seconds(5));
-        transition.setOnFinished(event -> {
-            switch (i) {
-                case 1:
-                    stopHold(firstRow, 1);
-                    break;
-                case 2:
-                    stopHold(secondRow, 2);
-                    break;
-                case 3:
-                    stopHold(thirdRow, 3);
-            }
 
-        });
-        transition.play();
+    public void startGame() {
+        Random random = new Random();
+        int rN1 = (random.nextInt(25) + 25);
+        int rN2 = (random.nextInt(10) + 40);
+        int rN3 = (random.nextInt(30) + 20);
+        row1.setIterations(rN1);
+        row2.setIterations(rN2);
+        row3.setIterations(rN3);
+        notifyController();
+    }
+    public void startHoldGame(SlotMachineRow slotMachineRow) {
+    }
+    private void startBonusGame() {
+    }
+
+    private void startThreeStarWinGame() {
     }
     public void gamble() {
-        int randomNumber = (int) (Math.random() * 2);
-        if(randomNumber == 1) {
-            winFactor = 4;
-        } else {
-            winFactor = 0;
-        }
     }
-    public void bet(Integer maxBet) {
-        if(win) {
-            betCoins++;
-        } else {
-            if(maxBet == 1) {
-                betFactor = 1;
-            }
-            else if(maxBet <=4) {
-                if(bet == 1) {
-                    betFactor = 1;
-                    bet++;
-                } else {
-                    betFactor = 2;
-                    bet--;
-                }
-            }
-            else if(maxBet <=9) {
-                if(bet == 1) {
-                    betFactor = 1;
-                    bet++;
-                } else if(bet == 2) {
-                    betFactor = 2;
-                    bet++;
-                } else {
-                    betFactor = 5;
-                    bet = 1;
-                }
-            }
-            else if(maxBet <=19) {
-                if(bet == 1) {
-                    betFactor = 1;
-                    bet++;
-                } else if(bet == 2) {
-                    betFactor = 2;
-                    bet++;
-                } else if(bet == 3) {
-                    betFactor = 5;
-                    bet++;
-                } else {
-                    betFactor = 10;
-                    bet = 1;
-                }
-            }
-            else if(maxBet < 49) {
-                if(bet == 1) {
-                    betFactor = 1;
-                    bet++;
-                } else if(bet == 2) {
-                    betFactor = 2;
-                    bet++;
-                } else if(bet == 3) {
-                    betFactor = 5;
-                    bet++;
-                } else if(bet == 4){
-                    betFactor = 10;
-                    bet++;
-                } else {
-                    betFactor = 20;
-                    bet = 1;
-                }
-            }
-            else if(maxBet >= 50) {
-                if(bet == 1) {
-                    betFactor = 1;
-                    bet++;
-                } else if(bet == 2) {
-                    betFactor = 2;
-                    bet++;
-                } else if(bet == 3) {
-                    betFactor = 5;
-                    bet++;
-                } else if(bet == 4){
-                    betFactor = 10;
-                    bet++;
-                } else if(bet == 5){
-                    betFactor = 20;
-                    bet++;
-                } else {
-                    betFactor = 50;
-                    bet = 1;
-                }
-            }
-        }
+    public int getBetFactor() {
+        return betFactor[betFactorIndex];
     }
-    public int getBetFactor() {return betFactor;}
-    public int getBetCoins() {return betCoins;}
-    public int getWinFactor() {return winFactor;}
-    public String getUrlOfThreeStarWinImage() {return urlOfThreeStarWinImage;}
-    public boolean getWin() {return win;}
+
+    /*public int getBetCoins() {
+        return betCoins;
+    }*/
+
+    public int getWinFactor() {
+        return winFactor;
+    }
+    /*public boolean getWin() {
+        return win;
+    }*/
+
+    /*public boolean getBonus() {
+        return bonus;
+    }*/
+
+    public SlotMachineRow getRow1() {
+        return row1;
+    }
+
+    public SlotMachineRow getRow2() {
+        return row2;
+    }
+
+    public SlotMachineRow getRow3() {
+        return row3;
+    }
+
+    public int getRow1Iterations() {
+        int iterations = row1Iterations;
+        row1Iterations = 0;
+        return iterations;
+    }
+
+    public int getRow2Iterations() {
+        int iterations = row2Iterations;
+        row2Iterations = 0;
+        return iterations;
+    }
+
+    public int getRow3Iterations() {
+        int iterations = row3Iterations;
+        row3Iterations = 0;
+        return iterations;
+    }
 
     public void mystery() {
         int rN = (int) (Math.random() * 2);
         int randomNumber = (int) (Math.random() * 30);
-        if(rN == 1) {
+        if (rN == 1) {
             if (randomNumber <= 15) {
-            winFactor = 2;
+                winFactor = 2;
             } else if (randomNumber <= 25) {
                 winFactor = 3;
             } else if (randomNumber <= 30) {
@@ -347,13 +119,91 @@ public class SlotMachineModel extends Game {
             winFactor = 0;
         }
     }
-    public Image setButtonImage(String path) {
-        File file = new File(path);
+
+    public void changeBetFactor() {
+        if (betFactorIndex < betFactor.length) {
+            betFactorIndex++;
+        } else {
+            betFactorIndex = 0;
+        }
+        notifyController();
+    }
+
+    public void bet(int coins) {
+        betCoins = coins;
+        changeCoins(-coins);
+    }
+
+    public void changeCoins(int coins) {
         try {
-            buttonImage = new Image(file.toURL().toString());
-        } catch (MalformedURLException e) {
+            getNormalUser().addCoins(coins, false);
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-        return buttonImage;
+    }
+
+    public void handleSpinResults(SlotMachineRow slotMachineRow, int rowNumber) {
+        System.out.println("handleSpinResults");
+        switch (rowNumber) {
+            case 1:
+                fruit1 = slotMachineRow.getFruit();
+                break;
+            case 2:
+                fruit2 = slotMachineRow.getFruit();
+                break;
+            case 3:
+                fruit3 = slotMachineRow.getFruit();
+                break;
+            default:
+                break;
+        }
+        if (fruit1 != null && fruit2 != null && fruit3 != null) {
+            if (fruit1.equals(fruit2) && fruit1.equals(fruit3)) {
+                switch (fruit1.getFruitType()) {
+                    case BELL:
+                        winFactor = 50;
+                        break;
+                    case CHERRY:
+                        winFactor = 20;
+                        break;
+                    case GRAPES:
+                    case POTATO:
+                        winFactor = 2;
+                        break;
+                    case LEMON:
+                    case STRAWBERRY:
+                        winFactor = 5;
+                        break;
+                    case MELON:
+                    case PEACH:
+                        winFactor = 10;
+                        break;
+                    case STAR:
+                        startThreeStarWinGame();
+                        break;
+                }
+                }
+                else if(fruit1.equals(fruit2)) {
+                    startHoldGame(row3); }
+                else if(fruit1.equals(fruit3)) {
+                    startHoldGame(row2); }
+                else if(fruit3.equals(fruit2)) {
+                    startHoldGame(row1); }
+                else if (
+                    fruit1.getFruitType().equals(FruitType.CHERRY) && fruit2.getFruitType().equals(FruitType.CHERRY) ||
+                    fruit1.getFruitType().equals(FruitType.CHERRY) && fruit3.getFruitType().equals(FruitType.CHERRY) ||
+                    fruit2.getFruitType().equals(FruitType.CHERRY) && fruit3.getFruitType().equals(FruitType.CHERRY)) {
+                winFactor = 4;
+                }
+                  else if(
+                    fruit1.getFruitType().equals(FruitType.CHERRY) ||
+                    fruit2.getFruitType().equals(FruitType.CHERRY) ||
+                    fruit3.getFruitType().equals(FruitType.CHERRY)) {
+                winFactor = 2;
+            }
+            else {
+                startBonusGame();
+            }
+        }
     }
 }
