@@ -59,7 +59,10 @@ public class Model {
     }
 
     protected void showErrorMessage(String errorMessage, String windowTitle, ErrorType errorType) {
-        changeScene(new ErrorMessageModel(errorMessage, windowTitle, errorType));
+        ErrorMessageModel errorView = new ErrorMessageModel(errorMessage, windowTitle, this, errorType);
+        changeScene(errorView);
+        System.out.println("sdaf");
+        changeScene(errorView.getEndModel());
     }
 
     protected void show() {

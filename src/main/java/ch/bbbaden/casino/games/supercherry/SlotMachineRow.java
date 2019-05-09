@@ -39,6 +39,7 @@ public class SlotMachineRow implements Iterable<Fruit> {
         iterationCounter = 0;
         return returnFruit;
     }
+
     @Override
     public Iterator<Fruit> iterator() {
         return new Iterator<Fruit>() {
@@ -46,7 +47,7 @@ public class SlotMachineRow implements Iterable<Fruit> {
             @Override
             public boolean hasNext() {
                 if (iterationCounter < iterations) {
-                   return true;
+                    return true;
                 } else {
                     iterations = 0;
                     iterationCounter = 0;

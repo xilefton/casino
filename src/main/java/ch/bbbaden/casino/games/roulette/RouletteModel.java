@@ -9,11 +9,11 @@ import java.sql.SQLException;
 
 public class RouletteModel extends Game {
     public RouletteModel(NormalUser normalUser) {
-        super("/fxml/Roulette.fxml", "Roulette","/images/Roulette_Logo.png", normalUser, "Roulette");
+        super("/fxml/Roulette.fxml", "Roulette", "/images/Roulette_Logo.png", normalUser, "Roulette");
 
     }
 
-    public long getCoins(){
+    public long getCoins() {
         try {
             return getNormalUser().getCoins();
         } catch (SQLException e) {

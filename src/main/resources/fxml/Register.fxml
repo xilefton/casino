@@ -3,8 +3,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import java.net.URL?>
-<AnchorPane id="AnchorPane" prefHeight="432.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.bbbaden.casino.scenes.RegisterController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" id="AnchorPane" prefHeight="432.0" prefWidth="768.0"
+            xmlns="http://javafx.com/javafx/8.0.172-ea" fx:controller="ch.bbbaden.casino.scenes.RegisterController">
     <stylesheets>
         <URL value="@../styles/BasicStyle.css"/>
     </stylesheets>
@@ -14,7 +14,7 @@
                promptText="Benutzername"/>
     <Label alignment="CENTER" layoutX="270.0" layoutY="77.0" prefHeight="59.0" prefWidth="235.0" text="Registrieren"/>
     <TextField fx:id="password" layoutX="299.0" layoutY="204.0" prefHeight="32.0" prefWidth="170.0"
-                   promptText="Passwort"/>
+               promptText="Passwort"/>
     <Button layoutX="618.0" layoutY="380.0" mnemonicParsing="false" onAction="#btn_back_onAction" prefHeight="38.0"
             prefWidth="136.0" text="Zurück"/>
     <TextField fx:id="startCoins" layoutX="299.0" layoutY="250.0" prefHeight="32.0" prefWidth="170.0"

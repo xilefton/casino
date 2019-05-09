@@ -1,8 +1,9 @@
 package ch.bbbaden.casino.games.supercherry;
 
+import ch.bbbaden.casino.CoinChangeReason;
 import ch.bbbaden.casino.NormalUser;
 import ch.bbbaden.casino.games.Game;
-
+import ch.bbbaden.casino.scenes.ErrorType;
 
 import java.sql.SQLException;
 import java.util.Random;
@@ -28,9 +29,10 @@ public class SlotMachineModel extends Game {
 
 
     public SlotMachineModel(NormalUser normalUser) {
-        super("/fxml/SlotMachine.fxml", "Super Cherry", "/images/SuperCherry_Logo.png", normalUser);
+        super("/fxml/SlotMachine.fxml", "Super Cherry", "/images/SuperCherry_Logo.png", normalUser, "SuperCherry");
     }
-    public int getCoins() {
+
+    public long getCoins() {
         try {
             return getNormalUser().getCoins();
         } catch (SQLException e) {
@@ -38,6 +40,7 @@ public class SlotMachineModel extends Game {
         }
         return 0;
     }
+
     public void startGame() {
         Random random = new Random();
         int rN1 = (random.nextInt(25) + 25);
@@ -48,12 +51,14 @@ public class SlotMachineModel extends Game {
         row3.setIterations(rN3);
         notifyController();
     }
+
     public void startHoldGame(SlotMachineRow slotMachineRow) {
         Random random = new Random();
         int rN = (random.nextInt(25) + 10);
         slotMachineRow.setIterations(rN);
         notifyController();
     }
+
     private void startBonusGame() {
         Random random = new Random();
         int rN = random.nextInt(3);
@@ -81,7 +86,8 @@ public class SlotMachineModel extends Game {
                         winCoins = winCoins + 20;
                         break;
                 }
-        } notifyController();
+        }
+        notifyController();
     }
 
     private void startThreeStarWinGame() {
@@ -99,7 +105,7 @@ public class SlotMachineModel extends Game {
                 break;
             //4x Shuffle
             case 2:
-                for (int i = 0; i < 4 ; i++) {
+                for (int i = 0; i < 4; i++) {
                     startGame();
                 }
                 break;
@@ -115,7 +121,10 @@ public class SlotMachineModel extends Game {
                 break;
         }
     }
-    public boolean getCherryCollect() {return cherryCollect;}
+
+    public boolean getCherryCollect() {
+        return cherryCollect;
+    }
 
     public int getBetFactor() {
         return betFactor[betFactorIndex];
@@ -124,9 +133,11 @@ public class SlotMachineModel extends Game {
     public SlotMachineRow getRow1() {
         return row1;
     }
+
     public SlotMachineRow getRow2() {
         return row2;
     }
+
     public SlotMachineRow getRow3() {
         return row3;
     }
@@ -164,38 +175,42 @@ public class SlotMachineModel extends Game {
         } else {
             winCoins = 0;
             startBonusGame();
-        } notifyController();
+        }
+        notifyController();
     }
+
     public void gamble() {
         Random random = new Random();
         int rN = random.nextInt(2);
-        if(rN == 0) {
+        if (rN == 0) {
             winCoins = winCoins * 2;
         } else {
             winCoins = 0;
-        } notifyController();
+        }
+        notifyController();
     }
 
     public void changeBetFactor() {
         if (betFactorIndex < 4) {
             betFactorIndex++;
-        } else if(betFactorIndex == 4){
+        } else if (betFactorIndex == 4) {
             betFactorIndex = 0;
         }
         notifyController();
     }
 
-    public void bet(int coins) {
-        changeCoins(-coins);
+    public void bet(long coins) {
+        changeCoins(-coins, CoinChangeReason.PLAYER_BET);
     }
 
-    public void changeCoins(int coins) {
+    public void changeCoins(long coins, CoinChangeReason reason) {
         try {
-            getNormalUser().addCoins(coins, false);
+            getNormalUser().changeCoins(coins, reason);
         } catch (SQLException e) {
-            e.printStackTrace();
+            showErrorMessage("", "", ErrorType.CONNECTION);
         }
     }
+
     public void countCherry(SlotMachineRow slotMachineRow, int rowNumber) {
         switch (rowNumber) {
             case 1:
@@ -209,7 +224,8 @@ public class SlotMachineModel extends Game {
                 break;
             default:
                 break;
-        } if(
+        }
+        if (
                 fruit1.getFruitType().equals(FruitType.CHERRY) ||
                         fruit2.getFruitType().equals(FruitType.CHERRY) ||
                         fruit3.getFruitType().equals(FruitType.CHERRY)) {
@@ -258,43 +274,52 @@ public class SlotMachineModel extends Game {
                         startThreeStarWinGame();
                         break;
                 }
-                }
-                else if(fruit1.equals(fruit2)) {
-                    startHoldGame(row3); }
-                else if(fruit1.equals(fruit3)) {
-                    startHoldGame(row2); }
-                else if(fruit3.equals(fruit2)) {
-                    startHoldGame(row1); }
-                else if (
+            } else if (fruit1.equals(fruit2)) {
+                startHoldGame(row3);
+            } else if (fruit1.equals(fruit3)) {
+                startHoldGame(row2);
+            } else if (fruit3.equals(fruit2)) {
+                startHoldGame(row1);
+            } else if (
                     fruit1.getFruitType().equals(FruitType.CHERRY) && fruit2.getFruitType().equals(FruitType.CHERRY) ||
-                    fruit1.getFruitType().equals(FruitType.CHERRY) && fruit3.getFruitType().equals(FruitType.CHERRY) ||
-                    fruit2.getFruitType().equals(FruitType.CHERRY) && fruit3.getFruitType().equals(FruitType.CHERRY)) {
+                            fruit1.getFruitType().equals(FruitType.CHERRY) && fruit3.getFruitType().equals(FruitType.CHERRY) ||
+                            fruit2.getFruitType().equals(FruitType.CHERRY) && fruit3.getFruitType().equals(FruitType.CHERRY)) {
                 winFactor = 4;
-                }
-                  else if(
+            } else if (
                     fruit1.getFruitType().equals(FruitType.CHERRY) ||
-                    fruit2.getFruitType().equals(FruitType.CHERRY) ||
-                    fruit3.getFruitType().equals(FruitType.CHERRY)) {
+                            fruit2.getFruitType().equals(FruitType.CHERRY) ||
+                            fruit3.getFruitType().equals(FruitType.CHERRY)) {
                 winFactor = 2;
-            }
-            else {
+            } else {
                 startBonusGame();
             }
             setWin();
         }
     }
+
     private void setWin() {
         winCoins = usedGameCoins * winFactor;
         notifyController();
     }
+
     public int getWin() {
         return winCoins;
     }
+
     public void resetWin() {
         winCoins = 0;
         notifyController();
     }
+
     public void setUsedGameCoins(int usedGameCoins) {
         this.usedGameCoins = usedGameCoins;
+    }
+
+    public void playerWin(long gameCoins) {
+        changeCoins(gameCoins, CoinChangeReason.PLAYER_WIN_OR_LOSS);
+    }
+
+    public void quit() {
+        close();
     }
 }

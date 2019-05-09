@@ -12,6 +12,10 @@
     -fx-background-color: #ee00ff;
 }
 
+.text-field {
+    -fx-font-family: "Droid Sans";
+}
+
 #AnchorPane {
     -fx-background-image: url("../images/background.jpg");
     -fx-background-repeat: stretch;

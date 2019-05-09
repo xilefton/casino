@@ -11,6 +11,7 @@ public class Fruit {
         image = new Image(imgPath);
         this.fruitType = fruitType;
     }
+
     public FruitType getFruitType() {
         return fruitType;
     }

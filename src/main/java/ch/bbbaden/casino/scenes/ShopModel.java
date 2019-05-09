@@ -18,6 +18,7 @@ public class ShopModel extends Model {
         try {
             return normalUser.getCoins();
         } catch (SQLException e) {
+            e.printStackTrace();
             showErrorMessage("Fehler beim einlesen aus der Datenbank überprüfen Sie ihre Internetverbindung.", "Verbindungsfehler", ErrorType.CONNECTION);
         }
         return 0;
@@ -27,6 +28,7 @@ public class ShopModel extends Model {
         try {
             normalUser.changeCoins(value, CoinChangeReason.PLAYER_PURCHASE);
         } catch (SQLException e) {
+            e.printStackTrace();
             showErrorMessage("Fehler beim einlesen aus der Datenbank überprüfen Sie ihre Internetverbindung.", "Verbindungsfehler", ErrorType.CONNECTION);
         }
         notifyController();

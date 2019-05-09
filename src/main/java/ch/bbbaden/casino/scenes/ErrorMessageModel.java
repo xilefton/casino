@@ -6,12 +6,14 @@ public class ErrorMessageModel extends Model {
     private String errorMessage, windowTitle;
     private boolean retry = false;
     private ErrorType errorType;
+    private Model endModel;
 
-    public ErrorMessageModel(String errorMessage, String windowTitle, ErrorType errorType) {
+    public ErrorMessageModel(String errorMessage, String windowTitle, Model endModel, ErrorType errorType) {
         super("/fxml/Error.fxml", windowTitle, false);
         this.errorMessage = errorMessage;
         this.windowTitle = windowTitle;
         this.errorType = errorType;
+        this.endModel = endModel;
     }
 
     public String getErrorMessage() {
@@ -31,6 +33,11 @@ public class ErrorMessageModel extends Model {
     }
 
     public void showStartScreen() {
-        changeScene(new StartModel());
+        endModel = new StartModel();
+        close();
+    }
+
+    public Model getEndModel() {
+        return endModel;
     }
 }

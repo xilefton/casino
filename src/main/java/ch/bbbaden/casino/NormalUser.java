@@ -5,7 +5,6 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -30,14 +29,9 @@ public class NormalUser extends User {
         openConnection();
         if (!userExists(username)) {
             try {
-                System.out.println(username);
-                System.out.println(registerStatement);
                 registerStatement.setString(1, username);
-                System.out.println(calculateHashWithSalt(password));
                 registerStatement.setString(2, calculateHashWithSalt(password));
-                System.out.println(coins);
                 registerStatement.setLong(3, coins);
-                System.out.println(coins);
                 registerStatement.setLong(4, coins);
                 registerStatement.executeUpdate();
             } catch (NoSuchAlgorithmException e) {
@@ -56,8 +50,9 @@ public class NormalUser extends User {
         if (this.coins + change < 0) throw new SQLException("Sie können nicht mehr ausgeben als Sie haben");
         this.coins += change;
 
-        coinUpdateStatement.setLong(1, change);
-        coinUpdateStatement.setString(1, super.getUsername());
+        coinUpdateStatement.setLong(1, coins);
+        coinUpdateStatement.setString(2, super.getUsername());
+        coinUpdateStatement.executeUpdate();
 
         switch (changeReason) {
             case PLAYER_BET:
@@ -75,7 +70,6 @@ public class NormalUser extends User {
             default:
                 break;
         }
-
         changed = true;
     }
 
@@ -84,7 +78,6 @@ public class NormalUser extends User {
     }
 
     public void recordChanges(String game, State oldState) throws SQLException {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         recordStatement.setString(1, game);
         recordStatement.setLong(2, (this.playerBet - oldState.getPlayerBet()));
         recordStatement.setLong(3, (oldState.getCoins() - coins));
@@ -106,7 +99,7 @@ public class NormalUser extends User {
 
     private void prepareStatements() throws SQLException {
         updateValuesStatement = getConnection().prepareStatement("SELECT `coins`, `purchased`, `bet` FROM `normalusers` WHERE username = ?");
-        betUpdateStatement = getConnection().prepareStatement("UPDATE `normalusers` SET `coins` = ? WHERE `username` = ?");
+        betUpdateStatement = getConnection().prepareStatement("UPDATE `normalusers` SET `bet` = ? WHERE `username` = ?");
         recordStatement = getConnection().prepareStatement("INSERT INTO `games`(`game`, `bet`, `achievement`, `date`) VALUES ( ?, ?, ?, ?)");
         registerStatement = getConnection().prepareStatement("INSERT INTO `normalusers`(`username`, `password`, `coins`, `purchased`) VALUES (?,?,?,?)");
         purchaseStatement = getConnection().prepareStatement("UPDATE `normalusers` SET `purchased` = ? WHERE `username` = ?");
@@ -116,15 +109,5 @@ public class NormalUser extends User {
     public long getCoins() throws SQLException {
         updateValues();
         return coins;
-    }
-
-    public long getBet() throws SQLException {
-        updateValues();
-        return playerBet;
-    }
-
-    public long getPlayerPurchase() throws SQLException {
-        updateValues();
-        return playerPurchase;
     }
 }

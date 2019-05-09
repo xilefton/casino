@@ -159,16 +159,16 @@ public class BaccaratModel extends Game {
     }
 
     void manageResult(boolean blackjack) {
-            if (check89() && blackjack) {
-                coinsWon = selectedBet * 2.5;
-                changeCoinsWinOrLoss((int) coinsWon);
-            } else if (checkWon()) {
-                coinsWon = selectedBet * 2;
-                changeCoinsWinOrLoss((int) coinsWon);
-            } else if (checkDraw()) {
-                coinsWon = selectedBet;
-                changeCoinsWinOrLoss((int) coinsWon);
-            }
+        if (check89() && blackjack) {
+            coinsWon = selectedBet * 2.5;
+            changeCoinsWinOrLoss((int) coinsWon);
+        } else if (checkWon()) {
+            coinsWon = selectedBet * 2;
+            changeCoinsWinOrLoss((int) coinsWon);
+        } else if (checkDraw()) {
+            coinsWon = selectedBet;
+            changeCoinsWinOrLoss((int) coinsWon);
+        }
     }
 
     int getRemainingCards() {

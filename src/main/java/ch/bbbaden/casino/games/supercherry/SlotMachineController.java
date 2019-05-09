@@ -3,6 +3,7 @@ package ch.bbbaden.casino.games.supercherry;
 import ch.bbbaden.casino.Controller;
 import ch.bbbaden.casino.Model;
 import javafx.animation.PauseTransition;
+import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -37,34 +38,34 @@ public class SlotMachineController implements Controller {
     public Label betFactorLabel;
     public Button receiveWin;
     private SlotMachineModel slotMachineModel;
-    private int inputCoins = 0;
-    private int gameCoins = 0;
+    private long inputCoins = 0;
+    private long gameCoins = 0;
 
 
     public void update() {
-            spin(slotMachineModel.getRow1(), 1);
-            spin(slotMachineModel.getRow2(), 2);
-            spin(slotMachineModel.getRow3(), 3);
-            coins.setText(Integer.toString(slotMachineModel.getCoins()));
-            addCoinsLabel.setText(Integer.toString(inputCoins));
-            gameCoinsLabel.setText(Integer.toString(gameCoins));
-            betFactorLabel.setText(slotMachineModel.getBetFactor() + "x");
-            riskLabel.setText(Integer.toString(slotMachineModel.getWin()));
-            if(slotMachineModel.getWin() > 0) {
-                mysteryButton.setDisable(false);
-                mysteryButton.setImage(new Image("/images/supercherry/buttons/mystery/BUTTON_MYSTERY_ACTIVE.png"));
-                gambleButton.setDisable(false);
-                gambleButton.setImage(new Image("/images/supercherry/buttons/gamble/BUTTON_GAMBLE_ACTIVE.png"));
-            } else {
-                mysteryButton.setDisable(true);
-                mysteryButton.setImage(new Image("/images/supercherry/buttons/mystery/BUTTON_MYSTERY_INACTIVE.png"));
-                gambleButton.setDisable(true);
-                gambleButton.setImage(new Image("/images/supercherry/buttons/gamble/BUTTON_GAMBLE_INACTIVE.png"));
-            }
+        spin(slotMachineModel.getRow1(), 1);
+        spin(slotMachineModel.getRow2(), 2);
+        spin(slotMachineModel.getRow3(), 3);
+        coins.setText(Long.toString(slotMachineModel.getCoins()));
+        addCoinsLabel.setText(Long.toString(inputCoins));
+        gameCoinsLabel.setText(Long.toString(gameCoins));
+        betFactorLabel.setText(slotMachineModel.getBetFactor() + "x");
+        riskLabel.setText(Long.toString(slotMachineModel.getWin()));
+        if (slotMachineModel.getWin() > 0) {
+            mysteryButton.setDisable(false);
+            mysteryButton.setImage(new Image("/images/supercherry/buttons/mystery/BUTTON_MYSTERY_ACTIVE.png"));
+            gambleButton.setDisable(false);
+            gambleButton.setImage(new Image("/images/supercherry/buttons/gamble/BUTTON_GAMBLE_ACTIVE.png"));
+        } else {
+            mysteryButton.setDisable(true);
+            mysteryButton.setImage(new Image("/images/supercherry/buttons/mystery/BUTTON_MYSTERY_INACTIVE.png"));
+            gambleButton.setDisable(true);
+            gambleButton.setImage(new Image("/images/supercherry/buttons/gamble/BUTTON_GAMBLE_INACTIVE.png"));
+        }
     }
 
     private void spin(SlotMachineRow slotMachineRow, int rowNumber) {
-        if(slotMachineRow.iterator().hasNext()) {
+        if (slotMachineRow.iterator().hasNext()) {
             ImageView row;
             switch (rowNumber) {
                 case 2:
@@ -84,12 +85,11 @@ public class SlotMachineController implements Controller {
                 row.setImage(slotMachineRow.iterator().next().getImage());
                 if (slotMachineRow.iterator().hasNext()) {
                     spin(slotMachineRow, rowNumber);
-                }
-                else {
-                    if(slotMachineModel.getCherryCollect()) {
+                } else {
+                    if (slotMachineModel.getCherryCollect()) {
                         slotMachineModel.countCherry(slotMachineRow, rowNumber);
                     } else
-                    slotMachineModel.handleSpinResults(slotMachineRow, rowNumber);
+                        slotMachineModel.handleSpinResults(slotMachineRow, rowNumber);
                 }
             });
             pause.play();
@@ -142,13 +142,13 @@ public class SlotMachineController implements Controller {
     }
 
     public void imgV_stop_onMouseClicked() {
-        if(gameCoins >= 2 && gameCoins >= slotMachineModel.getBetFactor()) {
+        if (gameCoins >= 2 && gameCoins >= slotMachineModel.getBetFactor()) {
             slotMachineModel.startGame();
             int usedGameCoins = slotMachineModel.getBetFactor();
             slotMachineModel.setUsedGameCoins(usedGameCoins);
             gameCoins = gameCoins - usedGameCoins;
         }
-        if(slotMachineModel.getWin() > 0) {
+        if (slotMachineModel.getWin() > 0) {
             gameCoins = gameCoins + slotMachineModel.getWin();
             slotMachineModel.resetWin();
         }
@@ -167,9 +167,13 @@ public class SlotMachineController implements Controller {
     }
 
     public void imgV_payout_onMouseClicked() {
-        slotMachineModel.changeCoins(gameCoins);
+        slotMachineModel.playerWin(gameCoins);
         gameCoins = 0;
         update();
+    }
+
+    public void btn_quit_onAction() {
+        slotMachineModel.quit();
     }
 }
 

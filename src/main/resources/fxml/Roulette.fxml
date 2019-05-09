@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-
-<AnchorPane fx:id="anchorPane" prefHeight="600.0" prefWidth="896.0" xmlns="http://javafx.com/javafx/8.0.202"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.bbbaden.casino.games.roulette.RouletteController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="anchorPane" prefHeight="600.0" prefWidth="896.0"
+            xmlns="http://javafx.com/javafx/8.0.191" fx:controller="ch.bbbaden.casino.games.roulette.RouletteController">
     <ImageView fitHeight="605.0" fitWidth="916.0" layoutX="-4.0" layoutY="-6.0" pickOnBounds="true"
                preserveRatio="true">
         <Image url="@../images/roulette/roulette-2.png"/>
@@ -92,10 +86,11 @@
                 mnemonicParsing="false" opacity="0.0" prefHeight="11.0" prefWidth="9.0" GridPane.columnIndex="21"
                 GridPane.rowIndex="5"/>
     </GridPane>
-    <Label fx:id="label_coins" layoutX="302.0" layoutY="98.0" prefHeight="32.0" prefWidth="250.0" text=" Ihr Geldbetrag:"
+    <Label fx:id="label_coins" layoutX="302.0" layoutY="98.0" prefHeight="32.0" prefWidth="250.0"
+           text=" Ihr Geldbetrag:"
            textFill="WHITE">
         <font>
-          <Font name="System Italic" size="18.0"/>
+            <Font name="System Italic" size="18.0"/>
         </font>
     </Label>
     <ImageView fx:id="imgV_jeton5" fitHeight="101.0" fitWidth="81.0" layoutX="35.0" layoutY="1.0"
@@ -133,27 +128,30 @@
             prefWidth="170.0" style="-fx-background-color: none;"/>
     <Button layoutX="292.0" layoutY="81.0" mnemonicParsing="false" prefHeight="92.0" prefWidth="497.0"
             style="-fx-background-color: none;"/>
-    <ImageView fx:id="imgV_spinWheel" fitHeight="242.0" fitWidth="250.0" layoutX="38.0" layoutY="234.0" pickOnBounds="true"
+    <ImageView fx:id="imgV_spinWheel" fitHeight="242.0" fitWidth="250.0" layoutX="38.0" layoutY="234.0"
+               pickOnBounds="true"
                preserveRatio="true">
         <Image url="@../images/roulette/american-wheel.png"/>
     </ImageView>
-    <ImageView fx:id="imgV_ballRotate" fitHeight="288.0" fitWidth="288.0" layoutX="15.0" layoutY="211.0" pickOnBounds="true"
+    <ImageView fx:id="imgV_ballRotate" fitHeight="288.0" fitWidth="288.0" layoutX="15.0" layoutY="211.0"
+               pickOnBounds="true"
                preserveRatio="true">
         <Image url="@../images/roulette/rouletterad-ball.png"/>
     </ImageView>
     <Label fx:id="label_win" layoutX="302.0" layoutY="142.0" prefHeight="18.0" prefWidth="242.0" textFill="WHITE">
         <font>
-          <Font name="System Italic" size="18.0"/>
+            <Font name="System Italic" size="18.0"/>
         </font>
     </Label>
     <Label fx:id="label_rndNumber" layoutX="302.0" layoutY="179.0" prefHeight="18.0" prefWidth="250.0" textFill="WHITE">
         <font>
-          <Font name="System Italic" size="18.0"/>
+            <Font name="System Italic" size="18.0"/>
         </font>
     </Label>
     <Button fx:id="btn_zero" layoutX="349.0" layoutY="332.0" mnemonicParsing="false" onAction="#btn_zero_onAction"
             prefHeight="83.0" prefWidth="31.0" style="-fx-background-color: none;"/>
-    <Button fx:id="btn_doubleZero" layoutX="348.0" layoutY="251.0" mnemonicParsing="false" onAction="#btn_doubleZero_onAction"
+    <Button fx:id="btn_doubleZero" layoutX="348.0" layoutY="251.0" mnemonicParsing="false"
+            onAction="#btn_doubleZero_onAction"
             prefHeight="82.0" prefWidth="34.0" style="-fx-background-color: none;"/>
     <Button fx:id="btn_first" layoutX="384.0" layoutY="421.0" mnemonicParsing="false" onAction="#btn_first_onAction"
             opacity="0.0" prefHeight="8.0" prefWidth="130.0" text="Button"/>

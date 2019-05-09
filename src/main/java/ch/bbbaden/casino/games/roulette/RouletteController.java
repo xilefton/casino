@@ -52,6 +52,11 @@ public class RouletteController implements Controller {
     public Button btn_down;
     public Button btn_five;
     public ImageView imgV_ballRotate;
+    String[] numbers = new String[38];
+    ArrayList<Integer> buttonwert = new ArrayList<>();
+    ArrayList<ImageView> jetonentf = new ArrayList<>();
+    HashMap<Integer, Integer> betrag = new HashMap();
+    ArrayList<Integer> chips = new ArrayList<>();
     @FXML
     private GridPane gridPane;
     private RouletteModel rouletteModel;
@@ -60,11 +65,6 @@ public class RouletteController implements Controller {
     private int jeton = 0;
     private String image = "";
     private int selectedValue;
-    String[] numbers = new String[38];
-    ArrayList<Integer> buttonwert = new ArrayList<>();
-    ArrayList<ImageView> jetonentf = new ArrayList<>();
-    HashMap<Integer, Integer> betrag = new HashMap();
-    ArrayList<Integer> chips = new ArrayList<>();
 
     // Jeton Bilder auf dem Feld per Klick
     private void jetonMaker(Button button, int offset) {

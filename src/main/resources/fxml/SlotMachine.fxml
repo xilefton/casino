@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPaneSuperCherry" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.bbbaden.casino.games.supercherry.SlotMachineController">
+<AnchorPane fx:id="anchorPaneSuperCherry" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.bbbaden.casino.games.supercherry.SlotMachineController">
     <stylesheets>
         <URL value="@../styles/superCherry.css" />
     </stylesheets>
@@ -70,16 +70,17 @@
     <Button fx:id="addCoins" layoutX="452.0" layoutY="642.0" mnemonicParsing="false" onMouseClicked="#imgV_applyBet_onMouseClicked" opacity="0.0" prefHeight="32.0" prefWidth="112.0" />
     <Label fx:id="riskLabel" alignment="CENTER" layoutX="500.0" layoutY="346.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="5.0" prefWidth="169.0" textFill="WHITE">
         <font>
-          <Font size="10.0" />
+            <Font size="10.0" />
         </font>
     </Label>
     <Label fx:id="coins" layoutX="164.0" layoutY="70.0" prefHeight="42.0" prefWidth="54.0" textFill="WHITE">
-      <font>
-         <Font size="18.0" />
-      </font></Label>
+        <font>
+            <Font size="18.0" />
+        </font>
+    </Label>
     <Label fx:id="gameCoinsLabel" alignment="CENTER" layoutX="500.0" layoutY="321.0" prefHeight="15.0" prefWidth="169.0" textFill="WHITE">
         <font>
-          <Font size="10.0" />
+            <Font size="10.0" />
         </font>
     </Label>
     <Label fx:id="addCoinsLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="487.0" layoutY="684.0" prefHeight="17.0" prefWidth="39.0" textFill="WHITE" />
@@ -87,7 +88,8 @@
     <Button fx:id="receiveWin" layoutX="494" layoutY="318" onMouseClicked="#imgV_payout_onMouseClicked" opacity="0.0" prefHeight="25.0" prefWidth="180.0" />
     <ImageView fitHeight="42.0" fitWidth="39.0" layoutX="117.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true">
         <image>
-          <Image url="@../images/coin.png" />
+            <Image url="@../images/coin.png" />
         </image>
     </ImageView>
+   <Button layoutX="997.0" layoutY="22.0" mnemonicParsing="false" onAction="#btn_quit_onAction" prefHeight="50.0" prefWidth="149.0" style="-fx-background-color: blue;" text="Beenden" textFill="WHITE" />
 </AnchorPane>

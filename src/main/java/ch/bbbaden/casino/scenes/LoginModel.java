@@ -30,7 +30,6 @@ class LoginModel extends Model {
             normalUser.login(username, password);
             loginSuccessful = true;
         } catch (SQLException ex) {
-            System.out.println("login message");
             showErrorMessage(ex.getMessage(), "Fehler beim einloggen", ErrorType.NOTIFICATION);
             this.username = "";
             this.password = "";

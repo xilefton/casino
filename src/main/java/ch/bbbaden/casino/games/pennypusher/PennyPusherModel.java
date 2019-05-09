@@ -70,11 +70,11 @@ public class PennyPusherModel extends Game {
         }
     }
 
-    void changeCoinsBet(int amountOfCoins) {
+    private void changeCoinsBet(int amountOfCoins) {
         changeCoins(-amountOfCoins, CoinChangeReason.PLAYER_BET);
     }
 
-    void changeCoinsWinOrLoss(int amountOfCoins) {
+    private void changeCoinsWinOrLoss(int amountOfCoins) {
         changeCoins(amountOfCoins, CoinChangeReason.PLAYER_WIN_OR_LOSS);
     }
 
@@ -87,9 +87,7 @@ public class PennyPusherModel extends Game {
     }
 
     void slot2() {
-
         changeCoinsBet(1);
-
         field[rnd.nextInt(1)][4 + rnd.nextInt(4)]++;
         btn_push_disabled = false;
         btn_slot2_disabled = true;
@@ -97,10 +95,7 @@ public class PennyPusherModel extends Game {
     }
 
     void slot3() {
-
-        System.out.println("-1");
         changeCoinsBet(1);
-
         field[0][8 + rnd.nextInt(4)]++;
         btn_push_disabled = false;
         btn_slot3_disabled = true;

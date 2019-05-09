@@ -15,20 +15,7 @@ class AdminLoginModel extends Model {
         super("/fxml/AdminLogin.fxml", "AdminLogin", true);
     }
 
-    /*private void showErrorMessage(String message) {
-        LoginFailedModel errView = new LoginFailedModel(message);
-        changeScene(errView);
-        if (errView.doRetry()) {
-            username = "";
-            password = "";
-            show();
-        } else {
-            changeScene(new StartModel());
-        }
-        errView.close();
-    }*/
-
-    void login(String username, String password){
+    void login(String username, String password) {
         boolean loginSuccessful = false;
         try {
             adminUser = new AdminUser();

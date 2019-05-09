@@ -8,7 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="AnchorPaneBaccarat" maxHeight="560.0" maxWidth="1000.0" minHeight="560.0" minWidth="1000.0" prefHeight="560.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.bbbaden.casino.games.baccarat.BaccaratController">
+<AnchorPane id="AnchorPaneBaccarat" maxHeight="560.0" maxWidth="1000.0" minHeight="560.0" minWidth="1000.0" prefHeight="560.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.bbbaden.casino.games.baccarat.BaccaratController">
     <stylesheets>
         <URL value="@../styles/BaccaratStyle.css" />
         <URL value="@../styles/BasicStyle.css" />
