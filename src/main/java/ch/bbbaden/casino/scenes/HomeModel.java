@@ -37,7 +37,8 @@ public class HomeModel extends Model {
     void playGame() {
         State saveState = normalUser.getState();
         String game = games[currIndex].getName();
-        hide();
+        //hide(); actually wanted to hide ran out of memory with slotmachine though
+        close();
         changeScene(games[currIndex]);
         show();
         try {
