@@ -1,6 +1,6 @@
 package ch.bbbaden.casino;
 
-import ch.bbbaden.casino.scenes.AdminLoggedInModel;
+import ch.bbbaden.casino.scenes.AdminModel;
 import ch.bbbaden.casino.scenes.StartModel;
 import javafx.application.Application;
 import javafx.scene.text.Font;
@@ -17,10 +17,13 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws SQLException {
         Font.loadFont(getClass().getResourceAsStream("/fonts/casino.ttf"), 20);
-        //new ModelManager(stage).setModel(new StartModel());
-
-        AdminUser adminUser = new AdminUser();
-        adminUser.login("FELIX", "felix");
-        new ModelManager(stage).setModel(new AdminLoggedInModel(adminUser));
+        int i = 0;
+        if (i == 0) {
+            AdminUser adminUser = new AdminUser();
+            adminUser.login("OTTO", "otto");
+            new ModelManager(stage).setModel(new AdminModel(adminUser));
+        } else {
+            new ModelManager(stage).setModel(new StartModel());
+        }
     }
 }

@@ -15,8 +15,8 @@ class RegisterModel extends Model {
         if (username.length() >= 20) {
             showErrorMessage("Der Benutzername ist zu lang", "Error when Registering", ErrorType.NOTIFICATION);
         }
-        NormalUser normalUser = new NormalUser();
         try {
+            NormalUser normalUser = new NormalUser();
             normalUser.register(username, password, coins);
             normalUser.login(username, password);
             changeScene(new HomeModel(normalUser));

@@ -1,6 +1,6 @@
 * {
-    -fx-font-size: 20px;
-    -fx-font-family: casino;
+    -fx-font-size: 12px;
+    -fx-font-family: "Droid Sans";
 }
 
 .label {
@@ -8,10 +8,10 @@
 }
 
 .button {
-    -fx-text-fill: #e8cd35;
-    -fx-background-color: #ee00ff;
+    -fx-text-fill: #ffff;
+    -fx-background-color: #000000;
 }
 
 #AnchorPane {
-    -fx-background-color: #bababa;
+    -fx-background-color: #ffffff;
 }

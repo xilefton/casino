@@ -2,7 +2,6 @@ package ch.bbbaden.casino.scenes;
 
 import ch.bbbaden.casino.AdminUser;
 import ch.bbbaden.casino.Model;
-import ch.bbbaden.casino.NormalUser;
 
 import java.sql.SQLException;
 
@@ -29,10 +28,10 @@ class AdminLoginModel extends Model {
         errView.close();
     }*/
 
-    void login(String username, String password) {
+    void login(String username, String password){
         boolean loginSuccessful = false;
-        adminUser = new AdminUser();
         try {
+            adminUser = new AdminUser();
             adminUser.login(username, password);
             loginSuccessful = true;
         } catch (SQLException ex) {
@@ -40,7 +39,7 @@ class AdminLoginModel extends Model {
         }
 
         if (loginSuccessful) {
-            changeScene(new AdminLoggedInModel(adminUser));
+            changeScene(new AdminModel(adminUser));
         }
     }
 
