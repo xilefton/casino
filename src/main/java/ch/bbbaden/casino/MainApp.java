@@ -1,6 +1,6 @@
 package ch.bbbaden.casino;
 
-import ch.bbbaden.casino.scenes.StartModel;
+import ch.bbbaden.casino.games.supercherry.SlotMachineModel;
 import javafx.application.Application;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -16,6 +16,9 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws SQLException {
         Font.loadFont(getClass().getResourceAsStream("/fonts/casino.ttf"), 20);
-        new ModelManager(stage).setModel(new StartModel());
+        //new ModelManager(stage).setModel(new StartModel());
+        NormalUser normalUser = new NormalUser();
+        normalUser.login("SEVERIN", "nireves");
+        new ModelManager(stage).setModel(new SlotMachineModel(normalUser));
     }
 }

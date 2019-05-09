@@ -1,0 +1,7 @@
+#anchorPaneSuperCherry {
+    -fx-background-image: url("../images/supercherry/BACKGROUND.jpg");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 1200 900;
+    -fx-background-position: center center;
+    -fx-border-width: 0;
+}
