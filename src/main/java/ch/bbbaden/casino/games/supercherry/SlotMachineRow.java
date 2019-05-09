@@ -1,4 +1,4 @@
-package ch.bbbaden.casino.games;
+package ch.bbbaden.casino.games.supercherry;
 
 import java.util.Iterator;
 import java.util.Random;
@@ -40,8 +40,8 @@ public class SlotMachineRow implements Iterable<Fruit> {
         return returnFruit;
     }
     @Override
-    public Iterator<ch.bbbaden.casino.games.Fruit> iterator() {
-        return new Iterator<ch.bbbaden.casino.games.Fruit>() {
+    public Iterator<Fruit> iterator() {
+        return new Iterator<Fruit>() {
 
             @Override
             public boolean hasNext() {

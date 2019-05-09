@@ -1,7 +1,6 @@
 package ch.bbbaden.casino;
 
-import ch.bbbaden.casino.games.SlotMachineModel;
-import ch.bbbaden.casino.scenes.StartModel;
+import ch.bbbaden.casino.games.supercherry.SlotMachineModel;
 import javafx.application.Application;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;

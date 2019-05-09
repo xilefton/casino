@@ -1,12 +1,11 @@
-package ch.bbbaden.casino.games;
+package ch.bbbaden.casino.games.supercherry;
 
 import javafx.scene.image.Image;
 
 public class Fruit {
 
     private Image image;
-    private int value;
-    FruitType fruitType;
+    private FruitType fruitType;
 
     public Fruit(String imgPath, FruitType fruitType) {
         image = new Image(imgPath);
