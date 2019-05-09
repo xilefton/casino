@@ -1,12 +1,12 @@
 package ch.bbbaden.casino;
 
 public class MockGame {
-    String name;
-    String date;
-    long bet;
-    long achievement;
+    private String name;
+    private String date;
+    private long bet;
+    private long achievement;
 
-    public MockGame(String name, String date, long bet, long achievement) {
+    MockGame(String name, String date, long bet, long achievement) {
         this.name = name;
         this.date = date;
         this.bet = bet;

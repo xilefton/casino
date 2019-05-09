@@ -3,6 +3,7 @@ package ch.bbbaden.casino.games.baccarat;
 import ch.bbbaden.casino.Controller;
 import ch.bbbaden.casino.Model;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -39,7 +40,7 @@ public class BaccaratController implements Controller {
 
     @Override
     public void initialize(Model model) {
-        comboBox.getItems().addAll("5", "10", "25", "50", "100");
+        comboBox.getItems().addAll("1", "5", "10", "25", "50", "100");
         comboBox.setValue("100");
 
         baccaratModel = (BaccaratModel) model;

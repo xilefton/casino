@@ -61,7 +61,6 @@ public class AdminController implements Controller {
         label_bet.setText(Long.toString(adminModel.getBet()));
         label_coins.setText(Long.toString(adminModel.getCoins()));
         label_purchased.setText(Long.toString(adminModel.getPurchased()));
-        System.out.println("updated");
     }
 
     public void btn_quit_onAction() {

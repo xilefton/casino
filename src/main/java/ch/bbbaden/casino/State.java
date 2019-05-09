@@ -2,12 +2,10 @@ package ch.bbbaden.casino;
 
 public class State {
     private long coins;
-    private boolean changed = true;
-    private long playerPurchase, playerBet;
+    private long playerBet;
 
-    public State(long coins, long playerPurchase, long playerBet) {
+    State(long coins, long playerBet) {
         this.coins = coins;
-        this.playerPurchase = playerPurchase;
         this.playerBet = playerBet;
     }
 
@@ -15,15 +13,7 @@ public class State {
         return coins;
     }
 
-    public boolean isChanged() {
-        return changed;
-    }
-
-    public long getPlayerPurchase() {
-        return playerPurchase;
-    }
-
-    public long getPlayerBet() {
+    long getPlayerBet() {
         return playerBet;
     }
 }

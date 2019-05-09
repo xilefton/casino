@@ -61,7 +61,6 @@ public class Model {
     protected void showErrorMessage(String errorMessage, String windowTitle, ErrorType errorType) {
         ErrorMessageModel errorView = new ErrorMessageModel(errorMessage, windowTitle, this, errorType);
         changeScene(errorView);
-        System.out.println("sdaf");
         changeScene(errorView.getEndModel());
     }
 

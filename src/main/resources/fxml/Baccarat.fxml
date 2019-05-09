@@ -8,54 +8,77 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPaneBaccarat" maxHeight="560.0" maxWidth="1000.0" minHeight="560.0" minWidth="1000.0" prefHeight="560.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.bbbaden.casino.games.baccarat.BaccaratController">
+<AnchorPane id="AnchorPaneBaccarat" maxHeight="560.0" maxWidth="1000.0" minHeight="560.0" minWidth="1000.0"
+            prefHeight="560.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.bbbaden.casino.games.baccarat.BaccaratController">
     <stylesheets>
-        <URL value="@../styles/BaccaratStyle.css" />
-        <URL value="@../styles/BasicStyle.css" />
+        <URL value="@../styles/BaccaratStyle.css"/>
+        <URL value="@../styles/BasicStyle.css"/>
     </stylesheets>
-    <ImageView fx:id="imgV_firstCardYou" fitHeight="150.0" fitWidth="100.0" layoutX="326.0" layoutY="380.0" pickOnBounds="true" preserveRatio="true">
-        <Image url="@../images/baccarat/borderCard.png" />
+    <ImageView fx:id="imgV_firstCardYou" fitHeight="150.0" fitWidth="100.0" layoutX="326.0" layoutY="380.0"
+               pickOnBounds="true" preserveRatio="true">
+        <Image url="@../images/baccarat/borderCard.png"/>
     </ImageView>
-    <ImageView fx:id="imgV_secondCardYou" fitHeight="150.0" fitWidth="100.0" layoutX="451.0" layoutY="381.0" pickOnBounds="true" preserveRatio="true">
-        <Image url="@../images/baccarat/borderCard.png" />
+    <ImageView fx:id="imgV_secondCardYou" fitHeight="150.0" fitWidth="100.0" layoutX="451.0" layoutY="381.0"
+               pickOnBounds="true" preserveRatio="true">
+        <Image url="@../images/baccarat/borderCard.png"/>
     </ImageView>
-    <ImageView fx:id="imgV_thirdCardYou" fitHeight="150.0" fitWidth="100.0" layoutX="576.0" layoutY="380.0" pickOnBounds="true" preserveRatio="true">
-        <Image url="@../images/baccarat/borderCard.png" />
+    <ImageView fx:id="imgV_thirdCardYou" fitHeight="150.0" fitWidth="100.0" layoutX="576.0" layoutY="380.0"
+               pickOnBounds="true" preserveRatio="true">
+        <Image url="@../images/baccarat/borderCard.png"/>
     </ImageView>
-    <ImageView fx:id="imgV_firstCardCroupier" fitHeight="150.0" fitWidth="100.0" layoutX="326.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
-        <Image url="@../images/baccarat/borderCard.png" />
+    <ImageView fx:id="imgV_firstCardCroupier" fitHeight="150.0" fitWidth="100.0" layoutX="326.0" layoutY="36.0"
+               pickOnBounds="true" preserveRatio="true">
+        <Image url="@../images/baccarat/borderCard.png"/>
     </ImageView>
-    <ImageView fx:id="imgV_secondCardCroupier" fitHeight="150.0" fitWidth="100.0" layoutX="451.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
-        <Image url="@../images/baccarat/borderCard.png" />
+    <ImageView fx:id="imgV_secondCardCroupier" fitHeight="150.0" fitWidth="100.0" layoutX="451.0" layoutY="36.0"
+               pickOnBounds="true" preserveRatio="true">
+        <Image url="@../images/baccarat/borderCard.png"/>
     </ImageView>
-    <ImageView fx:id="imgV_thirdCardCroupier" fitHeight="150.0" fitWidth="100.0" layoutX="576.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
-        <Image url="@../images/baccarat/borderCard.png" />
+    <ImageView fx:id="imgV_thirdCardCroupier" fitHeight="150.0" fitWidth="100.0" layoutX="576.0" layoutY="36.0"
+               pickOnBounds="true" preserveRatio="true">
+        <Image url="@../images/baccarat/borderCard.png"/>
     </ImageView>
-    <ImageView fx:id="imgV_firstCroupierCardShield" fitHeight="150.0" fitWidth="100.0" layoutX="325.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" visible="false">
-        <Image url="@../images/baccarat/backCard.png" />
+    <ImageView fx:id="imgV_firstCroupierCardShield" fitHeight="150.0" fitWidth="100.0" layoutX="325.0" layoutY="36.0"
+               pickOnBounds="true" preserveRatio="true" visible="false">
+        <Image url="@../images/baccarat/backCard.png"/>
     </ImageView>
-    <ImageView fx:id="imgV_secondCroupierCardShield" fitHeight="150.0" fitWidth="100.0" layoutX="450.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" visible="false">
-        <Image url="@../images/baccarat/backCard.png" />
+    <ImageView fx:id="imgV_secondCroupierCardShield" fitHeight="150.0" fitWidth="100.0" layoutX="450.0" layoutY="36.0"
+               pickOnBounds="true" preserveRatio="true" visible="false">
+        <Image url="@../images/baccarat/backCard.png"/>
     </ImageView>
-    <ImageView fx:id="imgV_thirdCroupierCardShield" fitHeight="150.0" fitWidth="100.0" layoutX="575.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" visible="false">
-        <Image url="@../images/baccarat/backCard.png" />
+    <ImageView fx:id="imgV_thirdCroupierCardShield" fitHeight="150.0" fitWidth="100.0" layoutX="575.0" layoutY="36.0"
+               pickOnBounds="true" preserveRatio="true" visible="false">
+        <Image url="@../images/baccarat/backCard.png"/>
     </ImageView>
     <ImageView fitHeight="57.0" fitWidth="53.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-        <Image url="@../images/coin.png" />
+        <Image url="@../images/coin.png"/>
     </ImageView>
-    <Button fx:id="btn_bet" layoutX="83.0" layoutY="295.0" mnemonicParsing="false" onAction="#btn_bet_onAction" prefHeight="44.0" prefWidth="100.0" text="Setzen" />
-    <Button fx:id="btn_draw" disable="true" layoutX="276.0" layoutY="242.0" mnemonicParsing="false" onAction="#btn_draw_onAction" prefHeight="44.0" prefWidth="150.0" text="Karte Ziehen" />
-    <Button fx:id="btn_newTurn" disable="true" layoutX="457.0" layoutY="243.0" mnemonicParsing="false" onAction="#btn_newTurn_onAction" prefHeight="44.0" prefWidth="90.0" text="Fertig" />
-    <Button fx:id="btn_newDeck" disable="true" layoutX="576.0" layoutY="242.0" mnemonicParsing="false" onAction="#btn_newDeck_onAction" prefHeight="44.0" prefWidth="150.0" text="Neues Deck" />
-    <Button fx:id="btn_quit" layoutX="844.0" layoutY="486.0" mnemonicParsing="false" onAction="#btn_quit_onAction" prefHeight="44.0" prefWidth="128.0" text="Abbrechen" />
-    <ComboBox fx:id="comboBox" layoutX="58.0" layoutY="239.0" prefHeight="44.0" prefWidth="150.0" />
-    <Label fx:id="label_coins" layoutX="71.0" layoutY="21.0" prefHeight="37.0" prefWidth="123.0" text="coins" textFill="WHITE" />
-    <Label layoutX="15.0" layoutY="197.0" text="Wie viel möchten Sie setzen?" textFill="WHITE" />
-    <Label fx:id="label_result" alignment="CENTER" contentDisplay="CENTER" layoutX="286.0" layoutY="322.0" prefHeight="30.0" prefWidth="431.0" textAlignment="CENTER" />
-    <Label fx:id="label_pointsYou" layoutX="690.0" layoutY="437.0" prefHeight="37.0" prefWidth="241.0" visible="false" />
-    <Label fx:id="label_pointsCroupier" layoutX="690.0" layoutY="93.0" prefHeight="37.0" prefWidth="241.0" visible="false" />
-    <Label alignment="CENTER" layoutX="760.0" layoutY="197.0" prefHeight="30.0" prefWidth="222.0" text="Karten übrig im Deck:" />
-    <Label fx:id="label_remainingCards" alignment="CENTER" contentDisplay="CENTER" layoutX="831.0" layoutY="230.0" prefHeight="30.0" prefWidth="81.0" text="cards" textAlignment="CENTER" />
-    <Label alignment="CENTER" layoutX="785.0" layoutY="272.0" prefHeight="30.0" prefWidth="174.0" text="Aktuell gesetzt:" />
-    <Label fx:id="label_activeBet" alignment="CENTER" contentDisplay="CENTER" layoutX="821.0" layoutY="304.0" prefHeight="30.0" prefWidth="100.0" textAlignment="CENTER" />
+    <Button fx:id="btn_bet" layoutX="83.0" layoutY="295.0" mnemonicParsing="false" onAction="#btn_bet_onAction"
+            prefHeight="44.0" prefWidth="100.0" text="Setzen"/>
+    <Button fx:id="btn_draw" disable="true" layoutX="276.0" layoutY="242.0" mnemonicParsing="false"
+            onAction="#btn_draw_onAction" prefHeight="44.0" prefWidth="150.0" text="Karte Ziehen"/>
+    <Button fx:id="btn_newTurn" disable="true" layoutX="457.0" layoutY="243.0" mnemonicParsing="false"
+            onAction="#btn_newTurn_onAction" prefHeight="44.0" prefWidth="90.0" text="Fertig"/>
+    <Button fx:id="btn_newDeck" disable="true" layoutX="576.0" layoutY="242.0" mnemonicParsing="false"
+            onAction="#btn_newDeck_onAction" prefHeight="44.0" prefWidth="150.0" text="Neues Deck"/>
+    <Button fx:id="btn_quit" layoutX="844.0" layoutY="486.0" mnemonicParsing="false" onAction="#btn_quit_onAction"
+            prefHeight="44.0" prefWidth="128.0" text="Abbrechen"/>
+    <ComboBox fx:id="comboBox" layoutX="58.0" layoutY="239.0" prefHeight="44.0" prefWidth="150.0"/>
+    <Label fx:id="label_coins" layoutX="71.0" layoutY="21.0" prefHeight="37.0" prefWidth="123.0" text="coins"
+           textFill="WHITE"/>
+    <Label layoutX="15.0" layoutY="197.0" text="Wie viel möchten Sie setzen?" textFill="WHITE"/>
+    <Label fx:id="label_result" alignment="CENTER" contentDisplay="CENTER" layoutX="286.0" layoutY="322.0"
+           prefHeight="30.0" prefWidth="431.0" textAlignment="CENTER"/>
+    <Label fx:id="label_pointsYou" layoutX="690.0" layoutY="437.0" prefHeight="37.0" prefWidth="241.0" visible="false"/>
+    <Label fx:id="label_pointsCroupier" layoutX="690.0" layoutY="93.0" prefHeight="37.0" prefWidth="241.0"
+           visible="false"/>
+    <Label alignment="CENTER" layoutX="760.0" layoutY="197.0" prefHeight="30.0" prefWidth="222.0"
+           text="Karten übrig im Deck:"/>
+    <Label fx:id="label_remainingCards" alignment="CENTER" contentDisplay="CENTER" layoutX="831.0" layoutY="230.0"
+           prefHeight="30.0" prefWidth="81.0" text="cards" textAlignment="CENTER"/>
+    <Label alignment="CENTER" layoutX="785.0" layoutY="272.0" prefHeight="30.0" prefWidth="174.0"
+           text="Aktuell gesetzt:"/>
+    <Label fx:id="label_activeBet" alignment="CENTER" contentDisplay="CENTER" layoutX="821.0" layoutY="304.0"
+           prefHeight="30.0" prefWidth="100.0" textAlignment="CENTER"/>
 </AnchorPane>

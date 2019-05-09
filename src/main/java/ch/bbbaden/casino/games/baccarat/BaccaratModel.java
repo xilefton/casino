@@ -33,7 +33,7 @@ public class BaccaratModel extends Game {
     }
 
     private void changeCoins(int amountOfCoins, CoinChangeReason coinChangeReason) {
-        this.selectedBet = amountOfCoins;
+        this.selectedBet = amountOfCoins * -1;
         try {
             getNormalUser().changeCoins(amountOfCoins, coinChangeReason);
         } catch (SQLException e) {
