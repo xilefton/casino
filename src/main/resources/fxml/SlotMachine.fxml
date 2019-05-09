@@ -8,12 +8,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPaneSuperCherry" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.bbbaden.casino.games.supercherry.SlotMachineController">
+<AnchorPane fx:id="anchorPaneSuperCherry" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.bbbaden.casino.games.supercherry.SlotMachineController">
     <stylesheets>
         <URL value="@../styles/superCherry.css" />
     </stylesheets>
     <ImageView fitHeight="868.0" fitWidth="705.0" layoutX="257.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
-        <Image url="@../images/supercherry/SLOT_MACHINE.png" />
+        <Image url="@../images/supercherry/SLOT_MACHINE.jpg" />
     </ImageView>
     <ImageView fitHeight="139.0" fitWidth="461.0" layoutX="307.0" layoutY="468.0" pickOnBounds="true" preserveRatio="true">
         <Image url="@../images/supercherry/WIN_LINE_BACKGROUND.png" />
@@ -33,37 +33,37 @@
         <Image url="@../images/supercherry/threestarwin/3-STAR-SELECTION.png" />
     </ImageView>
     <ImageView fx:id="betButton" fitHeight="100.0" fitWidth="138.0" layoutX="457.0" layoutY="773.0" onMouseClicked="#imgV_changeBetFactor_onMouseClicked" pickOnBounds="true" preserveRatio="true">
-        <Image url="@../images/supercherry/buttons/bet/BUTTON_BET_ACTIVE.png" />
+        <Image url="@../images/supercherry/buttons/bet/BUTTON_BET_ACTIVE.jpg" />
     </ImageView>
     <ImageView fx:id="gambleButton" fitHeight="102.0" fitWidth="138.0" layoutX="605.0" layoutY="773.0" onMouseClicked="#imgV_gamble_onMouseClicked" pickOnBounds="true" preserveRatio="true">
-        <Image url="@../images/supercherry/buttons/gamble/BUTTON_GAMBLE_ACTIVE.png" />
+        <Image url="@../images/supercherry/buttons/gamble/BUTTON_GAMBLE_ACTIVE.jpg" />
     </ImageView>
     <ImageView fx:id="mysteryButton" fitHeight="96.0" fitWidth="138.0" layoutX="303.0" layoutY="773.0" onMouseClicked="#imgV_mystery_onMouseClicked" pickOnBounds="true" preserveRatio="true">
-        <Image url="@../images/supercherry/buttons/mystery/BUTTON_MYSTERY_ACTIVE.png" />
+        <Image url="@../images/supercherry/buttons/mystery/BUTTON_MYSTERY_ACTIVE.jpg" />
     </ImageView>
     <ImageView fx:id="stopButton" fitHeight="96.0" fitWidth="138.0" layoutX="758.0" layoutY="773.0" onMouseClicked="#imgV_stop_onMouseClicked" pickOnBounds="true" preserveRatio="true">
-        <Image url="@../images/supercherry/buttons/stop/BUTTON_STOP_ACTIVE.png" />
+        <Image url="@../images/supercherry/buttons/stop/BUTTON_STOP_ACTIVE.jpg" />
     </ImageView>
     <ImageView fx:id="holdLight" fitHeight="73.0" fitWidth="114.0" layoutX="306.0" layoutY="631.0" pickOnBounds="true" preserveRatio="true">
-        <Image url="@../images/supercherry/lights/HOLD_Light.png" />
+        <Image url="@../images/supercherry/lights/HOLD_Light.jpg" />
     </ImageView>
     <ImageView fx:id="stepLight" fitHeight="81.0" fitWidth="105.0" layoutX="600.0" layoutY="631.0" pickOnBounds="true" preserveRatio="true">
-        <Image url="@../images/supercherry/lights/STEP_Light.png" />
+        <Image url="@../images/supercherry/lights/STEP_Light.jpg" />
     </ImageView>
     <ImageView fx:id="winLight" fitHeight="66.0" fitWidth="105.0" layoutX="690.0" layoutY="305.0" pickOnBounds="true" preserveRatio="true">
-        <Image url="@../images/supercherry/lights/WIN_Light.png" />
+        <Image url="@../images/supercherry/lights/WIN_Light.jpg" />
     </ImageView>
     <ImageView fx:id="bonusLightMystery" fitHeight="66.0" fitWidth="95.0" layoutX="388.0" layoutY="305.0" pickOnBounds="true" preserveRatio="true">
-        <Image url="@../images/supercherry/lights/BONUS_Light.png" />
+        <Image url="@../images/supercherry/lights/BONUS_Light.jpg" />
     </ImageView>
     <ImageView fx:id="TwoFactorLight" fitHeight="66.0" fitWidth="95.0" layoutX="722.0" layoutY="209.0" pickOnBounds="true" preserveRatio="true">
-        <Image url="@../images/supercherry/lights/FAKTOR_2X_Light.png" />
+        <Image url="@../images/supercherry/lights/FAKTOR_2X_Light.jpg" />
     </ImageView>
     <ImageView fx:id="ThreeFactorLight" fitHeight="66.0" fitWidth="95.0" layoutX="791.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true">
-        <Image url="@../images/supercherry/lights/FAKTOR_3X_Light.png" />
+        <Image url="@../images/supercherry/lights/FAKTOR_3X_Light.jpg" />
     </ImageView>
     <ImageView fx:id="FiveFactorLight" fitHeight="66.0" fitWidth="105.0" layoutX="712.0" layoutY="114.0" pickOnBounds="true" preserveRatio="true">
-        <Image url="@../images/supercherry/lights/FAKTOR_5X_Light.png" />
+        <Image url="@../images/supercherry/lights/FAKTOR_5X_Light.jpg" />
     </ImageView>
     <Button fx:id="minusCoins" layoutX="454.0" layoutY="680.0" mnemonicParsing="false" onMouseClicked="#imgV_minusCoins_onMouseClicked" opacity="0.0" prefHeight="25.0" prefWidth="13.0" />
     <Button fx:id="plusCoins" layoutX="537.0" layoutY="680.0" mnemonicParsing="false" onMouseClicked="#imgV_plusCoins_onMouseClicked" opacity="0.0" prefHeight="25.0" prefWidth="24.0" />
@@ -91,5 +91,5 @@
             <Image url="@../images/coin.png" />
         </image>
     </ImageView>
-   <Button layoutX="997.0" layoutY="22.0" mnemonicParsing="false" onAction="#btn_quit_onAction" prefHeight="50.0" prefWidth="149.0" style="-fx-background-color: blue;" text="Beenden" textFill="WHITE" />
+   <Button layoutX="997.0" layoutY="22.0" mnemonicParsing="false" onAction="#btn_quit_onAction" prefHeight="50.0" prefWidth="149.0" style="-fx-background-color: blue;" text="Zurück" textFill="WHITE" />
 </AnchorPane>
