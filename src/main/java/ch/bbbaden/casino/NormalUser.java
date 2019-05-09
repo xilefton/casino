@@ -74,12 +74,13 @@ public class NormalUser extends User {
     }
 
     public State getState() {
-        return new State(coins, playerPurchase, playerBet);
+        return new State(coins, playerBet);
     }
 
     public void recordChanges(String game, State oldState) throws SQLException {
         recordStatement.setString(1, game);
-        recordStatement.setLong(2, (this.playerBet - oldState.getPlayerBet()));
+        System.out.println((oldState.getPlayerBet() - this.playerBet));
+        recordStatement.setLong(2, (oldState.getPlayerBet() - this.playerBet));
         recordStatement.setLong(3, (oldState.getCoins() - coins));
         recordStatement.setString(4, new SimpleDateFormat("yyyy/MM/dd").format(new Date()));
         recordStatement.executeUpdate();

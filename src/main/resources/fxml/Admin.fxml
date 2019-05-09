@@ -1,46 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import java.net.URL?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" id="AnchorPane" prefHeight="404.0" prefWidth="768.0"
-            xmlns="http://javafx.com/javafx/8.0.172-ea" fx:controller="ch.bbbaden.casino.scenes.AdminController">
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="404.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.bbbaden.casino.scenes.AdminController">
     <stylesheets>
-        <URL value="@../styles/AdminStyle.css"/>
+        <URL value="@../styles/AdminStyle.css" />
     </stylesheets>
-    <TabPane id="TabPane" fx:id="tabPane_overview" prefHeight="420.0" prefWidth="768.0"
-             style="-fx-background-color: white;" tabClosingPolicy="UNAVAILABLE">
+    <TabPane id="TabPane" fx:id="tabPane_overview" prefHeight="420.0" prefWidth="768.0" style="-fx-background-color: white;" tabClosingPolicy="UNAVAILABLE">
         <Tab text="Spieler">
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="387.0" prefWidth="768.0">
-                <ListView fx:id="listViewPlayer" layoutY="37.0" prefHeight="356.0" prefWidth="200.0"/>
-                <Label layoutX="206.0" layoutY="73.0" text="Münzen die der Spieler hat:"/>
-                <Label layoutX="206.0" layoutY="106.0" text="Münzen die der Spieler gekauft hat:"/>
-                <Label layoutX="207.0" layoutY="142.0" text="Münzen die der Spieler eingesezt hat:"/>
-                <Label layoutX="206.0" layoutY="42.0" text="Benutzername:"/>
-                <Label layoutX="1.0" prefHeight="38.0" prefWidth="198.0" text="Benutzer Auswahl"
-                       textAlignment="CENTER"/>
+                <ListView fx:id="listViewPlayer" layoutY="37.0" prefHeight="356.0" prefWidth="200.0" />
+                <Label layoutX="206.0" layoutY="73.0" text="Münzen die der Spieler hat:" />
+                <Label layoutX="206.0" layoutY="126.0" text="Münzen die der Spieler gekauft hat:" />
+                <Label layoutX="206.0" layoutY="99.0" text="Münzen die der Spieler eingesezt hat:" />
+                <Label layoutX="206.0" layoutY="42.0" text="Benutzername:" />
+                <Label layoutX="1.0" prefHeight="38.0" prefWidth="198.0" text="Benutzer Auswahl" textAlignment="CENTER" />
 
-                <Label fx:id="label_username" layoutX="600.0" layoutY="42.0" prefHeight="17.0" prefWidth="150.0"
-                       text="Kein Benutzer ausgewählt"/>
-                <Label fx:id="label_coins" layoutX="600.0" layoutY="65.0" prefHeight="17.0" prefWidth="150.0" text="0"/>
-                <Label fx:id="label_purchased" layoutX="600.0" layoutY="106.0" prefHeight="17.0" prefWidth="150.0"
-                       text="0"/>
-                <Label fx:id="label_bet" layoutX="600.0" layoutY="140.0" prefHeight="17.0" prefWidth="150.0" text="0"/>
+                <Label fx:id="label_username" layoutX="600.0" layoutY="42.0" prefHeight="17.0" prefWidth="150.0" text="Kein Benutzer ausgewählt" />
+                <Label fx:id="label_coins" layoutX="600.0" layoutY="72.0" prefHeight="17.0" prefWidth="150.0" text="0" />
+                <Label fx:id="label_purchased" layoutX="600.0" layoutY="98.0" prefHeight="17.0" prefWidth="150.0" text="0" />
+                <Label fx:id="label_bet" layoutX="600.0" layoutY="125.0" prefHeight="17.0" prefWidth="150.0" text="0" />
             </AnchorPane>
         </Tab>
         <Tab text="Spiele">
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                <Label prefHeight="38.0" prefWidth="198.0" text="Spiel Auswahl" textAlignment="CENTER"/>
-                <ListView fx:id="listView_games" layoutY="43.0" prefHeight="349.0" prefWidth="200.0"/>
-                <ListView fx:id="listView_gameOverview" layoutX="200.0" layoutY="43.0" prefHeight="348.0"
-                          prefWidth="568.0"/>
+                <Label prefHeight="38.0" prefWidth="198.0" text="Spiel Auswahl" textAlignment="CENTER" />
+                <ListView fx:id="listView_games" layoutY="43.0" prefHeight="349.0" prefWidth="200.0" />
+                <ListView fx:id="listView_gameOverview" layoutX="200.0" layoutY="43.0" prefHeight="348.0" prefWidth="568.0" />
             </AnchorPane>
         </Tab>
         <Tab text="Logout">
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="385.0" prefWidth="768.0">
-                <Label layoutX="370.0" layoutY="58.0"/>
-                <Button layoutX="348.0" layoutY="189.0" mnemonicParsing="false" onAction="#btn_quit_onAction"
-                        text="Ausloggen"/>
+                <Label layoutX="370.0" layoutY="58.0" />
+                <Button layoutX="348.0" layoutY="189.0" mnemonicParsing="false" onAction="#btn_quit_onAction" text="Ausloggen" />
             </AnchorPane>
         </Tab>
     </TabPane>

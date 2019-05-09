@@ -46,8 +46,6 @@ public class AdminModel extends Model {
         try {
             if (selectedUser != null) {
                 return selectedUser.getPlayerBet();
-            } else {
-                return 0;
             }
         } catch (SQLException e) {
             showConnectionError(e);

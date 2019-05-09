@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPaneSuperCherry" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.bbbaden.casino.games.supercherry.SlotMachineController">
+<AnchorPane fx:id="anchorPaneSuperCherry" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.bbbaden.casino.games.supercherry.SlotMachineController">
     <stylesheets>
         <URL value="@../styles/superCherry.css" />
     </stylesheets>
@@ -91,5 +91,5 @@
             <Image url="@../images/coin.png" />
         </image>
     </ImageView>
-   <Button layoutX="997.0" layoutY="22.0" mnemonicParsing="false" onAction="#btn_quit_onAction" prefHeight="50.0" prefWidth="149.0" style="-fx-background-color: blue;" text="Zurück" textFill="WHITE" />
+    <Button layoutX="997.0" layoutY="22.0" mnemonicParsing="false" onAction="#btn_quit_onAction" prefHeight="50.0" prefWidth="149.0" style="-fx-background-color: blue;" text="Abbrechen" textFill="WHITE" />
 </AnchorPane>
