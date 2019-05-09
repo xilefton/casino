@@ -1,0 +1,17 @@
+* {
+    -fx-font-size: 12px;
+    -fx-font-family: "Droid Sans";
+}
+
+.label {
+    -fx-text-fill: black;
+}
+
+.button {
+    -fx-text-fill: #ffff;
+    -fx-background-color: #000000;
+}
+
+#AnchorPane {
+    -fx-background-color: #ffffff;
+}

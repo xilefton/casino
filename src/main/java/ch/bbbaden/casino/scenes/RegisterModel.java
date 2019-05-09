@@ -13,10 +13,10 @@ class RegisterModel extends Model {
 
     void register(String username, String password, int coins) {
         if (username.length() >= 20) {
-            showErrorMessage("der Benutzername ist zu lang", "Error when Registering", ErrorType.NOTIFICATION);
+            showErrorMessage("Der Benutzername ist zu lang", "Error when Registering", ErrorType.NOTIFICATION);
         }
-        NormalUser normalUser = new NormalUser();
         try {
+            NormalUser normalUser = new NormalUser();
             normalUser.register(username, password, coins);
             normalUser.login(username, password);
             changeScene(new HomeModel(normalUser));

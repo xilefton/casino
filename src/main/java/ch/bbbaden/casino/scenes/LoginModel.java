@@ -25,8 +25,8 @@ class LoginModel extends Model {
 
     void login(String username, String password) {
         boolean loginSuccessful = false;
-        normalUser = new NormalUser();
         try {
+            normalUser = new NormalUser();
             normalUser.login(username, password);
             loginSuccessful = true;
         } catch (SQLException ex) {

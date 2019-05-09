@@ -1,6 +1,5 @@
 package ch.bbbaden.casino;
 
-import ch.bbbaden.casino.games.roulette.RouletteModel;
 import ch.bbbaden.casino.scenes.StartModel;
 import javafx.application.Application;
 import javafx.scene.text.Font;

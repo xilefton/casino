@@ -3,32 +3,51 @@ package ch.bbbaden.casino;
 import javax.xml.bind.DatatypeConverter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class User {
 
     private Connection con;
-    private String username, password;
+    private String username;
     private boolean admin;
+    private PreparedStatement normalUserLogin;
+    private PreparedStatement adminUserLogin;
+    private PreparedStatement userQuery;
+    private PreparedStatement adminUserQuery;
 
-    User(boolean admin) {
+    User(boolean admin) throws SQLException {
         this.admin = admin;
+        try {
+            openConnection();
+            prepareStatements();
+        } catch (SQLException e) {
+            throw new SQLException("Fehler beim verbinden zur Datenbank, überprüfen Sie ihre Internetverbindung und versuchen Sie es später erneut" + e);
+        }
+    }
+
+    User(String username, boolean admin) throws SQLException {
+        this.admin = admin;
+        this.username = username;
+        try {
+            openConnection();
+            prepareStatements();
+        } catch (SQLException e) {
+            throw new SQLException("Fehler beim verbinden zur Datenbank, überprüfen Sie ihre Internetverbindung und versuchen Sie es später erneut" + e);
+        }
     }
 
     public void login(String username, String password) throws SQLException {
         this.username = username;
-        openConnection();
 
         ResultSet rs;
 
         if (userExists(username)) {
             if (admin) {
-                rs = con.createStatement().executeQuery("SELECT password FROM `adminusers` WHERE username = \"" + username + "\"");
+                adminUserLogin.setString(1, username);
+                rs = adminUserLogin.executeQuery();
             } else {
-                rs = con.createStatement().executeQuery("SELECT password FROM `normalusers` WHERE username = \"" + username + "\"");
+                normalUserLogin.setString(1, username);
+                rs = normalUserLogin.executeQuery();
             }
         } else {
             throw new SQLException("Benutzer nicht gefunden oder Passwort falsch");
@@ -42,6 +61,13 @@ public class User {
         } catch (NoSuchAlgorithmException e) {
             throw new SQLException("Fehler beim verarbeiten der eingabe");
         }
+    }
+
+    private void prepareStatements() throws SQLException {
+        normalUserLogin = con.prepareStatement("SELECT password FROM `normalusers` WHERE username = ?");
+        adminUserLogin = con.prepareStatement("SELECT password FROM `adminusers` WHERE username = ?");
+        userQuery = con.prepareStatement("SELECT `username` FROM `normalusers`");
+        adminUserQuery = con.prepareStatement("SELECT  `username` FROM `adminusers`");
     }
 
     protected Connection getConnection() {
@@ -60,7 +86,12 @@ public class User {
     }
 
     boolean userExists(String username) throws SQLException {
-        ResultSet rs = con.createStatement().executeQuery("SELECT `username` FROM `normalusers`");
+        ResultSet rs;
+        if (admin) {
+            rs = adminUserQuery.executeQuery();
+        } else {
+            rs = userQuery.executeQuery();
+        }
         while (rs.next()) {
             if (rs.getString(1).equals(username)) {
                 return true;
